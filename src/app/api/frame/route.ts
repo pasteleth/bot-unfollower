@@ -11,10 +11,8 @@ interface FrameMessage {
 }
 
 export async function POST(req: NextRequest) {
-  // Set the base URL from environment variables or default to localhost
-  const baseUrl = process.env.VERCEL_URL 
-    ? `https://${process.env.VERCEL_URL}`
-    : process.env.NEXT_PUBLIC_HOST || "http://localhost:3000";
+  // Set the base URL - hardcode the production URL to ensure it works
+  const baseUrl = "https://bot-unfollower.vercel.app";
     
   let data;
   try {
@@ -47,17 +45,15 @@ export async function POST(req: NextRequest) {
           action: 'post'
         }
       ],
-      // Direct the user to the results page after scanning
-      post_url: `${baseUrl}/frames/account-scanner?step=results&fid=${fid}&count=5`
+      // Use the correct post_url that points to our API
+      post_url: `${baseUrl}/api/frame`
     }
   });
 }
 
-export async function GET(request: NextRequest) {
-  // Set the base URL from environment variables or default to localhost
-  const baseUrl = process.env.VERCEL_URL 
-    ? `https://${process.env.VERCEL_URL}`
-    : process.env.NEXT_PUBLIC_HOST || "http://localhost:3000";
+export async function GET() {
+  // Set the base URL - hardcode the production URL to ensure it works
+  const baseUrl = "https://bot-unfollower.vercel.app";
   
   // Use a proper image - either from our assets or a placeholder if not available
   const imageUrl = `${baseUrl}/assets/scanner-start.png`;
@@ -69,7 +65,7 @@ export async function GET(request: NextRequest) {
         <meta property="fc:frame" content="vNext" />
         <meta property="fc:frame:image" content="${imageUrl}" />
         <meta property="fc:frame:button:1" content="Scan My Following List" />
-        <meta property="fc:frame:post_url" content="${baseUrl}/frames/account-scanner?step=scanning" />
+        <meta property="fc:frame:post_url" content="${baseUrl}/api/frame" />
       </head>
       <body>
         <h1>Account Scanner</h1>
