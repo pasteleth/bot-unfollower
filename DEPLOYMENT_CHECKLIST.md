@@ -7,7 +7,7 @@ The standalone scripts (`scan_following.js`, `analyze_scan.js`, etc.) are NOT pa
 
 ## Pre-Deployment Tasks
 
-- [x] Update AI threshold to DEFAULT value (0.75 or 75%) in `src/lib/moderation.ts`
+- [x] Update AI threshold to 0.6 (60%) in `src/lib/moderation.ts`
 - [ ] Verify all environment variables are set in `.env.local` for local testing
 - [ ] Ensure all API endpoints are working correctly
 - [ ] Test the frame locally with a tunneling service
@@ -18,7 +18,7 @@ The standalone scripts (`scan_following.js`, `analyze_scan.js`, etc.) are NOT pa
 - [ ] `MBD_API_KEY` - Required for Moderation By Design API
 - [ ] `NEXT_PUBLIC_HOST` - Your production domain
 - [ ] `VERCEL_URL` - Automatically set by Vercel
-- [ ] `AI_THRESHOLD` - Set to "0.75" (optional, defaults to 0.75)
+- [ ] `AI_THRESHOLD` - Set to "0.6" (optional, defaults to 0.6)
 - [ ] `SPAM_THRESHOLD` - Set to "0.4" (optional, defaults to 0.4)
 
 ## Deployment Steps on Vercel
@@ -38,7 +38,7 @@ The standalone scripts (`scan_following.js`, `analyze_scan.js`, etc.) are NOT pa
 - [ ] Test the frame using the Warpcast Frame Validator
 - [ ] Verify image generation endpoints work correctly
 - [ ] Test the frame by scanning your own following list
-- [ ] Check that accounts are flagged correctly using the default thresholds
+- [ ] Check that accounts are flagged correctly using the updated thresholds (spam: 40%, AI: 60%)
 
 ## Frame URLs to Test
 

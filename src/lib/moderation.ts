@@ -6,7 +6,7 @@ import { AnalysisResult } from '../types/farcaster';
  */
 export const DEFAULT_MODERATION_THRESHOLDS = {
   spam: 0.4,
-  ai_generated: 0.75,
+  ai_generated: 0.6,
   sexual: 0.5,
   hate: 0.5,
   violence: 0.5,
@@ -24,7 +24,7 @@ export const ADVANCED_MODERATION_CHECKS = {
   spam_combined: 0.2, // 20% spam threshold when combined with AI
   ai_combined: 0.05,  // 5% AI threshold when combined with spam
   spam_standalone: 0.4, // 40% standalone spam threshold 
-  ai_standalone: 0.75,  // 75% standalone AI threshold - matches DEFAULT_MODERATION_THRESHOLDS
+  ai_standalone: 0.6,  // 60% standalone AI threshold - matches DEFAULT_MODERATION_THRESHOLDS
 };
 
 /**
