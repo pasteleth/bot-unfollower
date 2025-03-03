@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getFollowing } from '@/lib/farcaster';
+import { getModerationFlags } from '@/lib/moderation';
 
 interface FrameMessage {
   trustedData?: {
@@ -34,21 +36,116 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Missing FID' }, { status: 400 });
   }
 
-  // Return the next frame state - redirect to the scanning process
-  return NextResponse.json({
-    frames: {
-      version: '1',
-      image: `${baseUrl}/assets/scanning-complete.png`,
-      buttons: [
-        {
-          label: 'View Results',
-          action: 'post'
+  // Get the button index to determine which action to take
+  const buttonIndex = data?.untrustedData?.buttonIndex || 1;
+  
+  try {
+    // If this is the initial scan button click
+    if (buttonIndex === 1) {
+      // Show scanning in progress screen
+      return NextResponse.json({
+        frames: {
+          version: '1',
+          image: `${baseUrl}/assets/scanning-complete.png`,
+          buttons: [
+            {
+              label: 'View Results',
+              action: 'post'
+            }
+          ],
+          post_url: `${baseUrl}/api/frame`
         }
-      ],
-      // Use the correct post_url that points to our API
-      post_url: `${baseUrl}/api/frame`
+      });
+    } 
+    // If this is the "View Results" button click
+    else if (buttonIndex === 2) {
+      // Get the list of accounts the user follows
+      console.log(`Getting following list for FID ${fid}...`);
+      const followingList = await getFollowing(parseInt(fid.toString(), 10));
+      
+      if (!followingList || followingList.length === 0) {
+        return NextResponse.json({
+          frames: {
+            version: '1',
+            image: `${baseUrl}/assets/no-following.png`,
+            buttons: [
+              {
+                label: 'Scan Again',
+                action: 'post'
+              }
+            ],
+            post_url: `${baseUrl}/api/frame`
+          }
+        });
+      }
+      
+      console.log(`User follows ${followingList.length} accounts. Checking for moderation flags...`);
+      
+      // Extract FIDs from the following list
+      const followingFids = followingList.map(user => user.fid?.toString()).filter(Boolean);
+      
+      // Check moderation flags for all following accounts
+      const moderationResults = await getModerationFlags(followingFids);
+      
+      // Filter for flagged accounts only
+      const flaggedAccounts = Object.values(moderationResults)
+        .filter(result => result.flags.isFlagged);
+      
+      // Return the results frame
+      return NextResponse.json({
+        frames: {
+          version: '1',
+          image: `${baseUrl}/assets/scanning-complete.png`,
+          buttons: [
+            {
+              label: `${flaggedAccounts.length} Bots Found`,
+              action: 'link',
+              target: `${baseUrl}/results?fid=${fid}`
+            },
+            {
+              label: 'Scan Again',
+              action: 'post'
+            }
+          ],
+          post_url: `${baseUrl}/api/frame`
+        }
+      });
     }
-  });
+    // If this is the "Scan Again" button click or any other button
+    else {
+      // Return to the initial frame
+      return NextResponse.json({
+        frames: {
+          version: '1',
+          image: `${baseUrl}/assets/scanner-start.png`,
+          buttons: [
+            {
+              label: 'Scan My Following List',
+              action: 'post'
+            }
+          ],
+          post_url: `${baseUrl}/api/frame`
+        }
+      });
+    }
+  } catch (error) {
+    console.error('Error processing frame action:', error);
+    
+    // Return an error frame
+    return NextResponse.json({
+      frames: {
+        version: '1',
+        image: `${baseUrl}/assets/error.png`,
+        buttons: [
+          {
+            label: 'Try Again',
+            action: 'post'
+          }
+        ],
+        post_url: `${baseUrl}/api/frame`
+      }
+    });
+  }
 }
 
 export async function GET() {
