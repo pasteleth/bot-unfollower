@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 
@@ -20,6 +20,9 @@ interface FlaggedAccount {
     hasSexualMinorsContent: boolean;
     hasThreateningContent: boolean;
     hasGraphicViolenceContent: boolean;
+    hasCombinedSpamAndAi: boolean;
+    hasHighSpam: boolean;
+    hasHighAi: boolean;
     isFlagged: boolean;
   };
   scores: {
@@ -44,7 +47,20 @@ interface ScanReport {
   flaggedAccounts: FlaggedAccount[];
 }
 
-export default function ReportPage() {
+// Loading fallback component
+function ReportLoading() {
+  return (
+    <div className="min-h-screen bg-gray-100 p-8">
+      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow p-8">
+        <h1 className="text-2xl font-bold mb-4">Loading Report...</h1>
+        <p>Please wait while we generate your report.</p>
+      </div>
+    </div>
+  );
+}
+
+// Component that uses the search params
+function ReportContent() {
   const searchParams = useSearchParams();
   const fid = searchParams.get('fid');
   
@@ -118,7 +134,7 @@ export default function ReportPage() {
       <div className="min-h-screen bg-gray-100 p-8">
         <div className="max-w-4xl mx-auto bg-white rounded-lg shadow p-8">
           <h1 className="text-2xl font-bold mb-4">Account Scanner Report</h1>
-          <p className="text-green-500 font-bold">Great news! We didn't find any problematic accounts in your following list.</p>
+          <p className="text-green-500 font-bold">Great news! We didn&apos;t find any problematic accounts in your following list.</p>
         </div>
       </div>
     );
@@ -176,6 +192,9 @@ export default function ReportPage() {
                   <ul className="space-y-1">
                     {account.flags.isSpam && <li className="text-red-500">⚠️ Spam Account</li>}
                     {account.flags.isAiGenerated && <li className="text-orange-500">⚠️ AI-Generated Content</li>}
+                    {account.flags.hasCombinedSpamAndAi && <li className="text-red-500">⚠️ Combined Spam & AI Indicators</li>}
+                    {account.flags.hasHighSpam && <li className="text-red-500">⚠️ High Spam Probability</li>}
+                    {account.flags.hasHighAi && <li className="text-orange-500">⚠️ High AI-Generated Content Probability</li>}
                     {account.flags.hasSexualContent && <li className="text-red-500">⚠️ Sexual Content</li>}
                     {account.flags.hasHateContent && <li className="text-red-500">⚠️ Hate Speech</li>}
                     {account.flags.hasViolentContent && <li className="text-red-500">⚠️ Violent Content</li>}
@@ -220,5 +239,14 @@ export default function ReportPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Main export with Suspense boundary
+export default function ReportPage() {
+  return (
+    <Suspense fallback={<ReportLoading />}>
+      <ReportContent />
+    </Suspense>
   );
 } 
