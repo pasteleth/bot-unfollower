@@ -65,7 +65,7 @@ export async function GET(request: NextRequest) {
 /**
  * Draw the start frame image
  */
-function drawStartFrame(ctx: any, width: number, height: number, titleFont: string, bodyFont: string) {
+function drawStartFrame(ctx: import('canvas').CanvasRenderingContext2D, width: number, height: number, titleFont: string, bodyFont: string) {
   // Purple gradient for start screen
   const gradient = ctx.createLinearGradient(0, 0, width, height);
   gradient.addColorStop(0, 'rgba(111, 63, 245, 0.2)');  // Purple tint at top
@@ -106,7 +106,7 @@ function drawStartFrame(ctx: any, width: number, height: number, titleFont: stri
 /**
  * Draw the error frame image
  */
-function drawErrorFrame(ctx: any, width: number, height: number, titleFont: string, bodyFont: string) {
+function drawErrorFrame(ctx: import('canvas').CanvasRenderingContext2D, width: number, height: number, titleFont: string, bodyFont: string) {
   // Red gradient for error screen
   const gradient = ctx.createLinearGradient(0, 0, width, height);
   gradient.addColorStop(0, 'rgba(225, 29, 72, 0.2)');  // Red tint at top
@@ -147,7 +147,7 @@ function drawErrorFrame(ctx: any, width: number, height: number, titleFont: stri
 /**
  * Draw the no following frame image
  */
-function drawNoFollowingFrame(ctx: any, width: number, height: number, titleFont: string, bodyFont: string) {
+function drawNoFollowingFrame(ctx: import('canvas').CanvasRenderingContext2D, width: number, height: number, titleFont: string, bodyFont: string) {
   // Blue gradient for no following screen
   const gradient = ctx.createLinearGradient(0, 0, width, height);
   gradient.addColorStop(0, 'rgba(59, 130, 246, 0.2)');  // Blue tint at top
@@ -188,7 +188,7 @@ function drawNoFollowingFrame(ctx: any, width: number, height: number, titleFont
 /**
  * Draw the scanning complete frame image
  */
-function drawScanningCompleteFrame(ctx: any, width: number, height: number, titleFont: string, bodyFont: string) {
+function drawScanningCompleteFrame(ctx: import('canvas').CanvasRenderingContext2D, width: number, height: number, titleFont: string, bodyFont: string) {
   // Teal gradient for scanning complete screen
   const gradient = ctx.createLinearGradient(0, 0, width, height);
   gradient.addColorStop(0, 'rgba(20, 184, 166, 0.2)');  // Teal tint at top
@@ -229,7 +229,7 @@ function drawScanningCompleteFrame(ctx: any, width: number, height: number, titl
 /**
  * Draw a scanner icon
  */
-function drawScannerIcon(ctx: any, x: number, y: number, size: number) {
+function drawScannerIcon(ctx: import('canvas').CanvasRenderingContext2D, x: number, y: number, size: number) {
   const radius = size;
   
   // Purple circle with glow
@@ -270,7 +270,7 @@ function drawScannerIcon(ctx: any, x: number, y: number, size: number) {
 /**
  * Draw an error icon
  */
-function drawErrorIcon(ctx: any, x: number, y: number, size: number) {
+function drawErrorIcon(ctx: import('canvas').CanvasRenderingContext2D, x: number, y: number, size: number) {
   const radius = size;
   
   // Red circle with glow
@@ -304,7 +304,7 @@ function drawErrorIcon(ctx: any, x: number, y: number, size: number) {
 /**
  * Draw an empty state icon
  */
-function drawEmptyStateIcon(ctx: any, x: number, y: number, size: number) {
+function drawEmptyStateIcon(ctx: import('canvas').CanvasRenderingContext2D, x: number, y: number, size: number) {
   const radius = size;
   
   // Blue circle with glow
@@ -342,7 +342,7 @@ function drawEmptyStateIcon(ctx: any, x: number, y: number, size: number) {
 /**
  * Draw a success icon
  */
-function drawSuccessIcon(ctx: any, x: number, y: number, size: number) {
+function drawSuccessIcon(ctx: import('canvas').CanvasRenderingContext2D, x: number, y: number, size: number) {
   const radius = size;
   
   // Teal circle with glow
@@ -370,7 +370,7 @@ function drawSuccessIcon(ctx: any, x: number, y: number, size: number) {
 /**
  * Draw a modern grid background pattern
  */
-function drawModernGrid(ctx: any, width: number, height: number) {
+function drawModernGrid(ctx: import('canvas').CanvasRenderingContext2D, width: number, height: number) {
   ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
   ctx.lineWidth = 1;
   

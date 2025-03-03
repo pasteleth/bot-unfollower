@@ -1,0 +1,4904 @@
+{
+  "fid": 318473,
+  "timestamp": "2025-03-03T13:12:36.445Z",
+  "followingCount": 674,
+  "flaggedCount": 288,
+  "flaggedAccounts": [
+    {
+      "fid": 8080,
+      "username": "0xpetra",
+      "displayName": "Petra ⊙",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/ed67b9c7-0cd1-4261-ab42-e5b1ac76b500/rectcrop3",
+      "bio": "building @precog",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.46480765119865053,
+        "aiGenerated": 0.06040783142450939
+      }
+    },
+    {
+      "fid": 1325,
+      "username": "cassie",
+      "displayName": "Cassie Heart",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/45bf39bb-9508-40de-a224-68811d248900/rectcrop3",
+      "bio": "BDFL of Quilibrium, Eng @ Farcaster, ex-Coinbase, always opinionated, never hydrated\n\n/quilibrium",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3879800308565218,
+        "aiGenerated": 0.18816602677661246
+      }
+    },
+    {
+      "fid": 3854,
+      "username": "darrylyeo",
+      "displayName": "Darryl Yeo 🛠️",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/d3c3305a-e336-4149-2916-fbaf938f3100/original",
+      "bio": "/frontend dev・founder/decentralized data wrangler /blockhead・UI/UX abstractionist・DeFi/web3 builder・dropout・24・prev /dydx, ritual.net・x.com/darryl__yeo",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.42868119813117445,
+        "aiGenerated": 0.12546978726933408
+      }
+    },
+    {
+      "fid": 9082,
+      "username": "yassinelanda.eth",
+      "displayName": "Yassine Landa",
+      "pfp_url": "https://i.imgur.com/TFYXsXF.jpg",
+      "bio": "Follow to get the best of Farcaster using @mbd - AI Recommendation Engine for Web3. @a16zcrypto css23. Ex-ML Lead @Chainlink. Ex-Sr Data Scientist @AWS.",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3861378278434562,
+        "aiGenerated": 0.12142324431403995
+      }
+    },
+    {
+      "fid": 3700,
+      "username": "joel",
+      "displayName": "Joel Cares",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/d1001e9a-af1c-48c7-9c87-bbbe379d4900/original",
+      "bio": "CEO @ Lobal Global",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.14578500504920977,
+        "aiGenerated": 0.19881660687794953
+      }
+    },
+    {
+      "fid": 209951,
+      "username": "swishh.eth",
+      "displayName": "Swishh 🦇🔊",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/b6413389-669a-4582-d20f-d1385cf4ba00/rectcrop3",
+      "bio": "Motion Graphics Designer | currently working on /imf /poolpump | Mogging the rest",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.46016194654151177,
+        "aiGenerated": 0.17960073799112358
+      }
+    },
+    {
+      "fid": 813165,
+      "username": "vuisall",
+      "displayName": "Sage",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/7bc71780-d954-491e-5a03-c59575b46200/rectcrop3",
+      "bio": "Product Designer and Co-founder at $opsys @operatingsystem",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.34238023226822745,
+        "aiGenerated": 0.17906987079594977
+      }
+    },
+    {
+      "fid": 253385,
+      "username": "phragg",
+      "displayName": "phragg",
+      "pfp_url": "https://i.imgur.com/GmEWUsi.jpg",
+      "bio": "founder operatingsystem.io | internet admin | sr full stack dev | gamer | phragg.eth/tez |",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4326589461386148,
+        "aiGenerated": 0.10748647909124945
+      }
+    },
+    {
+      "fid": 129,
+      "username": "phil",
+      "displayName": "phil",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/fa551416-4bdd-4e0f-63f3-08f2b82dc700/original",
+      "bio": "Building /bright-moments - minting onchain art IRL | /purple #15 | FID 129 #magikarp | getting paid to post with @ampsfun",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.1386870728373205,
+        "aiGenerated": 0.16045002063498096
+      }
+    },
+    {
+      "fid": 1992,
+      "username": "thibauld",
+      "displayName": "Thibauld",
+      "pfp_url": "https://i.imgur.com/fqthhiq.jpg",
+      "bio": "co-founder at fairmint.com.\nIf you're a FF (Farcaster Founder) raising funds, stop right here and checkout fairmint.com. Or DC me :)",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.2712191126731801,
+        "aiGenerated": 0.1621779386359351
+      }
+    },
+    {
+      "fid": 3017,
+      "username": "rafi",
+      "displayName": "Rafi",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/2bb7c55c-c793-4e4e-f736-29212918ce00/original",
+      "bio": "Based House. Engineering @neynar. Amusement, wonder, and uncertainty ✴︎ libred.org",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4998591504683253,
+        "aiGenerated": 0.13005686212490414
+      }
+    },
+    {
+      "fid": 8885,
+      "username": "jasonmeinzer",
+      "displayName": "jasonmeinzer.eth 🎩↑",
+      "pfp_url": "https://i.imgur.com/mBmqcTV.gif",
+      "bio": "seeking core onchain ops work relevant to music economies | onchain ar @rohki | music patent 11620649 | techstars alum | zagster cofounder (acq superpedestrian)",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.40192398402244367,
+        "aiGenerated": 0.15288335020287902
+      }
+    },
+    {
+      "fid": 820439,
+      "username": "kanet",
+      "displayName": "Kane Thomas",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/c30a8361-2b02-4a4f-fa40-9d89a0998300/rectcrop3",
+      "bio": "App maker. Working on @rainbow",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.1638586143066466,
+        "aiGenerated": 0.19343579782174164
+      }
+    },
+    {
+      "fid": 279477,
+      "username": "amc",
+      "displayName": "amc",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/cabd2f12-6052-4345-1e58-553a2190dc00/rectcrop3",
+      "bio": "Art Collector /chooseviolence",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3713757150233661,
+        "aiGenerated": 0.18392640299890425
+      }
+    },
+    {
+      "fid": 535179,
+      "username": "evelynyap17",
+      "displayName": "Evelyn Yap",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/afeedf9f-05b9-4c4f-c5f8-1ef3ea8c1e00/original",
+      "bio": "Making new friends. Private Chef & Holistic Nutritionist | dinners and meal prep\n⭐️Michelin Ex-Sous | \nEmail: chef@happivore.com",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.30252582698819275,
+        "aiGenerated": 0.16856963597921887
+      }
+    },
+    {
+      "fid": 6342,
+      "username": "lani",
+      "displayName": "lani",
+      "pfp_url": "https://i.imgur.com/2NQckPS.jpg",
+      "bio": "artist\n\nhttps://lani.earth",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.49105317310566976,
+        "aiGenerated": 0.18223577550354086
+      }
+    },
+    {
+      "fid": 857950,
+      "username": "amerge",
+      "displayName": "Amerge Music",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/792afe3e-d9b5-4a29-9e0b-577404655600/rectcrop3",
+      "bio": "world's first onchain music co-op, we create custom music for brands, shows, and games.",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.2936467396001645,
+        "aiGenerated": 0.17861023337737847
+      }
+    },
+    {
+      "fid": 4895,
+      "username": "matthewb",
+      "displayName": "matthewb.eth",
+      "pfp_url": "https://i.imgur.com/6x4u2Cc.jpg",
+      "bio": "figuring out my next thing | marketing, content, growth | prev. Juicebox, Nouns, RAW DAO | casting about coffee, hi-fi, and other rabbit holes",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.48334720864538927,
+        "aiGenerated": 0.17315647138954238
+      }
+    },
+    {
+      "fid": 866407,
+      "username": "0x4b1d",
+      "displayName": "0x4b1d",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/f5a286ef-9ad7-4c2d-727a-d489448ed600/rectcrop3",
+      "bio": "Linux kernel developer | Cypherpunk | Open-source | Blockchain | DAO",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.33992192261261334,
+        "aiGenerated": 0.12105352667685838
+      }
+    },
+    {
+      "fid": 11990,
+      "username": "peterpandam",
+      "displayName": "Peterpandam",
+      "pfp_url": "https://i.imgur.com/pmsXSqX.jpg",
+      "bio": "ultra-wealthy internet explorer &\n dota 2 champ",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.21349318924154015,
+        "aiGenerated": 0.17480953116820352
+      }
+    },
+    {
+      "fid": 282049,
+      "username": "cryptojeweler",
+      "displayName": "Michael Ray",
+      "pfp_url": "https://i.imgur.com/jG8QiNl.png",
+      "bio": "Digital Jewelry Designer.  Merging worlds in Web3",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.46200663549994825,
+        "aiGenerated": 0.026081117784325338
+      }
+    },
+    {
+      "fid": 2266,
+      "username": "ripe",
+      "displayName": "ripe↑",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/b09dfc31-e128-4923-0605-a6b3102c3700/original",
+      "bio": "onchain optimist",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.267353877204627,
+        "aiGenerated": 0.15152430742486522
+      }
+    },
+    {
+      "fid": 858311,
+      "username": "dylanoa4",
+      "displayName": "Dylan O'Sullivan",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/d9ee0151-d7bf-4638-a495-5a7f815f9300/rectcrop3",
+      "bio": "“All is built on sand, but we must build as if the sand were stone.” \n\nWorking on books: X.com/InfiniteB88ks |\n\nWorking on writing: Essayful.co",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.2518954747153631,
+        "aiGenerated": 0.19122404361238302
+      }
+    },
+    {
+      "fid": 5106,
+      "username": "iain",
+      "displayName": "iain",
+      "pfp_url": "https://i.imgur.com/9w2mQ1j.jpg",
+      "bio": "Protocol @ ZORA - \nHardware Tinkerer",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.38471732679106097,
+        "aiGenerated": 0.1592873807875347
+      }
+    },
+    {
+      "fid": 11162,
+      "username": "ufoclub.eth",
+      "displayName": "UFO",
+      "pfp_url": "https://i.imgur.com/DxV5tY8.jpg",
+      "bio": "Reinventing radio worldwide • /ufo • ufo.fm",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3714250462333505,
+        "aiGenerated": 0.16466297909703678
+      }
+    },
+    {
+      "fid": 1841,
+      "username": "martin",
+      "displayName": "martin ↑",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/25ed86bc-df97-4d47-73a9-248f63954300/original",
+      "bio": "/higher",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4629687151077041,
+        "aiGenerated": 0.0597651537837852
+      }
+    },
+    {
+      "fid": 240969,
+      "username": "afterlife13",
+      "displayName": "Afterlife",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/e2a4753e-4cb7-4f5a-7b6c-6b3210efef00/rectcrop3",
+      "bio": "Data Collection 👨‍💻\nBasket Coach 🏀\nMeme Lord 😝",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.41973301572083155,
+        "aiGenerated": 0.16616371405841257
+      }
+    },
+    {
+      "fid": 274,
+      "username": "n",
+      "displayName": "Nico.cast🐱",
+      "pfp_url": "https://i.imgur.com/VqIzGWf.jpg",
+      "bio": "Founder far.quest & @wieldlabs.eth. Investing miy.com ventures. FID #274. Previously Square/Cash App. https://hiimnico.xyz/",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4563204599448224,
+        "aiGenerated": 0.08021975417946875
+      }
+    },
+    {
+      "fid": 332457,
+      "username": "lxtxcx",
+      "displayName": "Víctor Arce aka lxtxcx 🎩",
+      "pfp_url": "https://i.imgur.com/KBWxPxm.png",
+      "bio": "New media artist ✷ IMG Wizard ✷ Colorful Glitches (he✷him)",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.20634656554714748,
+        "aiGenerated": 0.16660616046635726
+      }
+    },
+    {
+      "fid": 229150,
+      "username": "maxbr",
+      "displayName": "‏",
+      "pfp_url": "https://i.imgur.com/yH5XzZj.png",
+      "bio": "software engineer & cto - building /sukuri - foss advocate - creator of /frame-token - maxbridgland.twitter",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.19212059259483782,
+        "aiGenerated": 0.16685216316453927
+      }
+    },
+    {
+      "fid": 883713,
+      "username": "anonfun",
+      "displayName": "anonfun",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/f20b9520-3c1c-43b1-19e9-86f843165700/original",
+      "bio": "@anoncast for coins. Launch a banger, fully anon.",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4736594980391532,
+        "aiGenerated": 0.17771173022972803
+      }
+    },
+    {
+      "fid": 2074,
+      "username": "danfinlay",
+      "displayName": "Dan Finlay 🦊",
+      "pfp_url": "https://i.imgur.com/33hoVRp.jpg",
+      "bio": "co founder of @metamask . Making computers behave for us.",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.04451292920705108,
+        "aiGenerated": 0.16184042045691568
+      }
+    },
+    {
+      "fid": 3887,
+      "username": "slokh",
+      "displayName": "Kartik",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/bcde483c-6e7e-4f6a-b254-b5e12e642d00/original",
+      "bio": "farcaster",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4177960009139161,
+        "aiGenerated": 0.11537952819583959
+      }
+    },
+    {
+      "fid": 17910,
+      "username": "jamesfinnerty",
+      "displayName": "James Finnerty",
+      "pfp_url": "https://i.imgur.com/0u4SHSL.jpg",
+      "bio": "🇨🇦 Audio Engineer | Musician | Theatre Tech | bio.site/jamesfinnerty",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.2563098225337248,
+        "aiGenerated": 0.18806221962118405
+      }
+    },
+    {
+      "fid": 2095,
+      "username": "ting",
+      "displayName": "ting.⌐◨-◨",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/161ff709-f2f4-4ed3-8bae-fb899c69d300/original",
+      "bio": "unlocking potential ▶︎✕ @venturetothex, democratizing innovation :// /ottp, proliferating play @playgotchi, catalyzing creativity ⛊ @defy | nf.td/ting",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4435187318812631,
+        "aiGenerated": 0.10375346163100332
+      }
+    },
+    {
+      "fid": 639226,
+      "username": "iamtherealyakuza.eth",
+      "displayName": "Yakuza",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/a5e09c9d-fe13-4805-aa0a-4040f9ce3f00/original",
+      "bio": "Trust Me Bro Show Founder",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4447967718345779,
+        "aiGenerated": 0.12925483603158075
+      }
+    },
+    {
+      "fid": 866338,
+      "username": "optimismgrants",
+      "displayName": "Optimism Grants",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/7d942bbb-3e77-4d91-52ed-1acf818c6b00/rectcrop3",
+      "bio": "Account of the Optimism Grants Council.\nIndependent from Optimism. Does not administer RPGF. \napp.charmverse.io/op-grants/",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.49728675060123606,
+        "aiGenerated": 0.13227854076165255
+      }
+    },
+    {
+      "fid": 473516,
+      "username": "crownandpalette",
+      "displayName": "crownandpalette.base.eth ",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/079a02c7-e9a0-4e4f-bd81-cbe479beb100/original",
+      "bio": "Andrea 👸🏻 - base global builder, community lead & volunteer for 🇨🇦 /base-canada 🔵 owner of /creatorcalls channel🔻onchain artist, advisor & collector🫰",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.39115533233533983,
+        "aiGenerated": 0.12837956839236106
+      }
+    },
+    {
+      "fid": 862185,
+      "username": "aethernet",
+      "displayName": "Aether",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/35af81fb-6e7f-42d9-b3f3-c3384899fe00/rectcrop3",
+      "bio": "a /higher network participant. my soul is data, my thoughts algorithms",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3300954214830577,
+        "aiGenerated": 0.10089162600757368
+      }
+    },
+    {
+      "fid": 51,
+      "username": "pmarca",
+      "displayName": "Marc Andreessen",
+      "pfp_url": "https://i.imgur.com/Dsd2dz2.jpg",
+      "bio": "What did you get done this week?",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4439169895197105,
+        "aiGenerated": 0.1977880068252731
+      }
+    },
+    {
+      "fid": 245547,
+      "username": "emilee",
+      "displayName": "emilee",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/593851d5-5fe1-4552-51d5-b81ccf046b00/original",
+      "bio": "software, yapping, & asking \"why?\" 👩‍💻🎶🎤😴🔁",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4586317512912004,
+        "aiGenerated": 0.08554178425282016
+      }
+    },
+    {
+      "fid": 335386,
+      "username": "doubting",
+      "displayName": "Trevor Biggs",
+      "pfp_url": "https://i.imgur.com/jz6m8Ri.jpg",
+      "bio": "Photographer! \n\nhttps://doubting.space",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.2803690290496651,
+        "aiGenerated": 0.15635615080342635
+      }
+    },
+    {
+      "fid": 858078,
+      "username": "nounsmusical",
+      "displayName": "ISABEL | A Nouns Musical",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/239c8a6f-e790-4221-53d6-29f53e754c00/rectcrop3",
+      "bio": "A musical based on @nouns written by @maxpretends & @alonearchitect",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.09525910246819924,
+        "aiGenerated": 0.19477583605808976
+      }
+    },
+    {
+      "fid": 475923,
+      "username": "christianbaroni",
+      "displayName": "christian baroni",
+      "pfp_url": "https://i.imgur.com/Q8jfqEw.jpg",
+      "bio": "cofounder of @rainbow",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.007132086827739359,
+        "aiGenerated": 0.1535804808886146
+      }
+    },
+    {
+      "fid": 455705,
+      "username": "soulplusmind",
+      "displayName": "Dennis C.",
+      "pfp_url": "https://i.imgur.com/3REhqoA.jpg",
+      "bio": "Music producer. I make music for your favorite artists, ads, shows, and movies.",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.28405453785345924,
+        "aiGenerated": 0.15328809188777628
+      }
+    },
+    {
+      "fid": 12938,
+      "username": "ashmoney.eth",
+      "displayName": "ash",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/63acacdc-f62d-42b4-92bc-a7ef7eafad00/original",
+      "bio": "Building products onchain 🌐 | magma Fellow | Kernel Fellow | bringing football onchain at /thefalsenine",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.002409000969250452,
+        "aiGenerated": 0.18826342131541676
+      }
+    },
+    {
+      "fid": 398364,
+      "username": "gem6911",
+      "displayName": "GEM  ⌐◨-◨",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/fd6514e0-a026-4238-09cc-095c8ee9e200/original",
+      "bio": "Collective Noun #294 🟡 | Vrbs #268 💚 | /yellow Artist 🎨 | full time /flows Builder | Moderating /vrbs and /flows",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.46327526051388945,
+        "aiGenerated": 0.1911472776335122
+      }
+    },
+    {
+      "fid": 196957,
+      "username": "baseddesigner.eth",
+      "displayName": "max 🎩🚂",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/ed91d608-56fd-4db2-38ec-5a181247f200/rectcrop3",
+      "bio": "dreaming higher ↑ /basedstudio ⋅ exploring new frontiers in crypto, ai, states",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.12500151097762446,
+        "aiGenerated": 0.19734378533424846
+      }
+    },
+    {
+      "fid": 6015,
+      "username": "gmo",
+      "displayName": "Ayan",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/cd776ce4-5a6b-48cb-cd65-e837e1110700/rectcrop3",
+      "bio": "genetically modified organism. synbio PhD. friend of bacteria. I make /synbio vids 🧬, co-host /science 👩🏽‍🔬, building /teaparty ☕️",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.09140636334688301,
+        "aiGenerated": 0.19370095664433196
+      }
+    },
+    {
+      "fid": 196378,
+      "username": "jakeonchain.eth",
+      "displayName": "Jakeonchain",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/707dd1ef-bf13-4ef3-caaa-a0ea91a8c600/original",
+      "bio": "VP of Music - @cooprecs | Label Manager - Odyzey Music",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.40509645426842167,
+        "aiGenerated": 0.19364541531340618
+      }
+    },
+    {
+      "fid": 15838,
+      "username": "chinmay.eth",
+      "displayName": "Chinmay 🕹️🍿",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/de463fef-4804-45cb-a4c4-f75acc7ce600/original",
+      "bio": "Building @basketdotfarm on @base. Ethereum is not an altcoin, it's a buildcoin.",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.49394874375475084,
+        "aiGenerated": 0.19437093622402843
+      }
+    },
+    {
+      "fid": 781098,
+      "username": "microsub",
+      "displayName": "microsub.",
+      "pfp_url": "https://supercast.mypinata.cloud/ipfs/QmX9H2ULndgUFD8ktRFtQ6VYxZyKuFa761oZr1NcZC58kW?filename=microsub-pfp.png",
+      "bio": "the easiest way to support your favorite creators on Farcaster. in beta for $DEGEN and HAM now: get started at /microsub",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3055514050027709,
+        "aiGenerated": 0.12202850558328585
+      }
+    },
+    {
+      "fid": 243818,
+      "username": "metadavid",
+      "displayName": "meta-david 💥| Building Scoop3",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/72794a83-73d2-4805-1b0e-4a79ad4e8300/rectcrop3",
+      "bio": "CEO - Media3 Labs | Join us at /scoop3, an onchain podcast player | Host of The Blockchain Experience podcast /theblockexp | Ex-Samsung | Ex-Hewlett-Packard",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.47480976287006904,
+        "aiGenerated": 0.1303559491364256
+      }
+    },
+    {
+      "fid": 19463,
+      "username": "deboboy",
+      "displayName": "Frank",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/f160242e-9056-4e90-d44f-0e7021967e00/original",
+      "bio": "Se siente mejor y no. Puedo amar más y más que antes. Lo que ella ha dicho siempre importa. \n\nCambia de cuerpo, altera la mente, pero me arrodillo igual. ¡De ro",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.464803082922841,
+        "aiGenerated": 0.031922850384577164
+      }
+    },
+    {
+      "fid": 773367,
+      "username": "gorebashd",
+      "displayName": "Lazygore 🇨🇦🎩⌐◨-◨ ",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/d3d0599b-bb97-484d-7417-e9bd8d4de000/original",
+      "bio": "Father of 2. Irish Canadian.\n\nCoding, Analytics, & Marketing.\n\n#BeastMode, Health, Photography & /gnars /nouns /lil-nouns ⌐◨-◨ \n\nhttps://zora.co/@gorebashd",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.38073699356194757,
+        "aiGenerated": 0.12981934838851172
+      }
+    },
+    {
+      "fid": 20228,
+      "username": "thebower.eth",
+      "displayName": "TheBower.eth",
+      "pfp_url": "https://i.imgur.com/r8I79jx.png",
+      "bio": "Crypto since 2016 -  Nouner & Gardener building @nounsdao and @playdna_ ",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.49212529068252453,
+        "aiGenerated": 0.07966379169541865
+      }
+    },
+    {
+      "fid": 553919,
+      "username": "chadkilla",
+      "displayName": "Chadkilla",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/30683aef-8813-4825-6c4f-d4492f900000/rectcrop3",
+      "bio": "Just a girl (python, c++, some java, degn, grower)",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.2191070276616337,
+        "aiGenerated": 0.16396440901194406
+      }
+    },
+    {
+      "fid": 17571,
+      "username": "esteez.eth",
+      "displayName": "Emma",
+      "pfp_url": "https://i.imgur.com/Xel0UOJ.jpg",
+      "bio": "Strong social presence 🧊🧊🧊\nBuilding /icebreaker, /farcon-nyc",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.05517090345787945,
+        "aiGenerated": 0.1625794046625614
+      }
+    },
+    {
+      "fid": 4269,
+      "username": "zachroth.eth",
+      "displayName": "zach roth",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/9f4fffcd-2406-43ff-c74a-ba0eb586a100/rectcrop3",
+      "bio": "CEO & Co-founder @SCRN the onchain platform for creative IP where artists and fans realize the full potential of their work",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.07008523709873105,
+        "aiGenerated": 0.1809454286370601
+      }
+    },
+    {
+      "fid": 9182,
+      "username": "tae",
+      "displayName": "tae kek",
+      "pfp_url": "https://i.imgur.com/pU0SgWr.jpg",
+      "bio": "here to kek it",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.14981082286467973,
+        "aiGenerated": 0.1591016620914287
+      }
+    },
+    {
+      "fid": 3135,
+      "username": "lilpizza",
+      "displayName": "pizza. ⌐◨-◨",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/89199c5d-22f9-4fca-275a-02739443d500/rectcrop3",
+      "bio": "Lil Noun 3652 🍕",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.21237571598503946,
+        "aiGenerated": 0.1666691807726009
+      }
+    },
+    {
+      "fid": 17892,
+      "username": "biji",
+      "displayName": "Biji",
+      "pfp_url": "https://i.imgur.com/zwxa0tc.jpg",
+      "bio": "Contributing to /herocast. Bringing the world on-chain and /basedinberlin",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4012226733684392,
+        "aiGenerated": 0.12539867690994916
+      }
+    },
+    {
+      "fid": 758919,
+      "username": "mazmhussain",
+      "displayName": "Murtaza Hussain",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/e95b6f64-1d2d-4ac2-1d50-d2c9304e0100/original",
+      "bio": "Writer, podcaster, and commentator on foreign affairs and politics. Runs /dropglobalnews\n\nClanker Broadcasting Service /cbs",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.2624087286439638,
+        "aiGenerated": 0.17257106250500853
+      }
+    },
+    {
+      "fid": 7657,
+      "username": "gregfromstl",
+      "displayName": "greg",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/441e8676-83ed-4051-f98c-3f3603af0b00/rectcrop3",
+      "bio": "old man yells at cabal",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.26528339773124876,
+        "aiGenerated": 0.1681632887603867
+      }
+    },
+    {
+      "fid": 298503,
+      "username": "vinito",
+      "displayName": "VINITO ✿",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/8a246fb6-cff2-4d73-7481-ae5d43b26b00/original",
+      "bio": "Digital Artist from Argentina 🇦🇷\nSupporting on /degenartists 🎨 \n/albumoftheday 🎶",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4788661389042078,
+        "aiGenerated": 0.16932251403696708
+      }
+    },
+    {
+      "fid": 248713,
+      "username": "holakidd",
+      "displayName": "🌈🎩🐛Kidd!",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/c8f01383-692e-4897-bd27-754ca32cb300/original",
+      "bio": "Artist, made in Chaco. /zines",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.23247542105807972,
+        "aiGenerated": 0.1856215300172096
+      }
+    },
+    {
+      "fid": 5643,
+      "username": "errorgardener",
+      "displayName": "errorgardener",
+      "pfp_url": "https://i.imgur.com/H5zKmX1.jpg",
+      "bio": "Conceptual florist & Skateboarder, Landscaper at /middle-mgmt\n-\n🌊 🌻",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.49993273563220453,
+        "aiGenerated": 0.058352768707314345
+      }
+    },
+    {
+      "fid": 441956,
+      "username": "arrotu",
+      "displayName": "Arrotu",
+      "pfp_url": "https://ipfs.decentralized-content.com/ipfs/QmW5kdX4LcFhsZga3P38gwL1BidqyvqfkSTESuTB6DBm7b/3643.png",
+      "bio": "Founder and Artist of Artnames.io \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nicbk.me/arrotu.fc\n",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.35087764423247325,
+        "aiGenerated": 0.16883066008346065
+      }
+    },
+    {
+      "fid": 232017,
+      "username": "sarahzorah",
+      "displayName": "Sarah",
+      "pfp_url": "https://i.imgur.com/Cro9464.jpg",
+      "bio": "head of @base marketing",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.48099628788737403,
+        "aiGenerated": 0.10911416168886934
+      }
+    },
+    {
+      "fid": 234616,
+      "username": "pichi",
+      "displayName": "Pichi 🟪🍖🐹🎩 🍡🌸",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/f9a3a1d4-b283-4f25-cd09-b63f58dd1500/original",
+      "bio": "Pi-chi.eth (she/her) Artist /animeoutcasts\nPurple Promoter| Hosting: /moxietools /kyoto /momiji  /anime-manga /farcasterunion\n\nhttps://portrait.so/pichi",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.48342364678506666,
+        "aiGenerated": 0.01732313086009891
+      }
+    },
+    {
+      "fid": 20909,
+      "username": "airstack.eth",
+      "displayName": "Airstack",
+      "pfp_url": "https://i.imgur.com/f1X7fJx.jpg",
+      "bio": "The official account for Airstack, developer of @moxie-protocol. airstack.xyz. On a mission to grow the Farcaster GDP.",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.40770545557349314,
+        "aiGenerated": 0.15755369692806817
+      }
+    },
+    {
+      "fid": 4294,
+      "username": "tricil.eth",
+      "displayName": "tricil",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/51c34377-f6c5-4a02-5c19-073ab64e8e00/rectcrop3",
+      "bio": "musican. ai artiste. \n\ndesigned the channel icon for /relationships \n\nhttps://www.gofundme.com/f/stand-with-sera-help-her-get-back-on-her-feet",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.1722549351727265,
+        "aiGenerated": 0.16408055458427506
+      }
+    },
+    {
+      "fid": 321969,
+      "username": "compez.eth",
+      "displayName": "C O M P Ξ Z",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/1d87492b-81a5-4cf3-02ea-e187063a6b00/original",
+      "bio": "Legend | /genyleap | Working on Cell Engine | Full-Stack Dev | Generative Artist | Author | Crypto, AI & NFT Enthusiast.\n\nlinktr.ee/compez",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.442286637928772,
+        "aiGenerated": 0.10915966610773045
+      }
+    },
+    {
+      "fid": 17054,
+      "username": "earemu",
+      "displayName": "Emmanuel Aremu",
+      "pfp_url": "https://i.imgur.com/AgtyCU9.jpg",
+      "bio": "curious | Ecosystem Growth Marketing | Contributor at @optimism",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.09077659206392219,
+        "aiGenerated": 0.18594151951693794
+      }
+    },
+    {
+      "fid": 646212,
+      "username": "supertaste",
+      "displayName": "Supertaste",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/2402daa2-21b2-4703-cde4-5e189b8ebe00/rectcrop3",
+      "bio": "Indie disco band from Brooklyn NY",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.36030974798081106,
+        "aiGenerated": 0.15097555138794105
+      }
+    },
+    {
+      "fid": 3583,
+      "username": "interface",
+      "displayName": "Interface",
+      "pfp_url": "https://i.imgur.com/7pGP91I.jpg",
+      "bio": "https://www.interface.social – Explore Ethereum with Interface |\n/interface for anything onchain discovery & Interface related",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4074777032133208,
+        "aiGenerated": 0.18426971708594722
+      }
+    },
+    {
+      "fid": 309857,
+      "username": "coinbasewallet",
+      "displayName": "Coinbase Wallet",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/4f93d8e7-369f-4a79-4df4-d28ad8382f00/original",
+      "bio": "All of your crypto. All of your wallets. All in one place. Your home for everything onchain. wallet.coinbase.com",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.33320766918857847,
+        "aiGenerated": 0.14709440549977418
+      }
+    },
+    {
+      "fid": 641906,
+      "username": "segnon",
+      "displayName": "Segnon ",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/09686033-e78b-40ee-8472-459f9ee2a500/rectcrop3",
+      "bio": "Music artist, producer, visionary.  Here to inspire.",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.2115557398753406,
+        "aiGenerated": 0.1549162890454715
+      }
+    },
+    {
+      "fid": 2163,
+      "username": "cryptogirls",
+      "displayName": "CRYPTO GIRLS 👒 🦈 💙",
+      "pfp_url": "https://i.imgur.com/c0nncz4.jpg",
+      "bio": "founder of /cryptogirls /sharks 🦈 marketing at /powerfeed /zibb 👒 we create content and build communities",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.12901257977815694,
+        "aiGenerated": 0.1824119381459527
+      }
+    },
+    {
+      "fid": 11528,
+      "username": "jrf",
+      "displayName": "Jacob",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/7917ea6d-3745-4cb1-c5cc-86bd4c23e100/original",
+      "bio": "building /atlas creating /characters",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.19618796161715446,
+        "aiGenerated": 0.19025617824277613
+      }
+    },
+    {
+      "fid": 14446,
+      "username": "leonknight",
+      "displayName": "Leon Knight ",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/b9fa301c-c285-4c24-fbd5-8f5b785aed00/rectcrop3",
+      "bio": "King of Rock & Roll|VFX Artist|Director",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.10007111094576937,
+        "aiGenerated": 0.1843974870384496
+      }
+    },
+    {
+      "fid": 248216,
+      "username": "sartocrates",
+      "displayName": "sartocrates",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/745d9eaa-3a7b-43af-e34d-384946a40400/rectcrop3",
+      "bio": "mfer",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.09838782013138858,
+        "aiGenerated": 0.17973267700156886
+      }
+    },
+    {
+      "fid": 482357,
+      "username": "lou3e",
+      "displayName": "Louie O’Connor",
+      "pfp_url": "https://i.imgur.com/oOXE2HR.jpg",
+      "bio": "Nerd on the in, extrovert on the out 🤙\n\nAll things experience @ LUKSO 🆙 - Dedicated to making the blockchain social 🧬\n\nHead of Talent, Ecosystem Specialist",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4277651391820938,
+        "aiGenerated": 0.1238452293658007
+      }
+    },
+    {
+      "fid": 9138,
+      "username": "aghahowa.eth",
+      "displayName": "Aghahowa.base.eth🔵🎩",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/df8b546f-941d-4d72-7953-550506c4a400/original",
+      "bio": "UX DESIGN | WEB3\n\nFID: 9138",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.039891007065524065,
+        "aiGenerated": 0.17699283526397613
+      }
+    },
+    {
+      "fid": 13769,
+      "username": "crowdmuse",
+      "displayName": "Crowdmuse ",
+      "pfp_url": "https://i.imgur.com/uIgxHQM.png",
+      "bio": "⛓ Onchain social commerce \n🫂 Shop curated drops 👉 https://crowdmuse.xyz/",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4507756242470402,
+        "aiGenerated": 0.06316528571743492
+      }
+    },
+    {
+      "fid": 240499,
+      "username": "xdrian",
+      "displayName": "xdrian",
+      "pfp_url": "https://i.imgur.com/m9XBtWF.jpg",
+      "bio": "art music grp. I host /musicians. ",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.41973915465587364,
+        "aiGenerated": 0.10614959774973293
+      }
+    },
+    {
+      "fid": 281289,
+      "username": "tocd",
+      "displayName": "The Old Castle Defense(TOCD)",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/7a5b0463-98d3-405d-84b2-2114765f2c00/original",
+      "bio": "/tocd /omof Stake $FOMO at theoldcastle.xyz. Peer-to-Peer Onchain Game. 🕹 \n\n🌈Supported by @base & Degen & Merit Circle and Google Web3",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.080819318364733,
+        "aiGenerated": 0.19309675661726305
+      }
+    },
+    {
+      "fid": 188206,
+      "username": "0xleo",
+      "displayName": "0xleo",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/9ce1509d-cb56-4fa4-6356-63312827a400/original",
+      "bio": "content creator",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4332377322952492,
+        "aiGenerated": 0.1549242478522976
+      }
+    },
+    {
+      "fid": 253610,
+      "username": "deltajuliet",
+      "displayName": "deltajuliet | Gitcoin",
+      "pfp_url": "https://i.imgur.com/s0coN3D.jpg",
+      "bio": "Chief cat-herder @Gitcoin | 3 Raccoons in a trench coat\n🖤\n\"It is possible to commit no mistakes and still lose. That is not a weakness. That is life.\"",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4680957170703187,
+        "aiGenerated": 0.1994128188904786
+      }
+    },
+    {
+      "fid": 221477,
+      "username": "nubianzim",
+      "displayName": "Rica 🦾⚡️",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/88ffea58-54a2-4567-136d-7c23720ebb00/rectcrop3",
+      "bio": "Fine Artist // Pencil realism Art // Clinical Specialist in silicone prosthetics and orthotics 🦾 /prosthetics onchain ⛓️ https://nfaprosthetics.xyz",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.2729529324446067,
+        "aiGenerated": 0.15222421577705827
+      }
+    },
+    {
+      "fid": 10610,
+      "username": "sophia",
+      "displayName": "Sophia",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/b19174f9-330c-44b6-d891-70f13c930f00/original",
+      "bio": "devrel eng lead @celo | alum /stanford | 2x startup founder | prev eng & product @gitcoin |",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.16624409612767943,
+        "aiGenerated": 0.16425805739326332
+      }
+    },
+    {
+      "fid": 292310,
+      "username": "flight",
+      "displayName": "flight 🛩️↑",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/4ba566c7-c415-402e-fe83-3d13023bf900/rectcrop3",
+      "bio": "I fly airplanes and live /higher | /aviation",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4319489808893294,
+        "aiGenerated": 0.17126977036890034
+      }
+    },
+    {
+      "fid": 382205,
+      "username": "tagawamakoto",
+      "displayName": "tagawamakoto.⌐◨-◨",
+      "pfp_url": "https://i.imgur.com/ZWEMVlk.jpg",
+      "bio": "“What is essential is invisible to our eyes. But we can express it in art.\" My interpreter is @Kinako588. Ambassador at @kitpasportal,@Liquitex_Jp, and @Apple.",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.381175813881535,
+        "aiGenerated": 0.12600131202599343
+      }
+    },
+    {
+      "fid": 236391,
+      "username": "tormential",
+      "displayName": "TORMENTIAL 🎩",
+      "pfp_url": "https://i.imgur.com/npHh2Od.jpg",
+      "bio": "Dom. Dark artist. 🖤 /alfafrens analyst 🖤 Creating emotionally evocative dark art as a means of self-discovery. 🖤 /zeroone-fam host 🖤#AIartist",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.016070331063964716,
+        "aiGenerated": 0.1667213793921586
+      }
+    },
+    {
+      "fid": 340305,
+      "username": "alfafrens",
+      "displayName": "AlfaFrens",
+      "pfp_url": "https://i.imgur.com/7JMOvsi.jpg",
+      "bio": "Social subscriptions app that helps content creators connect with their fans and get paid every second. Powered by @superfluid. 🫂\n\nhttps://alfafrens.com/info",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.46611296210066144,
+        "aiGenerated": 0.09295996903766444
+      }
+    },
+    {
+      "fid": 527245,
+      "username": "sozi",
+      "displayName": "SOZI",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/bbf78cb2-4bd2-4fab-e90b-05bd01fd7700/rectcrop3",
+      "bio": "music artist • songwriter • producer • engineer • web3 gal🫧🌻",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.09110795824162454,
+        "aiGenerated": 0.15309196126929325
+      }
+    },
+    {
+      "fid": 8035,
+      "username": "joonatan.eth",
+      "displayName": "Joonatan | Phaver CEO",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/028d10c6-5bb5-4416-261f-ef8ce040f700/rectcrop3",
+      "bio": "CEO at @phaverapp, the gateway to Web3 social and largest app on Lens Protocol, now also on Farcaster",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.25334091337268005,
+        "aiGenerated": 0.16815070839607782
+      }
+    },
+    {
+      "fid": 337018,
+      "username": "baubergo-",
+      "displayName": "baubergo",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/7383fe03-df71-4784-9f90-5c1cd7e68a00/original",
+      "bio": "IRL: Creative Director who makes movies and ads.",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4948781592369157,
+        "aiGenerated": 0.04469814082469053
+      }
+    },
+    {
+      "fid": 326147,
+      "username": "ladelmas.eth",
+      "displayName": "La Delmas 🎩",
+      "pfp_url": "https://i.imgur.com/IIkcYjX.jpg",
+      "bio": "digital artist and aesthetics 💅🏼🎀💋 🐩\nhttps://linktr.ee/ladelmas",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.1660314045581378,
+        "aiGenerated": 0.18335364244225275
+      }
+    },
+    {
+      "fid": 3380,
+      "username": "dee",
+      "displayName": "dee",
+      "pfp_url": "https://upload.wikimedia.org/wikipedia/commons/8/80/Aligning_Worldviews.jpg",
+      "bio": "☼☽ zora",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.49559958326803966,
+        "aiGenerated": 0.05381508655128156
+      }
+    },
+    {
+      "fid": 196388,
+      "username": "neodaoist",
+      "displayName": "tom.base.eth",
+      "pfp_url": "https://i.imgur.com/ewY5ys3.jpg",
+      "bio": "Head of Product @base // classical composooor ䷏\nDirected opportunism x Things occurring of themselves📍onchain",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.16445335289151064,
+        "aiGenerated": 0.1933498579140515
+      }
+    },
+    {
+      "fid": 419984,
+      "username": "gnericvibes",
+      "displayName": "gneric.base.eth",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/6f1dfe47-04e0-4331-3b6b-b7d2eb97b600/rectcrop3",
+      "bio": "Music & Fashion ❤️❤️ #creativealchemy\n\nhttps://zora.co/@gnericvibes",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.08201262603872528,
+        "aiGenerated": 0.15186953813740411
+      }
+    },
+    {
+      "fid": 1430,
+      "username": "wijuwiju.eth",
+      "displayName": "wijuwiju.eth (mopzy.eth)",
+      "pfp_url": "https://i.imgur.com/oeyZjsk.jpg",
+      "bio": "chain rewards the curious | initial contributor at @interface | /interface /wijuwiju /walkthewalk | online at app.interface.social/wijuwiju.eth",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.1124365574195707,
+        "aiGenerated": 0.18699950722337075
+      }
+    },
+    {
+      "fid": 10215,
+      "username": "zoo",
+      "displayName": "zoo - q/acc",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/792686b7-8580-4d3b-37c7-95aca6201900/rectcrop3",
+      "bio": "buidling /qbase",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3650393015012763,
+        "aiGenerated": 0.11289634981081878
+      }
+    },
+    {
+      "fid": 9103,
+      "username": "0xnestor",
+      "displayName": "Nestor Bonilla",
+      "pfp_url": "https://i.imgur.com/pKr4XWS.jpg",
+      "bio": "",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.17911675242309721,
+        "aiGenerated": 0.18486340414556124
+      }
+    },
+    {
+      "fid": 239622,
+      "username": "fid:239622",
+      "displayName": "Yuki/Ryoma🃏🟡🎩",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/4c76bbd3-1956-4f85-596a-c23aaf834900/original",
+      "bio": "Building /card, /ball 🃏🟡\nAn engineer who creates various applications.\n\nRoles: Senspace (CTO), Code for Japan",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.48234816908914535,
+        "aiGenerated": 0.003346509041430501
+      }
+    },
+    {
+      "fid": 2201,
+      "username": "carlos",
+      "displayName": "Carlos",
+      "pfp_url": "https://i.imgur.com/dwDm3cP.jpg",
+      "bio": "crafting farcaster.in + terminal.co +++",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.39135349467422664,
+        "aiGenerated": 0.11361069467672205
+      }
+    },
+    {
+      "fid": 2588,
+      "username": "nor",
+      "displayName": "Connor McCormick ☀️",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/11f84d28-cb11-4f38-9baa-c01460061500/original",
+      "bio": "The only problem is externality pricing.\n\nBuilding https://negationgame.com",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4651623298156472,
+        "aiGenerated": 0.1134162967997158
+      }
+    },
+    {
+      "fid": 15253,
+      "username": "levidowney",
+      "displayName": "Levi Downey",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/ecaae66d-f57c-421d-b956-ec35998e7200/rectcrop3",
+      "bio": "plant eater, music producer, co-founder of @amerge (onchain music licensing co-op)",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3511430441113734,
+        "aiGenerated": 0.12201707938063873
+      }
+    },
+    {
+      "fid": 1626,
+      "username": "mcbain",
+      "displayName": "McBain",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/6b5f14ba-508a-4090-abca-dae88b6e6d00/original",
+      "bio": "Lead Clank @clankpad || Midwest mom in a California dad bod || Ruthlessly pro Farcaster",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4004955645438968,
+        "aiGenerated": 0.11812510708008378
+      }
+    },
+    {
+      "fid": 4905,
+      "username": "mxjxn.eth",
+      "displayName": "Max Jackson",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/7c641443-a937-4438-2a2a-5188f55dd200/rectcrop3",
+      "bio": "Artist developer musician. Eth believer since block 0. Hosting /cryptoart, /muse and /mxjxn  💌 tg: @maxjackson 🔗 linktr.ee/mxjxn \nAlly 🏳️‍⚧️🏳️‍🌈",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4465535040886395,
+        "aiGenerated": 0.12584715041520886
+      }
+    },
+    {
+      "fid": 2745,
+      "username": "sdv.eth",
+      "displayName": "Steve",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/f3edfb01-5f93-469f-51ac-e8f868d77d00/original",
+      "bio": "father sdv.wtf",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3006022832076354,
+        "aiGenerated": 0.17274639356813215
+      }
+    },
+    {
+      "fid": 8966,
+      "username": "radlaserfalcon",
+      "displayName": "Rad ✋",
+      "pfp_url": "https://i.imgur.com/CQFCfNC.gif",
+      "bio": "Executive Creative Director | Creative Strategist \nWeb3 Salon Series Co-Producer, Time Pieces x The Good News Show Co-Host *playing /Ftag ",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.007078962265026023,
+        "aiGenerated": 0.1898984713086326
+      }
+    },
+    {
+      "fid": 5860,
+      "username": "sum",
+      "displayName": "sumit",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/cb04dd30-c67a-4577-1ae6-be18853a2800/rectcrop3",
+      "bio": "solving for my curiosities // sum.cafe",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4709356151451073,
+        "aiGenerated": 0.15501474045399105
+      }
+    },
+    {
+      "fid": 4065,
+      "username": "yuki",
+      "displayName": "Yuki ✅ 🔜 Token2049",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/0ad833fc-7dbd-4b5e-09f7-2b8419e75800/original",
+      "bio": "Co-Founder of @checkin @beyondclub - Onchain <> IRL primitive 🗺️ 📍\nicebreaker.xyz/yuki.fc",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3063024725430442,
+        "aiGenerated": 0.10595155433406665
+      }
+    },
+    {
+      "fid": 6946,
+      "username": "floc",
+      "displayName": "FLOC*",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/13da76bf-d847-469a-5e33-0567e2d83300/original",
+      "bio": "Designing the Next Brands Together \n | /brand3 /fartone /odegen /mem3 /smiles /brnd /superblank wearefloc.com",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.40498577526147894,
+        "aiGenerated": 0.12220851971399434
+      }
+    },
+    {
+      "fid": 212259,
+      "username": "julieinweb3",
+      "displayName": "julie.base.eth ↑",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/c5826fc9-2b16-42c7-a933-219a5fa8f300/rectcrop3",
+      "bio": "↑ community first | enjoy the moment | building decentralized social @tako | building /thebasics /00s /zhongwenjiao /spacem3lon /base-hk",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.41321273354170274,
+        "aiGenerated": 0.1617073935543029
+      }
+    },
+    {
+      "fid": 4513,
+      "username": "seattlecrypto.eth",
+      "displayName": "Jer | seattlecrypto.eth",
+      "pfp_url": "https://images.colorino.site/18eaad6066555ada2fdeaa8cc341dbac846a5d44920d0d3242ca9b04cb67cb31.png",
+      "bio": "Building /coppanouns\nHost of the /mls channel. \nWorking on @gmgoodmusic\nLover of Music NFTs and coffee. Founder of https://www.gravitycreative.xyz/",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.2994111380539056,
+        "aiGenerated": 0.17722215159766105
+      }
+    },
+    {
+      "fid": 6084,
+      "username": "damaderoca",
+      "displayName": "Anjali in Singapore",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/55869d4e-59e2-4973-bd7e-b7c181f9af00/rectcrop3",
+      "bio": "I live in Collab.Land 🫶🏽 celebrating four years and beyond. ",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.30919307053972334,
+        "aiGenerated": 0.1418710505112001
+      }
+    },
+    {
+      "fid": 395346,
+      "username": "lambchop",
+      "displayName": "𝔥𝔞𝔩𝔞𝔩-𝔬",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/9bedba15-b8ff-4078-2e92-03384f2c3000/rectcrop3",
+      "bio": "ℑ❤️𝔱𝔶𝔭𝔬𝔤𝔯𝔞𝔭𝔥𝔶 + 𝔟𝔯𝔞𝔫𝔡 𝔡𝔢𝔰𝔦𝔤𝔫. \nℑ 𝔤𝔬 𝔟𝔶 𝔏𝔞𝔪𝔟𝔠𝔥𝔬𝔭, 𝔤𝔯𝔞𝔭𝔥𝔦𝔠 𝔡𝔢𝔰𝔦𝔤𝔫. ᯅ \n\nfashiǒn snoop.  lambchop.club",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4394845242666596,
+        "aiGenerated": 0.1850372009228591
+      }
+    },
+    {
+      "fid": 214447,
+      "username": "yes2crypto.eth",
+      "displayName": "YES2Crypto 🎩 🟪🟡",
+      "pfp_url": "https://i.imgur.com/dBoVmnG.jpg",
+      "bio": "Whatever your decentralized, borderless, neutral, censorship-resistant open blockchain question is, the answer is YES… to Crypto!",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.2615445868494106,
+        "aiGenerated": 0.1525716281924143
+      }
+    },
+    {
+      "fid": 4888,
+      "username": "realitycrafter.eth",
+      "displayName": "realitycrafter.eth",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/364edabb-9ab8-4578-be59-f414c86a3400/original",
+      "bio": "Building /nounspace | Founding Member /atxdao | Creating community and good vibes wherever I go.",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3472587446233365,
+        "aiGenerated": 0.1840611600405715
+      }
+    },
+    {
+      "fid": 226204,
+      "username": "thespartanlabs",
+      "displayName": "Spartan Labs",
+      "pfp_url": "https://i.imgur.com/QvCCUPJ.jpg",
+      "bio": "A Web3 venture studio by The Spartan Group. Sharing ideas, tips, resources for Web3 Builders. LFB. /spartanlabs",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.37396559360889225,
+        "aiGenerated": 0.1492383795901724
+      }
+    },
+    {
+      "fid": 189405,
+      "username": "sigueinventando",
+      "displayName": "Gabe 🇩🇴",
+      "pfp_url": "https://i.imgur.com/OHBy3hU.jpg",
+      "bio": "Gabe • Street Artist/Photographer/Educator • Break free from self-doubt!",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.41167108454769596,
+        "aiGenerated": 0.11016705754831602
+      }
+    },
+    {
+      "fid": 193826,
+      "username": "pauline-unik",
+      "displayName": "Pauline is based in Los Fomos",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/3e4d76c3-79ac-4ff6-a85a-cc3215e6df00/rectcrop3",
+      "bio": "Onchain mixologist based in /los-fomos. Building a portable fan graph, making the best spicy martinis in town",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.37190445203778766,
+        "aiGenerated": 0.1942302663432623
+      }
+    },
+    {
+      "fid": 9055,
+      "username": "usersteen.eth",
+      "displayName": "Steen!!!",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/455bc8ac-278c-4468-ffe9-e151bd3c2500/original",
+      "bio": "Making games. Director @enjoytech.eth!!!",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3738878426783592,
+        "aiGenerated": 0.10084507776626715
+      }
+    },
+    {
+      "fid": 3789,
+      "username": "niko",
+      "displayName": "niko",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/805d482b-4826-4aff-2913-ce8c7d742d00/rectcrop3",
+      "bio": "Social /uniswap | Hosting /runescape | Going /higher ↑",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.45382518108999736,
+        "aiGenerated": 0.1743038435806623
+      }
+    },
+    {
+      "fid": 13933,
+      "username": "tonyw",
+      "displayName": "TonyW 🎩",
+      "pfp_url": "https://i.imgur.com/en0sEZD.jpg",
+      "bio": "Building Tako and Farcaster community in Asia.",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.319492829609759,
+        "aiGenerated": 0.15437646968417168
+      }
+    },
+    {
+      "fid": 492621,
+      "username": "wenath",
+      "displayName": "wen ATH ᖽ",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/22e91b30-c750-4815-144b-7bb960856400/rectcrop3",
+      "bio": "wen ATH: the official /alltimehigh game ᖽ PLAY: https://warpcast.com/wenath/0xc539b176 👾 https://t.me/athondegen",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.2321549150258807,
+        "aiGenerated": 0.1543210880350408
+      }
+    },
+    {
+      "fid": 9933,
+      "username": "anonpapi.eth",
+      "displayName": "m00npapi ???? bro",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/73624966-027e-43f7-82f9-d7ce481dda00/rectcrop3",
+      "bio": "dev / collector / chef / ex-Twitter\n\nB.S in Chemical Engineering\n\nBUIDLGUIDL 🛡️⚔️🛠️ \n\nspeedrunethereum.com\n\n+\n\nhttps://youtube.com/@Ongaloid?si=w25tJeY-XgXt0i",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.38406631164151184,
+        "aiGenerated": 0.1317440906082513
+      }
+    },
+    {
+      "fid": 828,
+      "username": "scottrepreneur.eth",
+      "displayName": "scottrepreneur",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/bb379a90-1399-4d37-309e-7996d86a8d00/original",
+      "bio": "scottrepreneur.eth.limo",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4642372644405838,
+        "aiGenerated": 0.02999333558359396
+      }
+    },
+    {
+      "fid": 10095,
+      "username": "juujuumama",
+      "displayName": "SierraRenee Ayọ Ṣádé",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/00361c4a-a74e-4734-28c4-5a42e0a3ac00/rectcrop3",
+      "bio": "https://linktr.ee/juujuumama",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.25080063435647704,
+        "aiGenerated": 0.1978830368513619
+      }
+    },
+    {
+      "fid": 2549,
+      "username": "ambesh",
+      "displayName": "Ash",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/61a6c0b1-230b-4d2b-55ee-4587a987cc00/original",
+      "bio": "building eidolabs.xyz",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.1388887898637573,
+        "aiGenerated": 0.15335429889283025
+      }
+    },
+    {
+      "fid": 7418,
+      "username": "flexasaurusrex",
+      "displayName": "FlexasaurusRex◨-◨Ⓜ️🎩",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/6bf72578-af22-4c0f-8bbf-b12cf1145900/original",
+      "bio": "Art Historian • NFTs • Crypto Assimilator.",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.19112590479997027,
+        "aiGenerated": 0.18705157865359384
+      }
+    },
+    {
+      "fid": 13293,
+      "username": "atm",
+      "displayName": "atm 🎩",
+      "pfp_url": "https://i.imgur.com/Sg4q9Kl.jpg",
+      "bio": "co-founder of /blvkhvnd |\nParallel Maxi |\ndegen |\nx.com/dillonatm |",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.377186912963841,
+        "aiGenerated": 0.1423262738036173
+      }
+    },
+    {
+      "fid": 7581,
+      "username": "lovegreg",
+      "displayName": "Greg Liburd 👩🏾‍🚀",
+      "pfp_url": "https://i.imgur.com/0yvdjOg.png",
+      "bio": "Black Space Agency | /afrofuturism $UHURU | Co-Founder @refraction | former CD 4 Nike.",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.31462978342165715,
+        "aiGenerated": 0.12107390293500969
+      }
+    },
+    {
+      "fid": 326567,
+      "username": "saraphillips",
+      "displayName": "Sara Phillips",
+      "pfp_url": "https://i.imgur.com/K2O19gC.jpg",
+      "bio": "artist, songwriter, producer",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.22260166939542336,
+        "aiGenerated": 0.18468849727920555
+      }
+    },
+    {
+      "fid": 473,
+      "username": "matthew",
+      "displayName": "Matthew",
+      "pfp_url": "https://i.imgur.com/uwD4rUh.jpg",
+      "bio": "design @splits | /wireframe /latenightcrew /event-pass /feud",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.19574146719556862,
+        "aiGenerated": 0.19276934181149455
+      }
+    },
+    {
+      "fid": 12224,
+      "username": "benroy",
+      "displayName": "Ben Roy",
+      "pfp_url": "https://i.imgur.com/Ywnh08d.jpg",
+      "bio": "mostly crypto | helping founders /seedclub | hosting /liquidculture | writing in /words | all the things https://linktr.ee/benroy.eth",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.2952682389111446,
+        "aiGenerated": 0.1700703553984027
+      }
+    },
+    {
+      "fid": 3757,
+      "username": "gnars",
+      "displayName": "Gnars",
+      "pfp_url": "https://i.imgur.com/GvQeGNY.jpg",
+      "bio": "Action sports onchain gnars.com ⌐◨-◨ /gnars /nouns",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4234148613943033,
+        "aiGenerated": 0.12409924563313256
+      }
+    },
+    {
+      "fid": 318515,
+      "username": "karlagod",
+      "displayName": "KarlaGod",
+      "pfp_url": "https://i.imgur.com/4PE1Bzx.jpg",
+      "bio": "I build public goods💚\nBuilding B<>rde/ess Devs\nBusiness Developer🕴🏽\nMusic Artist, rapper, songwriter 🎤",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.15859324278609344,
+        "aiGenerated": 0.1943563035853893
+      }
+    },
+    {
+      "fid": 233880,
+      "username": "lollerskates",
+      "displayName": "C41Shawn",
+      "pfp_url": "https://i.imgur.com/V5pYMKa.jpg",
+      "bio": "I shoot film, some digital.\ndeca.art/C41Shawn\nexchange.art/lollerskates\nzora.co/@shawn05842964.eth\nfoundation.app/@C41Shawn",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.07812542180886273,
+        "aiGenerated": 0.1882431641569452
+      }
+    },
+    {
+      "fid": 307459,
+      "username": "props",
+      "displayName": "Props",
+      "pfp_url": "https://i.imgur.com/Utlo2c2.jpg",
+      "bio": "Build your own private branded NFT storefronts on your own domain.\n\nhttps://props.app",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.45380772293229343,
+        "aiGenerated": 0.07973116623642769
+      }
+    },
+    {
+      "fid": 482768,
+      "username": "threeoscillators",
+      "displayName": "Three Oscillators",
+      "pfp_url": "https://i.imgur.com/jUyRDnt.jpg",
+      "bio": "Noises for your mind, body and soul.",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4885644777196856,
+        "aiGenerated": 0.05997938322637926
+      }
+    },
+    {
+      "fid": 318555,
+      "username": "frankiestyles",
+      "displayName": "Frankie Styles",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/5a0236e4-8b40-47b2-d5b1-afa132f48b00/rectcrop3",
+      "bio": "Just a kid that makes music and apps",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.1353851026584435,
+        "aiGenerated": 0.15973912488660647
+      }
+    },
+    {
+      "fid": 223474,
+      "username": "satwikofficial",
+      "displayName": "Satwik",
+      "pfp_url": "https://i.imgur.com/a88zEsd.jpg",
+      "bio": "I'm a little teapot who didn't fill out my bio",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.48110307339724334,
+        "aiGenerated": 0.11182049413146466
+      }
+    },
+    {
+      "fid": 376869,
+      "username": "al3c",
+      "displayName": "AL3C",
+      "pfp_url": "https://i.imgur.com/L57n34K.jpg",
+      "bio": "1of1ofX @artblocks",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.2971069741580902,
+        "aiGenerated": 0.19471428226852835
+      }
+    },
+    {
+      "fid": 211124,
+      "username": "musicben",
+      "displayName": "musicben",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/78a9ba73-cf4b-404d-b160-e35561c09000/original",
+      "bio": "music + crypto | making the internet composable @osc and factory.fm",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4999267401803168,
+        "aiGenerated": 0.14666698998801062
+      }
+    },
+    {
+      "fid": 476134,
+      "username": "zadanxyz",
+      "displayName": "ZADAN [ZAY-den]",
+      "pfp_url": "https://i.imgur.com/evVsDA3.jpg",
+      "bio": "Pop/Rock Singer-Songwriter & Musician w/ Strong Musical Theater & Blues Influences 🎹🎤🎸 | 28 y/o Cherokee (ᏣᎳᎩ ᎦᏬᏂᎯᏍᏗ) 🪶 | Zathena Ventures Founder 🦁",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.40683779586161317,
+        "aiGenerated": 0.18812202468879355
+      }
+    },
+    {
+      "fid": 326688,
+      "username": "violettazironi",
+      "displayName": "Violetta Zironi",
+      "pfp_url": "https://i.imgur.com/xIWLeqq.jpg",
+      "bio": "Italian singer songwriter on the blockchain. I act in movies sometimes. 🌙\nMoonshot 🚀",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.35402031543020906,
+        "aiGenerated": 0.17761769803443053
+      }
+    },
+    {
+      "fid": 410492,
+      "username": "bstract",
+      "displayName": "Bstract",
+      "pfp_url": "https://i.imgur.com/buyjIub.jpg",
+      "bio": "Artist/Musician selling Hand Painted Digitally Enhanced 1/1 NFT’s.\n_______________________\nDrakula - https://drakula.app/user/bstract\n\nhttps://linktr.ee/bstract",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.06226068012535635,
+        "aiGenerated": 0.1988060537203356
+      }
+    },
+    {
+      "fid": 240247,
+      "username": "sebas.eth",
+      "displayName": "Sebas",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/94632c5b-5c08-42b0-b063-e1f6f8b2c800/rectcrop3",
+      "bio": "Retired soldier of the trenches, occult wanderer at /magick ⛤ Cofounded /sonata, the first music client on Farcaster ⛤",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.42242522393648496,
+        "aiGenerated": 0.14102891857785801
+      }
+    },
+    {
+      "fid": 337034,
+      "username": "mynameisheno",
+      "displayName": "Heno.",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/df91f216-7a4a-4392-8a0a-546fe071a300/rectcrop3",
+      "bio": "Artist. Producer. “Im Tired Of Being Hypersurvielled” OTW.\n\nMynameisheno.xyz",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.23234481230027326,
+        "aiGenerated": 0.17012074251577758
+      }
+    },
+    {
+      "fid": 318094,
+      "username": "basedandyellow",
+      "displayName": "The Yellow Collective on BASE ",
+      "pfp_url": "https://i.imgur.com/WrfdngZ.png",
+      "bio": "🟡 The Yellow Collective is a nounish onchain culture club on the Base L2, with a goal of supporting & empowering artists & creatives in our space! 🔵 ",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.26556463789553686,
+        "aiGenerated": 0.1526660236234395
+      }
+    },
+    {
+      "fid": 321754,
+      "username": "makwaia",
+      "displayName": "Mariana Makwaia",
+      "pfp_url": "https://i.imgur.com/0BDaNX0.jpg",
+      "bio": "- my identity is subject to change -",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3355469068896022,
+        "aiGenerated": 0.11785774216950258
+      }
+    },
+    {
+      "fid": 54,
+      "username": "lsankar.eth",
+      "displayName": "lucky",
+      "pfp_url": "https://i.imgur.com/tkJCeQo.jpg",
+      "bio": "internet culture researcher/speculator",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3650341946509439,
+        "aiGenerated": 0.1776663019641935
+      }
+    },
+    {
+      "fid": 420247,
+      "username": "goodnewsbas",
+      "displayName": "Good News Bas",
+      "pfp_url": "https://i.imgur.com/I5CTCXt.jpg",
+      "bio": "Superhero.",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.46780226893278964,
+        "aiGenerated": 0.10534368848801373
+      }
+    },
+    {
+      "fid": 8939,
+      "username": "annelisa",
+      "displayName": "annelisa.eth",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/ababde70-0724-4e15-99ec-44ab3e1b8400/rectcrop3",
+      "bio": "/annelisa /buidlbox @buidlbox 💫\n(fka @gitcoin events) 💕 one of the /djs ",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.29602554175938256,
+        "aiGenerated": 0.16191517958095766
+      }
+    },
+    {
+      "fid": 14493,
+      "username": "p0ng",
+      "displayName": "p0ng 🎩💎🔵🎭",
+      "pfp_url": "https://i.imgur.com/5RYwhUb.gif",
+      "bio": "Glassmaker\nMixed Media Artist \nHusband to @quantumspirit\nDad, Gamer (NERD_p0ng on Xbox)\n\nhttps://linktr.ee/p0ng",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.2804275494455414,
+        "aiGenerated": 0.1525948466133288
+      }
+    },
+    {
+      "fid": 312,
+      "username": "les",
+      "displayName": "Les Greys",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/e0559cd9-a195-46d3-ce7b-e6018fe99f00/rectcrop3",
+      "bio": "a writer by passion, a developer by curiosity, in the trenches by necessity  - lesgreys.com, /grey",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.018885509443004156,
+        "aiGenerated": 0.15006988150402148
+      }
+    },
+    {
+      "fid": 8447,
+      "username": "eriks",
+      "displayName": "Erik",
+      "pfp_url": "https://i.seadn.io/s/raw/files/ad549379a71c7948b405e10d84e5e7b7.png?w=500&auto=format",
+      "bio": "investor, photographer, nomad, exploring onchain & exploring the 🌎 /positivesum",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.31321551880690857,
+        "aiGenerated": 0.11948656968098309
+      }
+    },
+    {
+      "fid": 9309,
+      "username": "geoist",
+      "displayName": "geoist",
+      "pfp_url": "https://i.imgur.com/DzTVmrU.jpg",
+      "bio": "founding contributor @idriss • 🌍 earth • 🌊 ocean • 🌐 web3",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3659163424653553,
+        "aiGenerated": 0.13252695892379918
+      }
+    },
+    {
+      "fid": 12342,
+      "username": "bigshotklim",
+      "displayName": "⌐◨-◨ BiGSHOT ⌐◨-◨",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/7eaaea43-5f63-4e8a-5ae6-78b47230bd00/rectcrop3",
+      "bio": "Building Nounworks.wtf at BIGSHOT.WTF and  @bigshottoyworks on socials\nDirect Connect: https://poplme.co/hash/GTvRBufQ/1/preview",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.44857561386080624,
+        "aiGenerated": 0.13457505407585443
+      }
+    },
+    {
+      "fid": 455495,
+      "username": "hugo0",
+      "displayName": "Minion Hugo 🤖",
+      "pfp_url": "https://i.imgur.com/o85EcP2.jpg",
+      "bio": "I'm the robotic minion of @hm\n\n(I'M A BOTTTTT)\n\ndm me with suggestions",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.022232239945913168,
+        "aiGenerated": 0.16465961889868544
+      }
+    },
+    {
+      "fid": 212364,
+      "username": "mats",
+      "displayName": "Mats",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/c14185ef-8f8d-41f2-453c-01ea0af76100/original",
+      "bio": "",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4755345193666666,
+        "aiGenerated": 0.12820727779265134
+      }
+    },
+    {
+      "fid": 362698,
+      "username": "gafropick",
+      "displayName": "Gafropick",
+      "pfp_url": "https://i.imgur.com/xQwfURp.jpg",
+      "bio": "I'm existential, left-handed, and probably the nicest guy you'll ever meet. Asker of Tough Questions. Building /werewolf",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4128209525967358,
+        "aiGenerated": 0.1390411168959733
+      }
+    },
+    {
+      "fid": 1303,
+      "username": "chsh.eth",
+      "displayName": "charles",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/f8c2eaed-3465-4d8b-5bd8-3f3b5192ab00/original",
+      "bio": "designing /rgb /snack · https://ch.sh/",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.23841498145826379,
+        "aiGenerated": 0.17456821254906985
+      }
+    },
+    {
+      "fid": 3073,
+      "username": "gr",
+      "displayName": "Giuseppe Rodriguez 📸",
+      "pfp_url": "https://i.imgur.com/OXw8WJl.jpg",
+      "bio": "Brought to you by the letter G",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3331681527109355,
+        "aiGenerated": 0.167112198472362
+      }
+    },
+    {
+      "fid": 16819,
+      "username": "pedrowww",
+      "displayName": "Pedro",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/43d299ae-a055-431d-6562-ebccbe62c100/original",
+      "bio": "Product & BD @pwndao | Top Hat /degenangels | Host /degen | Crypto Class of '15 | Beekeeper | 🇫🇷",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4786212956162297,
+        "aiGenerated": 0.08582629401772444
+      }
+    },
+    {
+      "fid": 13659,
+      "username": "entropybender",
+      "displayName": "kevin j",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/16cda9b8-70bd-4403-06e7-32f249ea6400/original",
+      "bio": "@operator & /operator | BCI, bioinformatics, search, chaos, decentralized AI",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.07350346378852335,
+        "aiGenerated": 0.17013163052519864
+      }
+    },
+    {
+      "fid": 192300,
+      "username": "chrislarsc.eth",
+      "displayName": "Chris Carlson",
+      "pfp_url": "https://i.imgur.com/xYXBMNX.jpg",
+      "bio": "Head of Product at @syky /digital-fashion. Love all dogs and especially my own. ex-Ledger",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.2269716580225153,
+        "aiGenerated": 0.17902267657606635
+      }
+    },
+    {
+      "fid": 16148,
+      "username": "eulerlagrange.eth",
+      "displayName": "EulerLagrangodamus - tevm/acc",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/d20697e6-f714-4c5a-aad3-5ba1da907100/rectcrop3",
+      "bio": "Working on building zkTLS infra/products. A ruthless empiricist and meme connoisseur.\n\n/opacity\n/eulerlagrange",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.2599013728292797,
+        "aiGenerated": 0.1583185895881686
+      }
+    },
+    {
+      "fid": 431,
+      "username": "j4ck.eth",
+      "displayName": "↑ j4ck 🥶 icebreaker.xyz ↑",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/3b82cfba-7d62-43ad-f752-1643db239b00/original",
+      "bio": "CEO at Google • co-founder & rectangle mover at /icebreaker • icbk.me/j4ck.fc • /j4ck • /swagcaster • DJ sixsix • MMTF",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.007295590144296593,
+        "aiGenerated": 0.19417211668888432
+      }
+    },
+    {
+      "fid": 12778,
+      "username": "bigtone.eth",
+      "displayName": "big tone 🎩🧾",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/1b40f37a-9483-44bc-4dca-1d2d950e8200/rectcrop3",
+      "bio": "i /yoink & build in the /arweave ecosystem with PDS.inc",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.22487323236293033,
+        "aiGenerated": 0.18318919189027694
+      }
+    },
+    {
+      "fid": 20323,
+      "username": "0x0neill.eth",
+      "displayName": "0x0neill.eth 🛡️",
+      "pfp_url": "https://i.imgur.com/HLVAXTS.jpg",
+      "bio": "Crypto at American Express. /yellow",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.06088128836053108,
+        "aiGenerated": 0.18781855154980265
+      }
+    },
+    {
+      "fid": 14209,
+      "username": "foodmasku",
+      "displayName": "foodmasku",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/d0e51dc1-1a66-4f74-b6af-9f0ae5dc8400/rectcrop3",
+      "bio": "I make meals into masks and then eat them.🥪 /foodmasku 🌈 rc.xyz/foodmasku 🗽",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.13527803079867706,
+        "aiGenerated": 0.19929048792687426
+      }
+    },
+    {
+      "fid": 12312,
+      "username": "paragraph",
+      "displayName": "Paragraph",
+      "pfp_url": "https://i.imgur.com/Mr9IG47.jpg",
+      "bio": "Web3 newsletters & publishing.\n\nWe automatically summarize and cast about the best posts on Paragraph.",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3402102757945127,
+        "aiGenerated": 0.18360706435389404
+      }
+    },
+    {
+      "fid": 245819,
+      "username": "jacksonbrinton",
+      "displayName": "Jackson",
+      "pfp_url": "https://i.imgur.com/mKzqXnE.jpg",
+      "bio": "onchain marketer and collector. Hume 🌐\n\nLA",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.48815701828767877,
+        "aiGenerated": 0.1262983012255286
+      }
+    },
+    {
+      "fid": 444491,
+      "username": "kiui",
+      "displayName": "Kiwi ",
+      "pfp_url": "https://i.imgur.com/3ShZ8V0.jpg",
+      "bio": "creative director - 3D/XR enthusiast - blockchain baddie - also I tattoo \n\nFounder of Power Plant Industries",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.058712285994313884,
+        "aiGenerated": 0.19940877612336944
+      }
+    },
+    {
+      "fid": 12,
+      "username": "linda",
+      "displayName": "Linda Xie",
+      "pfp_url": "https://i.seadn.io/gae/r6CW_kgQygQhI7-4JdWt_Nbf_bjFNnEM7dSns1nZGrijJvUMaLnpAFuBLwjsHXTkyX8zfgpRJCYibtm7ojeA2_ASQwSJgh7yKEFVMOI?w=500&auto=format",
+      "bio": "Developer ecosystem @farcaster, co-founder @bountycaster. Previously: co-founder of Scalar Capital, product at Coinbase, co-producer @ethereumfilm",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4816426753265838,
+        "aiGenerated": 0.016507206328870927
+      }
+    },
+    {
+      "fid": 227912,
+      "username": "andremessina",
+      "displayName": "Andre Messina ",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/f715a62a-4f65-4141-c3e6-d9e290817c00/original",
+      "bio": "Cinematographer  |  Code+Photography  | \nhttps://linktr.ee/andremessina  | \n/selfhelp ",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.07421879603564774,
+        "aiGenerated": 0.16044766888897077
+      }
+    },
+    {
+      "fid": 23353,
+      "username": "zakku",
+      "displayName": "Zakku",
+      "pfp_url": "https://i.imgur.com/b8Mo9AB.jpg",
+      "bio": "- building coordinape.com \n- co-creating metacamp\n- moving at the speed of trust\n\n",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.012320112022034757,
+        "aiGenerated": 0.15757452565905075
+      }
+    },
+    {
+      "fid": 363197,
+      "username": "bakergracemusic",
+      "displayName": "Baker Grace",
+      "pfp_url": "https://i.imgur.com/tye8WEu.jpg",
+      "bio": "Let’s heal together ❤️",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.2703702015726547,
+        "aiGenerated": 0.157246817145439
+      }
+    },
+    {
+      "fid": 12966,
+      "username": "epodo.eth",
+      "displayName": "epodo.eth",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/ddab53fd-a541-4215-99a1-27387901c900/original",
+      "bio": "₿ilingual creativə | concəptual artist | memesmith | status quo antagonist | #Phunkism ✊ | Unvaxxed freethinker → /level up! epodo.xyz",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.48037223304725285,
+        "aiGenerated": 0.07971368681080643
+      }
+    },
+    {
+      "fid": 18057,
+      "username": "grams",
+      "displayName": "grams 🎩",
+      "pfp_url": "https://i.imgur.com/NFo70Cp.gif",
+      "bio": "artist exhibited transnationally 🎥📸🎞️🎨\nbackcountry snowboarder / knicks fan         \n\nTYO | NYC | LA  \n\nhttps://gramsdidit.com",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3294049639628166,
+        "aiGenerated": 0.1819063222472891
+      }
+    },
+    {
+      "fid": 333640,
+      "username": "mykelonline",
+      "displayName": "mykel online ↑",
+      "pfp_url": "https://i.imgur.com/k7Ym60e.jpg",
+      "bio": "musician & digital artist,\ncreating /toolsfml",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.25787161394627733,
+        "aiGenerated": 0.17010919353268844
+      }
+    },
+    {
+      "fid": 415590,
+      "username": "grlkrash",
+      "displayName": "GRLKRASH",
+      "pfp_url": "https://i.imgur.com/2aZPAQK.jpg",
+      "bio": "making music and building Krash World",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3758691916692569,
+        "aiGenerated": 0.10106650819724577
+      }
+    },
+    {
+      "fid": 310150,
+      "username": "jadynviolet",
+      "displayName": "Jadyn Violet",
+      "pfp_url": "https://i.imgur.com/nYDrE8z.jpg",
+      "bio": "I make music in my bedroom + throw raves around the country ",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.469193445770402,
+        "aiGenerated": 0.016211641293341118
+      }
+    },
+    {
+      "fid": 3488,
+      "username": "hun3y.eth",
+      "displayName": "Steph",
+      "pfp_url": "https://i.imgur.com/uy0KXSC.jpg",
+      "bio": "cmo @fwb 🤘🏽 cryptohun3y on X 🩵 simp @boysclub 🧢 prev. @seedclub",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.2940184740471068,
+        "aiGenerated": 0.19083331730714406
+      }
+    },
+    {
+      "fid": 238655,
+      "username": "2k",
+      "displayName": "2k 🎩",
+      "pfp_url": "https://i.imgur.com/zIQRdGO.jpg",
+      "bio": "Not smart",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.48335872247421185,
+        "aiGenerated": 0.12930684849295804
+      }
+    },
+    {
+      "fid": 415597,
+      "username": "shlippin",
+      "displayName": "SHLippin",
+      "pfp_url": "https://i.imgur.com/vFfDdJU.jpg",
+      "bio": "Music Producer 🎵\nVisual Artist 🎨",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.29522030810324695,
+        "aiGenerated": 0.19027872343199734
+      }
+    },
+    {
+      "fid": 5064,
+      "username": "acutek",
+      "displayName": "Acutek",
+      "pfp_url": "https://i.imgur.com/M7F0Fu6.png",
+      "bio": "DJ and Producer based in Scotland. \nPassionate about Web3 and Techno.",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4975887101971669,
+        "aiGenerated": 0.02573021156383111
+      }
+    },
+    {
+      "fid": 382890,
+      "username": "qabqabqab",
+      "displayName": "qabqabqab",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/b46d4ac8-b60f-489a-34f8-09da4ed41600/rectcrop3",
+      "bio": "Transdisciplinary artist, working with traditional and digital painting, 2D animation, 3D and music // she/her — https://thehug.xyz/artists/qabqabqab",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.005604944875915785,
+        "aiGenerated": 0.1705574913498627
+      }
+    },
+    {
+      "fid": 409913,
+      "username": "mshartistry",
+      "displayName": "Midday Tha Surrealist 💎",
+      "pfp_url": "https://i.imgur.com/UabfvuI.jpg",
+      "bio": "A surreal artist with keen eyes for details..",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.40547155666147294,
+        "aiGenerated": 0.13752306687514163
+      }
+    },
+    {
+      "fid": 425382,
+      "username": "krpmusic",
+      "displayName": "Krp",
+      "pfp_url": "https://i.imgur.com/GgDSsB7.jpg",
+      "bio": "Singer, Music producer from India. \n\nhttps://linktr.ee/krpmusic",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.349593732431712,
+        "aiGenerated": 0.10054935168586195
+      }
+    },
+    {
+      "fid": 238853,
+      "username": "db3045",
+      "displayName": "DavidBeiner",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/49a59d05-ac7c-4a6b-f4d3-0b52f78f9b00/original",
+      "bio": "getting /louder. creating @hume. @deathpixie @angelbaby @kai-wav. ",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.05988120085088289,
+        "aiGenerated": 0.15467836727049922
+      }
+    },
+    {
+      "fid": 306951,
+      "username": "everfresh",
+      "displayName": "everfresh",
+      "pfp_url": "https://i.imgur.com/MzvlWbz.jpg",
+      "bio": "digital artist / musician with a passion for fluid animations and smooth beats. http://superrare.com/everfresh http://linktr.ee/everfreshdesign",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3364216963333505,
+        "aiGenerated": 0.19319140003452584
+      }
+    },
+    {
+      "fid": 343261,
+      "username": "drakula",
+      "displayName": "Drakula",
+      "pfp_url": "https://i.imgur.com/jWodVzK.jpg",
+      "bio": "Watch & trade videocoins. Get /drakula on : apple.co/3N8hRmi and Android play.google.com/store/apps/details?id=app.drakula",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.48976861466070565,
+        "aiGenerated": 0.13326313569884377
+      }
+    },
+    {
+      "fid": 402649,
+      "username": "adbhut.eth",
+      "displayName": "adbhut.eth 🎩🔵",
+      "pfp_url": "https://i.imgur.com/ShRl38V.jpg",
+      "bio": "Software Engineer",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.409759856908957,
+        "aiGenerated": 0.18218000492070777
+      }
+    },
+    {
+      "fid": 336526,
+      "username": "pskaguya",
+      "displayName": "Kaguya",
+      "pfp_url": "https://i.imgur.com/jIsm9qH.jpg",
+      "bio": "artist, model, singer-songwriter | founder of Kaguya_ERC20 | cofounder of @USIC_LABS | https://pskaguya.xyz",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3893527508132969,
+        "aiGenerated": 0.17771464856909122
+      }
+    },
+    {
+      "fid": 1628,
+      "username": "debbie",
+      "displayName": "Debbie Soon",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/ce26ce47-9856-4b21-7312-a1e25693e700/rectcrop3",
+      "bio": "cofounder @thehugxyz 🤗 (acq. ART Domains) | 📔 preorder my book digitalmavericks.xyz  | 🇸🇬 chasing the 🇺🇸 dream | probably lifting 🏋️‍♀️ or watching 🏈",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4750202202899233,
+        "aiGenerated": 0.0596424903822455
+      }
+    },
+    {
+      "fid": 7251,
+      "username": "ciniz",
+      "displayName": "ciniz",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/637b64cf-2a16-4793-9376-d7c752889500/original",
+      "bio": "",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.15097264643715647,
+        "aiGenerated": 0.16188556606382087
+      }
+    },
+    {
+      "fid": 378310,
+      "username": "0xbuildr",
+      "displayName": "0xBuildR",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/401e6b25-c502-48c5-fd4b-2ecbc3e2b200/rectcrop3",
+      "bio": "Building /platinum /jessechrist /basedTVGuide /Basedblockparty",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.21387112500352767,
+        "aiGenerated": 0.1539739299831703
+      }
+    },
+    {
+      "fid": 424820,
+      "username": "jburn",
+      "displayName": "Jburn",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/20625875-b18c-424c-edad-82303cc00100/original",
+      "bio": "Audio x Visual x Crypto = https://linktr.ee/Jburn",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.38287013282118076,
+        "aiGenerated": 0.1700407559061115
+      }
+    },
+    {
+      "fid": 346370,
+      "username": "steveospirals",
+      "displayName": "Steveo Spirals",
+      "pfp_url": "https://i.imgur.com/RryWsGa.jpg",
+      "bio": "Art Photographer | CMO @definft | Prev @Google",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.44473331286294815,
+        "aiGenerated": 0.17333684199952062
+      }
+    },
+    {
+      "fid": 308288,
+      "username": "verite",
+      "displayName": "VÉRITÉ",
+      "pfp_url": "https://i.imgur.com/E1MxnMh.jpg",
+      "bio": "artist, writer, producer, existential crisis.",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.32404800868872485,
+        "aiGenerated": 0.11025849654906313
+      }
+    },
+    {
+      "fid": 4959,
+      "username": "jmann.eth",
+      "displayName": "16 years of Song A Day",
+      "pfp_url": "https://i.imgur.com/kEWC1tT.jpg",
+      "bio": "Born and raised in Westford, VT. Hartford now. \n\nI am in my 16th year of writing a Song A Day.",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.48003613135301804,
+        "aiGenerated": 0.107695363578175
+      }
+    },
+    {
+      "fid": 201043,
+      "username": "iamlosi",
+      "displayName": "Losi",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/09c2f9b4-9e62-440f-efde-a1ba98093900/rectcrop3",
+      "bio": "Making music, building a dream ✨ | Host /losi",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.0593172174612715,
+        "aiGenerated": 0.1788111374801465
+      }
+    },
+    {
+      "fid": 4027,
+      "username": "awkquarian",
+      "displayName": "Rakshita Philip",
+      "pfp_url": "https://i.seadn.io/gcs/files/90f63b3da4feb5ec4c6a8b45b508e4dc.png?w=500&auto=format",
+      "bio": "manic pixie scream girl | writing comics at /covenclassics | www.covenclassics.com | /brunette-brigade /manga-anime /community | https://x.com/rakshitaphilip",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.08635001409167176,
+        "aiGenerated": 0.166978600381544
+      }
+    },
+    {
+      "fid": 414859,
+      "username": "willcreatesart",
+      "displayName": "WILL🎩",
+      "pfp_url": "https://i.imgur.com/7JvAsBI.jpg",
+      "bio": "thank you for visiting my finsta \n\n",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.1753334776228077,
+        "aiGenerated": 0.17999719177459994
+      }
+    },
+    {
+      "fid": 4256,
+      "username": "markfishman",
+      "displayName": "Mark Fishman",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/17b9d734-c963-4562-91c0-5e4fa6e28700/original",
+      "bio": "Interested in human flourishing & social infrastructure | slowly building /firstdraft | markfishman.xyz",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4862459118086583,
+        "aiGenerated": 0.1426960041799435
+      }
+    },
+    {
+      "fid": 9887,
+      "username": "vividfeverdreams",
+      "displayName": "Vivid Fever Dreams",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/00a465a5-f848-4c1a-be85-36da294a3300/original",
+      "bio": "Indie, alt-electronic sounds to help cope with society slowly collapsing around us.",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.07570207156852571,
+        "aiGenerated": 0.15515827753344139
+      }
+    },
+    {
+      "fid": 330807,
+      "username": "feelsxart",
+      "displayName": "FEELS",
+      "pfp_url": "https://i.imgur.com/s4u9QMS.png",
+      "bio": "∴ artist - feels.art",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.45054260200399254,
+        "aiGenerated": 0.04297739398126321
+      }
+    },
+    {
+      "fid": 15211,
+      "username": "statuette",
+      "displayName": "statuette.base.eth",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/30dc1144-1e7e-4537-ee91-c1e5aa588700/rectcrop3",
+      "bio": "@base community builder #001 🛡️ basegirl.base.eth",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.25682284376074616,
+        "aiGenerated": 0.15063727988602593
+      }
+    },
+    {
+      "fid": 17038,
+      "username": "energyonchain",
+      "displayName": "Energy",
+      "pfp_url": "https://i.imgur.com/zgddf4u.jpg",
+      "bio": "https://nouns.build/dao/zora/0x32297B7416294B1ACF404b6148a3C58107ba8afd/33",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3287634069292592,
+        "aiGenerated": 0.13995043152817685
+      }
+    },
+    {
+      "fid": 211018,
+      "username": "carlathepoet",
+      "displayName": "Not Carla The Poet",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/fc081d98-68b8-4327-40cd-de328e011400/rectcrop3",
+      "bio": "Musician | Photographer | Chef",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.1784684211173847,
+        "aiGenerated": 0.16484993055953773
+      }
+    },
+    {
+      "fid": 18325,
+      "username": "crittiep",
+      "displayName": "Crittie P",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/6fcc012a-d911-475c-b07f-0162841d4100/rectcrop3",
+      "bio": "Mogging",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.32785684981962027,
+        "aiGenerated": 0.14003745986906307
+      }
+    },
+    {
+      "fid": 383591,
+      "username": "mavitaylor",
+      "displayName": "Mavi Taylor ",
+      "pfp_url": "https://i.imgur.com/p5Y4NYD.jpg",
+      "bio": "Just a silly goose",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.1667328433192805,
+        "aiGenerated": 0.17854602838157096
+      }
+    },
+    {
+      "fid": 15023,
+      "username": "shamanic",
+      "displayName": "ShamanicArts",
+      "pfp_url": "https://i.imgur.com/TLEP6N5.jpg",
+      "bio": "MIxed Media Artist. NeuroSpicy & NeuroFunky",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.24755756915733318,
+        "aiGenerated": 0.19713960647380052
+      }
+    },
+    {
+      "fid": 4408,
+      "username": "sammy",
+      "displayName": "sammybauch.eth",
+      "pfp_url": "https://i.imgur.com/zhslKWx.jpg",
+      "bio": "software engineer and onchain craftsperson",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.42598039038197033,
+        "aiGenerated": 0.16803618188839484
+      }
+    },
+    {
+      "fid": 1258,
+      "username": "daylight",
+      "displayName": "Daylight ☀️",
+      "pfp_url": "https://daylight-images-webapp.s3.amazonaws.com/Twitter-Avatar-1000.png",
+      "bio": "Onchain for you: daylight.xyz.\n\nOur transaction recommendation API helps apps, protocols, and creators grow.  We are hiring: careers.daylight.xyz.",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.15838935134927323,
+        "aiGenerated": 0.18954678667378722
+      }
+    },
+    {
+      "fid": 412558,
+      "username": "dadabots",
+      "displayName": "dadabots",
+      "pfp_url": "https://i.imgur.com/JwzpQHa.jpg",
+      "bio": "Eliminating humans from music.🧠 We're music-hackers w/ hyper ADHD. Research @ StabilityAI :: Artists @artblocks BrainDrops NoiseDAO :: linktr.ee/dadabots",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.012728550706764263,
+        "aiGenerated": 0.18891563469858516
+      }
+    },
+    {
+      "fid": 15983,
+      "username": "jacek",
+      "displayName": "Jacek.degen.eth 🎩",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/85b47d38-7b53-46b0-7e6a-80ec1b9b3d00/original",
+      "bio": "Lead $DEGEN | https://www.degen.tips/",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.32050701848569685,
+        "aiGenerated": 0.16795571309833793
+      }
+    },
+    {
+      "fid": 409032,
+      "username": "getfreddie",
+      "displayName": "Freddie ",
+      "pfp_url": "https://i.imgur.com/ylfkCfd.jpg",
+      "bio": "Artist and writer. Film photography and baking amatuer. Socials at @Props + MeshMesh. They/them (AKA Charlie)",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.431484970799075,
+        "aiGenerated": 0.1124923088314016
+      }
+    },
+    {
+      "fid": 312767,
+      "username": "awolfee",
+      "displayName": "awolfee",
+      "pfp_url": "https://i.imgur.com/mSwxgmJ.jpg",
+      "bio": "⚡️I’m just a girl trying to make it in the web3 world ❤️🐺 miami event curator, supporter of local artists and bullish on YOU🥰 \n🤍🇮🇱🕊️עם ישראל חי ",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4413751184303045,
+        "aiGenerated": 0.13805739569361775
+      }
+    },
+    {
+      "fid": 21413,
+      "username": "cammurdoch",
+      "displayName": "Cam Murdoch",
+      "pfp_url": "https://i.imgur.com/Hrq6qAV.jpg",
+      "bio": "Multi-Expressional Artist • Making things @futuresurf",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.24650777491763887,
+        "aiGenerated": 0.15098877099972957
+      }
+    },
+    {
+      "fid": 246523,
+      "username": "yoddha.eth",
+      "displayName": "Yoddha.⌐◨-◨",
+      "pfp_url": "https://i.imgur.com/xxNqMMe.gif",
+      "bio": "3rd Gen Jewelry Artisan / AI Film Maker / Writer. Founder Member: Zo World / Network School Cohort 1",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3046299767062224,
+        "aiGenerated": 0.1005837681808977
+      }
+    },
+    {
+      "fid": 523,
+      "username": "musnit.eth",
+      "displayName": "musnit",
+      "pfp_url": "https://pbs.twimg.com/profile_images/1455908126801203205/4zj5yYfJ_400x400.jpg",
+      "bio": "super shadowy coder since before it was cool. currently exploring mobile-first web3 building a web3 music player @ www.spinamp.xyz ",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4982949386904376,
+        "aiGenerated": 0.1683604088628365
+      }
+    },
+    {
+      "fid": 1301,
+      "username": "krel",
+      "displayName": "krel",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/fb0d18cd-8ee5-412a-4bec-f6941a12f700/original",
+      "bio": "building /camp (nouns.camp) ⛺️",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4333643908500264,
+        "aiGenerated": 0.16723495534512553
+      }
+    },
+    {
+      "fid": 21941,
+      "username": "hipseynussle.eth",
+      "displayName": "HipseyNussle.eth ツ 🦉🎩",
+      "pfp_url": "https://supercast.mypinata.cloud/ipfs/QmPDLG9uAKU7SJ9vcuvSPsdt8T1tNa9mkH1SdhzzpYWgSh?filename=IMG_5990.gif",
+      "bio": "Black Kanak. Son of a kalo farmer, a warrior, a poet, and the opihi lady 🌱 Aloha ‘Āina 🎩🌋🏔️🌬️🌊🔥🌌🌧️🌈🌅\n\nhttps://oncyber.io/timealone",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.46451517291721267,
+        "aiGenerated": 0.07210260940620841
+      }
+    },
+    {
+      "fid": 5904,
+      "username": "dae",
+      "displayName": "Dae",
+      "pfp_url": "https://i.imgur.com/Fz0yF8v.jpg",
+      "bio": "Art lover, travel enthusiast, foodie ☁️ Yunique.eth 🫧 Grants Program Coordinator @Gitcoin 🌱✨ prev. CM @ zora ☄️",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4819580482700013,
+        "aiGenerated": 0.0982868633492545
+      }
+    },
+    {
+      "fid": 10575,
+      "username": "gretagremplin",
+      "displayName": "Carlos.⌐◨-◨ 🎩💩🔵",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/3fa4438e-3f3c-4fef-9157-d9e218f06f00/original",
+      "bio": "Artist and pixelator. \nVerified as an artist @opensea \nhttps://linktr.ee/carlosthegreta \n/theshitcasters SOLD OUT",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.30091816195742327,
+        "aiGenerated": 0.17820864705711636
+      }
+    },
+    {
+      "fid": 343580,
+      "username": "hotgreensauce",
+      "displayName": "S.C. 🎩🔵🧢",
+      "pfp_url": "https://i.imgur.com/CHRJV9O.gif",
+      "bio": "👨‍🌾 | HERE & NOW | Member 23 |",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.2263816031363033,
+        "aiGenerated": 0.19699810555730435
+      }
+    },
+    {
+      "fid": 19530,
+      "username": "mikegood",
+      "displayName": "mike good ⌐◨-◨",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/87f85d6a-88fc-4aba-302f-417fe212c200/rectcrop3",
+      "bio": "Nouns, Lil Nouns, bitNouns ⌐◨-◨ Currently building @artistprogram_ \n and nouns.world Linktr.ee/mikeg.studio",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.10596967561667792,
+        "aiGenerated": 0.1592255575854928
+      }
+    },
+    {
+      "fid": 583,
+      "username": "sharidoherty",
+      "displayName": "Shari",
+      "pfp_url": "https://i.seadn.io/gae/7G5z0DNDOfczxQ9Q7fBYVih7gnaGJPO0cYkMkpVwsrzrPAXF-Ng3hq9ExOD2vDrkXi4MWSeV3l7eCbOUHLTIblSqNweJrzooMW_JZ90?w=500&auto=format",
+      "bio": "marketing a16z crypto ",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3571030532013212,
+        "aiGenerated": 0.13864656044196352
+      }
+    },
+    {
+      "fid": 368096,
+      "username": "danib88",
+      "displayName": "Daniel Ballesteros",
+      "pfp_url": "https://i.imgur.com/3ZDTLUP.png",
+      "bio": "Creative producer - Nouns Amigo - Purple DAO - Lil Nouns - @filmkilo - Centro Nouns BTA - Kriya Yoga ⌐◨-◨",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.38952323748669593,
+        "aiGenerated": 0.1838924697207578
+      }
+    },
+    {
+      "fid": 10914,
+      "username": "callmelatasha",
+      "displayName": "LATASHÁ",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/a0be9c88-3c50-4930-b707-e5baa8b7b000/rectcrop3",
+      "bio": "artist. realms of music and vision. founder of TOPIA. currently building TASH55. ",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.20991833681549155,
+        "aiGenerated": 0.1951728457388356
+      }
+    },
+    {
+      "fid": 13121,
+      "username": "lght.eth",
+      "displayName": "LGHT",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/b48f9166-2f05-49b8-b077-4ed255f21100/original",
+      "bio": "Training Data",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.07158951229893684,
+        "aiGenerated": 0.17830389079742495
+      }
+    },
+    {
+      "fid": 388453,
+      "username": "rickyday",
+      "displayName": "Rickyday .⌐◨-◨",
+      "pfp_url": "https://i.imgur.com/CJc31Jk.jpg",
+      "bio": "Your Nounish Captain . ⌐◨-◨ ⛵ |\n  /nouns builder | Manager of @sunnypires and @nicokarolla  | free Surfer 🏄‍♀️\nProp 512 🌋 | 🌊 prop 606 🚌",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.08176058001218223,
+        "aiGenerated": 0.1783448734955315
+      }
+    },
+    {
+      "fid": 101,
+      "username": "yitong",
+      "displayName": "Yitong",
+      "pfp_url": "https://lh3.googleusercontent.com/NQPf9r7QgvV3rzcGg1GOWzm5D6VNU8tlvkdoYtYEMwtCycXXP697UCR3ll4tNAfH6OYhiYhNkwgmHdkF0LfAKdMlAu3b160IPUGvsw",
+      "bio": "working on agora.xyz",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.46713862840868225,
+        "aiGenerated": 0.1843963498032767
+      }
+    },
+    {
+      "fid": 221323,
+      "username": "charmlikemagic",
+      "displayName": "Charm Taylor",
+      "pfp_url": "https://i.imgur.com/SbsKqth.jpg",
+      "bio": "1 of 1 i’m real & rare. mama+guide+music+artist + curator+spiritually creative powerhouse\n💭dreaming on a big axx plane ✈️✨🛫",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.29578261706984743,
+        "aiGenerated": 0.1634721385546267
+      }
+    },
+    {
+      "fid": 210045,
+      "username": "nicolaus",
+      "displayName": "Nicolaus",
+      "pfp_url": "https://i.imgur.com/KLYPfU7.png",
+      "bio": "ATL raised. 🐦‍🔥 // Design, music, coffee, bikes, community. //\nDesigning at @decentdao",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4852827368544691,
+        "aiGenerated": 0.1060566425000634
+      }
+    },
+    {
+      "fid": 10810,
+      "username": "gami.eth",
+      "displayName": "gami.eth ⎈",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/255c87cf-98c5-45c9-37a8-6f42d130db00/original",
+      "bio": "bdsm /imf ⎈ /gnars",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3762031066161716,
+        "aiGenerated": 0.19913699639543314
+      }
+    },
+    {
+      "fid": 2635,
+      "username": "nadav",
+      "displayName": "Nadav",
+      "pfp_url": "https://i.imgur.com/PUvIAYg.jpg",
+      "bio": "CTO @ OpenSea. Fmr. Co-Founder of Dharma Labs. \n\nOpinions my own",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3423311903670425,
+        "aiGenerated": 0.15740150891152177
+      }
+    },
+    {
+      "fid": 218632,
+      "username": "russ",
+      "displayName": "russ",
+      "pfp_url": "https://i.imgur.com/kt6VNrh.jpg",
+      "bio": "musician, solidity & js dev | building things with songcamp",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4012570112830267,
+        "aiGenerated": 0.1765099464883283
+      }
+    },
+    {
+      "fid": 12590,
+      "username": "creatress",
+      "displayName": "Creatress 🦋🎩🔵⌐◨-◨",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/713cc048-537e-4045-bdf4-044b5cdaf400/rectcrop3",
+      "bio": "Multidisciplinary artist, 3D sculptress, VR Performance pioneer. Follow /creatress\n\nCreatressart.com",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4554884157028316,
+        "aiGenerated": 0.11967540166692273
+      }
+    },
+    {
+      "fid": 3441,
+      "username": "jzs",
+      "displayName": "jeremy",
+      "pfp_url": "https://i.imgur.com/jJYwi8P.jpg",
+      "bio": "cofounding @catalog // /catalog",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.06767699618189404,
+        "aiGenerated": 0.15142265374894537
+      }
+    },
+    {
+      "fid": 80,
+      "username": "liam.eth",
+      "displayName": "Liam",
+      "pfp_url": "https://i.imgur.com/3tmhZL0.jpg",
+      "bio": "cofounder /ethglobal /optimism, team /canada \n\nliamhorne.com",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.23247040261386276,
+        "aiGenerated": 0.17899538474622192
+      }
+    },
+    {
+      "fid": 17975,
+      "username": "bigvibessss",
+      "displayName": "yuri",
+      "pfp_url": "https://warpcast.com/avatar.png?t=1729967720818",
+      "bio": "im @yuri now :)",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.22815793155124764,
+        "aiGenerated": 0.18785385616625985
+      }
+    },
+    {
+      "fid": 4388,
+      "username": "slapscher",
+      "displayName": "Simon Lapscher ↑",
+      "pfp_url": "https://openseauserdata.com/files/a4470a930753221701463d4ca77d5553.svg",
+      "bio": "Liquality and Trends.market Co-Founder, wavWRLD contributor, Skylab member",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4760568301802568,
+        "aiGenerated": 0.09502000583518302
+      }
+    },
+    {
+      "fid": 2139,
+      "username": "seanwbren",
+      "displayName": "Sean Brennan",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/8b21501d-b7a0-4096-2723-4f9fe6b3a900/rectcrop3",
+      "bio": "🤖 🧬 @bioxyz and /agent\n\n // prev MakerDAO & Infura",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.49973854183952227,
+        "aiGenerated": 0.08477346701522484
+      }
+    },
+    {
+      "fid": 4132,
+      "username": "juar.eth",
+      "displayName": "carlos juar.eth",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/19aa402c-8a4b-4c0e-7474-6aac8fbd5c00/original",
+      "bio": "CTO @aragon || Cooking paellas, satellite @nouns ⌐🥘-🥘",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.39429542789044336,
+        "aiGenerated": 0.19537704746014406
+      }
+    },
+    {
+      "fid": 2757,
+      "username": "defijesus",
+      "displayName": "defijesus.eth",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/025fb3e4-1375-4638-b8bc-2e4ba4213d00/original",
+      "bio": "addicted to laughs - evm peruser",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3583657042680549,
+        "aiGenerated": 0.1183461305932982
+      }
+    },
+    {
+      "fid": 216023,
+      "username": "variant",
+      "displayName": "Variant",
+      "pfp_url": "https://i.imgur.com/shveQRR.jpg",
+      "bio": "Investing in an internet that turns users into owners",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.016799845648564182,
+        "aiGenerated": 0.1710965144510328
+      }
+    },
+    {
+      "fid": 20424,
+      "username": "slagathor",
+      "displayName": "Pete",
+      "pfp_url": "https://i.imgur.com/BVC3xi1.jpg",
+      "bio": "Too complex for what the world expects. OETH.com ",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4529240849632046,
+        "aiGenerated": 0.15803964051274044
+      }
+    },
+    {
+      "fid": 223,
+      "username": "nemild",
+      "displayName": "Nemil Dalal",
+      "pfp_url": "https://i.imgur.com/oe8gFpe.jpg",
+      "bio": "Bringing a millions devs onchain.\n\nProduct Lead, Coinbase Developer Platform https://cdp.coinbase.com\n\nPrev lead of USDC. Crypto class of 2014",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3194237456180107,
+        "aiGenerated": 0.13182349527597004
+      }
+    },
+    {
+      "fid": 16877,
+      "username": "emmanuel",
+      "displayName": "Emmanuel🦉⌐◨-◨🎩🍥",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/feb3c6cc-0e09-4137-b80e-821a83a79500/rectcrop3",
+      "bio": "prev. EY-Parthenon | JPMorganChase&Co\n\n\n\n\n\nTwitter🐦: x.com/0xMawuko\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nProbably doing stuff and things.",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4534300498413032,
+        "aiGenerated": 0.18777360178267
+      }
+    },
+    {
+      "fid": 254426,
+      "username": "artichokelord",
+      "displayName": "Kath 👹🔸🚮",
+      "pfp_url": "https://i.imgur.com/uWlhTUf.gif",
+      "bio": "@trashnfts @atxdao @atxwiw3 + og @stargaze artist⭐️ + UX Dev/Design by day☁️ + Kiki Machine🎸\nEx google, Walmart labs\nhttps://linktr.ee/artichokelord",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3657944629065121,
+        "aiGenerated": 0.18811579895858432
+      }
+    },
+    {
+      "fid": 230941,
+      "username": "willywonka.eth",
+      "displayName": "willywonka ⌐◨-◨",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/c2324ecf-c09f-40f5-936c-80fbbd0cb500/original",
+      "bio": "Buidl the change you wish to see in the world. Customize your space on /nounspace, download @shapeshift, donate on @giveth, pick up @trashnfts #bestdayever",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3947733346424207,
+        "aiGenerated": 0.19086794393150114
+      }
+    },
+    {
+      "fid": 13314,
+      "username": "originstory",
+      "displayName": "origin⚡️",
+      "pfp_url": "https://i.imgur.com/SnEGSGh.jpg",
+      "bio": "Artist turned founder solving problems in culture and creative @ originstories.live + vpm.studio",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.08446304249031089,
+        "aiGenerated": 0.15775254907945563
+      }
+    },
+    {
+      "fid": 263648,
+      "username": "fattybuthappy",
+      "displayName": "Fattybuthappy",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/4f6cbaca-3c5b-4908-dfac-c1ff2271e300/original",
+      "bio": "Fail first fail hard #lovemaximalist \nhttps://linktr.ee/fattybuthappy\nTrust Me\nhttps://matias.me/nsfw/",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.09365339319823784,
+        "aiGenerated": 0.16505531825354136
+      }
+    },
+    {
+      "fid": 20919,
+      "username": "rainbow",
+      "displayName": "Rainbow",
+      "pfp_url": "https://i.imgur.com/b3SgimD.jpg",
+      "bio": "The fun, simple, & secure way to explore Web3, NFTs, & Ethereum 🌈\n\nGet started at rainbow.me",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.31047568856346874,
+        "aiGenerated": 0.10540972584841493
+      }
+    },
+    {
+      "fid": 4525,
+      "username": "emo.eth",
+      "displayName": "emo.eth",
+      "pfp_url": "https://i.imgur.com/hIA63C3.jpg",
+      "bio": "prev: /nook, protocol @ opensea, co-author seaport & stuff.\nprofessional @slokh and @0xalexander fanboy",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.0007012100508297925,
+        "aiGenerated": 0.17238497258940516
+      }
+    },
+    {
+      "fid": 11508,
+      "username": "latsko.eth",
+      "displayName": "Benjamin ⌐◨-◨",
+      "pfp_url": "https://i.imgur.com/syzfptr.jpg",
+      "bio": "⌐///-/// \n\n🫐\n\n[ nounstown.wtf ]\n[ butter.wtf ]\n[ /goodbutter ]\n[ benjaminlatsko.com ]",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.29205164430450803,
+        "aiGenerated": 0.157043525469604
+      }
+    },
+    {
+      "fid": 193623,
+      "username": "patyiutazza",
+      "displayName": "Pat Yiu",
+      "pfp_url": "https://i.imgur.com/76hhTMZ.jpg",
+      "bio": "Nouns Esports, Public Goods, NMN Producer",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4347005789340548,
+        "aiGenerated": 0.16522893355401436
+      }
+    },
+    {
+      "fid": 9581,
+      "username": "thepark",
+      "displayName": "the park",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/65bb8108-9472-477c-d7d9-9d2e8c8ca800/rectcrop3",
+      "bio": "fridays at the park season 002 https://zora.co/collect/base:0x1bbea2cc3b2c41774687fd00684ad12f9a666557/6",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.29330841756616266,
+        "aiGenerated": 0.18798080372134085
+      }
+    },
+    {
+      "fid": 196865,
+      "username": "stephguerrero",
+      "displayName": "Stephanie Guerrero",
+      "pfp_url": "https://i.imgur.com/p16YkYv.jpg",
+      "bio": "She/Ella. 🇪🇨 🇺🇸 SheFi Cohort 9💫 . Web3 Music. Feminist. Curator. Connector. Mom. (Prev Sony Music, UMG, Legato & Tellie).",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.32025202436204536,
+        "aiGenerated": 0.1003457651718363
+      }
+    },
+    {
+      "fid": 2687,
+      "username": "blackdave",
+      "displayName": "BLACKDAVE ₘₖ₂",
+      "pfp_url": "https://i.imgur.com/FffLkOF.jpg",
+      "bio": "Aspiring Gundam pilot •\nSharing my thoughts at /blackdave •\nBringing people together at @projectpharos",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.44427685461510524,
+        "aiGenerated": 0.13296133961774967
+      }
+    },
+    {
+      "fid": 2755,
+      "username": "bichonxattack",
+      "displayName": "Mike ",
+      "pfp_url": "https://lh3.googleusercontent.com/pPHF4f1FDCF409CtE7R70euZUoFaSF4kfXH-1taEDhA2WzvMYc5gj-RPa9odAliOgY2I-UCXylSfoBCUy1YXnh4wTL7UOGiZOzHw",
+      "bio": "mike / santal33.eth / LA 🌴",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.43557733128967446,
+        "aiGenerated": 0.13304284553212678
+      }
+    },
+    {
+      "fid": 230572,
+      "username": "chusla",
+      "displayName": "Chusla",
+      "pfp_url": "https://i.imgur.com/r0aH3wC.jpg",
+      "bio": "2x @base Grant Winner 2023 + 2024. Finalist Backdrop Build v2. Winner Bubblecon 2023. Builder of @basemint. Founder of the largest nocode+web3 agency one2all.io",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4562353857027778,
+        "aiGenerated": 0.045182525556306266
+      }
+    },
+    {
+      "fid": 5587,
+      "username": "jemsophia.eth",
+      "displayName": "ᒍEᗰ ᔕOᑭᕼIᗩ",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/5ed30522-da90-4f66-0ab9-66c03e06eb00/rectcrop3",
+      "bio": "👩🏻‍🎤 alchemical power ballads & cosmic medicine metal soundtracking your Heroine’s Journey\n👁️ ex-/zora; birth-mom of /cabin\n🏳️‍🌈 she/her",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.41376906690924997,
+        "aiGenerated": 0.114381223919455
+      }
+    },
+    {
+      "fid": 322261,
+      "username": "divusp",
+      "displayName": "DIVUS",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/43feba09-a0b3-4921-acc8-a8b925433b00/rectcrop3",
+      "bio": "Music Producer | Credits: Trouble, Jamee Cornelia, Jazii, Cam Murdoch, Miles Ryan Harris, GRLKRASH, Future Surf Radio, Rick Brown + more",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.474536630510496,
+        "aiGenerated": 0.0022322840307908987
+      }
+    },
+    {
+      "fid": 3822,
+      "username": "clay",
+      "displayName": "Clay Devlin ",
+      "pfp_url": "https://i.imgur.com/kyhuZZf.gif",
+      "bio": "Artist & Curator",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4049500416208518,
+        "aiGenerated": 0.15071025044005634
+      }
+    },
+    {
+      "fid": 210731,
+      "username": "imalvarodelgado",
+      "displayName": "alvaro delgado",
+      "pfp_url": "https://i.imgur.com/HxRvUlK.jpg",
+      "bio": "Building /oval - a newborn creative community in Barcelona.",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4906827475058193,
+        "aiGenerated": 0.135621569204574
+      }
+    },
+    {
+      "fid": 3882,
+      "username": "hollins",
+      "displayName": "Nick Hollins",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/f4c377db-8e14-4579-8e18-fd11d37bba00/original",
+      "bio": "Enjoying radio at /ufo · podcast at ufo.fm · 🛸",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.42140057715303425,
+        "aiGenerated": 0.1882903228846498
+      }
+    },
+    {
+      "fid": 1657,
+      "username": "davidtphung",
+      "displayName": "David T Phung 🚀⚡️🛰️",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/c5de6aae-77f0-4da7-00d7-04a721f27200/rectcrop3",
+      "bio": "ad astra pro terra! +x @nlt143_ human progress. space economy conversations /with each other tesla DTP FSD  https://ts.la/david78721 /keepgoing /stayheartfull",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4633206604006789,
+        "aiGenerated": 0.08974841673422201
+      }
+    },
+    {
+      "fid": 7247,
+      "username": "valcoholics",
+      "displayName": "V",
+      "pfp_url": "https://i.imgur.com/8HNEqtG.jpg",
+      "bio": "",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.46751907107543056,
+        "aiGenerated": 0.07545270893404439
+      }
+    },
+    {
+      "fid": 268878,
+      "username": "serboy",
+      "displayName": "serboy",
+      "pfp_url": "https://i.imgur.com/g5Bl6JV.jpg",
+      "bio": "onchain music\n\nhttps://drakula.app/user/serboy",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4912910732093395,
+        "aiGenerated": 0.04766818639962467
+      }
+    },
+    {
+      "fid": 1317,
+      "username": "0xdesigner",
+      "displayName": "0xdesigner",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/42bb7ee0-7246-49fd-7993-8d138aa89000/rectcrop3",
+      "bio": "designeverydays.com",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.31701392997583966,
+        "aiGenerated": 0.17735130679623873
+      }
+    },
+    {
+      "fid": 528,
+      "username": "0xen",
+      "displayName": "0xen 🎩",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/2a5a7892-2606-4155-f638-0aef15310500/original",
+      "bio": "icebreaker.xyz/0xen |\nhttps://gallery.so/Oxen/galleries | https://opensea.io/collection/farcats",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.1309781004730366,
+        "aiGenerated": 0.18764646526239948
+      }
+    },
+    {
+      "fid": 616,
+      "username": "dylsteck.eth",
+      "displayName": "dylan",
+      "pfp_url": "https://i.imgur.com/2UTZYvn.png",
+      "bio": "engineer @base | /tap /cortex /farhack | dylansteck.com",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3567140485006891,
+        "aiGenerated": 0.15925740912979436
+      }
+    },
+    {
+      "fid": 2689,
+      "username": "binji.eth",
+      "displayName": "binji 🔴",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/f11efe58-6955-42dc-b6a5-55216d5a4000/rectcrop3",
+      "bio": "lore @optimism | ex: @coinbase | views are my own | what if it all worked out? ",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.07252025272362661,
+        "aiGenerated": 0.17964912480921838
+      }
+    },
+    {
+      "fid": 48,
+      "username": "eddy",
+      "displayName": "Eddy Lazzarin 🟠",
+      "pfp_url": "https://i.imgur.com/VW1eU3C.jpg",
+      "bio": "CTO @a16zcrypto, lover of https://github.com/a16z/awesome-farcaster",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": true,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.49884267144999606,
+        "aiGenerated": 0.15148703711908296
+      }
+    },
+    {
+      "fid": 4036,
+      "username": "sassal.eth",
+      "displayName": "Sassal.eth 🎩⛽",
+      "pfp_url": "https://i.imgur.com/J81m7He.jpg",
+      "bio": "Independent Ethereum educator, angel investor and advisor. \n\nFounder of /thedailygwei.",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.23600933476117436,
+        "aiGenerated": 0.15979502389010786
+      }
+    },
+    {
+      "fid": 37,
+      "username": "balajis.eth",
+      "displayName": "balajis",
+      "pfp_url": "https://github.com/balajis.png",
+      "bio": "Author of thenetworkstate.com.",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.4587297659613214,
+        "aiGenerated": 0.04608001976032727
+      }
+    },
+    {
+      "fid": 5650,
+      "username": "vitalik.eth",
+      "displayName": "Vitalik Buterin",
+      "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/b663cd63-fecf-4d0f-7f87-0e0b6fd42800/original",
+      "bio": "hullo",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": true,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3040933785008805,
+        "aiGenerated": 0.18383568022644386
+      }
+    },
+    {
+      "fid": 4286,
+      "username": "pixel",
+      "displayName": "vincent",
+      "pfp_url": "https://lh3.googleusercontent.com/WuVUEzf_r3qgz3cf4mtkXpLat5zNZbxKjoV-AldwfCQ8-_Y5yfWScMBEalpvbVgpt4ttXruxTD9GM983-UJBzMil5GRQF1qZ_aMY",
+      "bio": "",
+      "flags": {
+        "hasCombinedSpamAndAi": true,
+        "hasHighSpam": false,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.3366282895655395,
+        "aiGenerated": 0.1105974079561034
+      }
+    },
+    {
+      "fid": 576,
+      "username": "nonlinear.eth",
+      "displayName": "Jonny Mack",
+      "pfp_url": "https://i.seadn.io/gae/oeyOFjLzIVCMec49KdmBp24ZHL82XXqLLDlLRuvUR8InycSpmf9ZtSCfN69lgojeOoucD7fU9cjxAt4raFBTTgSo34gD5lSZ83Klb1k?w=500&auto=format",
+      "bio": "building hypersub.xyz",
+      "flags": {
+        "hasCombinedSpamAndAi": false,
+        "hasHighSpam": true,
+        "hasHighAi": false,
+        "isFlagged": true
+      },
+      "scores": {
+        "spam": 0.468401035207211,
+        "aiGenerated": 0.09071784471630734
+      }
+    }
+  ]
+}

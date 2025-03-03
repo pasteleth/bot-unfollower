@@ -1,9 +1,6 @@
 import { Following } from '../types/farcaster';
 import neynarClient from './neynar-client';
 
-// Define the Neynar API URL and headers
-const NEYNAR_API_URL = 'https://api.neynar.com/v2';
-
 // Define the Neynar user type
 export type NeynarUser = {
   fid: number;
@@ -17,16 +14,8 @@ export type NeynarUser = {
     username?: string;
     displayName?: string;
   };
+  pfp_url?: string;
 };
-
-// Define the response structure from Neynar API
-interface NeynarApiResponse {
-  users?: NeynarUser[];
-  result?: {
-    users?: NeynarUser[];
-  };
-  [key: string]: unknown;
-}
 
 /**
  * Get the list of accounts that a Farcaster user follows

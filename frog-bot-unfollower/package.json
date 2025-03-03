@@ -1,0 +1,22 @@
+{
+  "name": "frog-bot-unfollower",
+  "version": "1.0.0",
+  "main": "src/index.jsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "frog dev",
+    "start": "frog dev",
+    "deploy": "vercel deploy --prod"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "A Farcaster frame for detecting bot followers",
+  "dependencies": {
+    "@hono/node-server": "^1.13.8",
+    "@vercel/og": "^0.6.5",
+    "frog": "^0.1.0",
+    "hono": "^4.7.2"
+  },
+  "type": "module"
+}

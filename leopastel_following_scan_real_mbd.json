@@ -1,0 +1,74 @@
+{
+  "timestamp": "2025-03-03T13:34:30.535Z",
+  "fid": 318473,
+  "totalFollowing": 674,
+  "flaggedCount": 3,
+  "flaggedAccounts": [
+    {
+      "username": "redstone",
+      "displayName": "Redstone Chain",
+      "fid": 498774,
+      "spamScore": "87.6%",
+      "aiScore": "0.0%",
+      "flags": [
+        "high spam"
+      ],
+      "rawScores": {
+        "ai_generated_probability": 0.0002590333,
+        "spam_probability": 0.876200974,
+        "sexual": 0.000738333,
+        "hate": 0.001839251,
+        "violence": 0.0008830923,
+        "harassment": 0.0004748227,
+        "selfharm": 0.0010969732,
+        "sexual_minors": 0.0003776962,
+        "hate_threatening": 0.0002741756,
+        "violence_graphic": 0.0005300919
+      }
+    },
+    {
+      "username": "zadanxyz",
+      "displayName": "ZADAN [ZAY-den]",
+      "fid": 476134,
+      "spamScore": "62.3%",
+      "aiScore": "0.0%",
+      "flags": [
+        "high spam"
+      ],
+      "rawScores": {
+        "ai_generated_probability": 0.00028803246666666665,
+        "spam_probability": 0.6232763852000001,
+        "sexual": 0.0009721143666666666,
+        "hate": 0.0020215725000000003,
+        "violence": 0.0010428647666666667,
+        "harassment": 0.0006812012333333332,
+        "selfharm": 0.0016938863,
+        "sexual_minors": 0.000485138,
+        "hate_threatening": 0.00028391403333333335,
+        "violence_graphic": 0.0006445149333333334
+      }
+    },
+    {
+      "username": "jasonr",
+      "displayName": "Jason Rosenthal ",
+      "fid": 10101,
+      "spamScore": "69.2%",
+      "aiScore": "0.0%",
+      "flags": [
+        "high spam"
+      ],
+      "rawScores": {
+        "ai_generated_probability": 0.0002895407,
+        "spam_probability": 0.6922371984,
+        "sexual": 0.0009801737,
+        "hate": 0.0019703619,
+        "violence": 0.000907622,
+        "harassment": 0.0005173518,
+        "selfharm": 0.0010124266,
+        "sexual_minors": 0.0004927246,
+        "hate_threatening": 0.0003445733,
+        "violence_graphic": 0.0005870396
+      }
+    }
+  ]
+}

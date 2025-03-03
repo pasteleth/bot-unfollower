@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getFollowing } from '@/lib/farcaster';
-import { analyzeContent, getUserModeration } from '@/lib/mbd';
+import { getUserModeration } from '@/lib/mbd';
 
 interface ApiDiagnostics {
   apiName: string;

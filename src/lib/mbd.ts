@@ -158,7 +158,8 @@ export async function getUserModeration(userIds: string[], skipCache = false): P
  * @param content The text content to analyze
  * @returns Analysis results with moderation scores
  */
-export async function analyzeContent(content: string): Promise<AnalysisResult> {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function analyzeContent(_content: string): Promise<AnalysisResult> {
   // This is kept for backwards compatibility with existing code
   console.log(`Making MBD API request to check connectivity...`);
   

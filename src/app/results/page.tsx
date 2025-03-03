@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 interface FlaggedAccount {
@@ -25,7 +25,7 @@ interface ScanResults {
   flaggedAccounts: FlaggedAccount[];
 }
 
-export default function ResultsPage() {
+function ResultsContent() {
   const searchParams = useSearchParams();
   const fid = searchParams.get('fid');
   
@@ -141,5 +141,14 @@ export default function ResultsPage() {
       
       <a href="/" className="text-blue-500 underline mt-6 block">Scan Again</a>
     </div>
+  );
+}
+
+// Wrap the component with Suspense
+export default function ResultsPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ResultsContent />
+    </Suspense>
   );
 } 

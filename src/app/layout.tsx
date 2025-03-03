@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import "./globals.css";
+// Temporarily removing CSS import to fix build issues
+// import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Bot Detector Frame",
@@ -12,8 +13,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body className="antialiased">
+    <html lang="en">
+      <body>
         {children}
       </body>
     </html>

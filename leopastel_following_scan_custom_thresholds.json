@@ -1,0 +1,2118 @@
+{
+  "timestamp": "2025-03-03T13:27:02.343Z",
+  "fid": 318473,
+  "totalFollowing": 674,
+  "flaggedCount": 209,
+  "flaggedAccounts": [
+    {
+      "username": "shalinpei",
+      "displayName": "shalin.base.eth",
+      "fid": 520,
+      "spamScore": "73.7%",
+      "aiScore": "22.7%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "ok",
+      "displayName": "Andrew Jiang 🎩",
+      "fid": 3391,
+      "spamScore": "18.9%",
+      "aiScore": "63.7%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "cassie",
+      "displayName": "Cassie Heart",
+      "fid": 1325,
+      "spamScore": "71.6%",
+      "aiScore": "53.5%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "fffflood",
+      "displayName": "FLOOD",
+      "fid": 237973,
+      "spamScore": "21.9%",
+      "aiScore": "68.3%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "vuisall",
+      "displayName": "Sage",
+      "fid": 813165,
+      "spamScore": "55.2%",
+      "aiScore": "67.8%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "alexpaul",
+      "displayName": "Alex Paul ",
+      "fid": 240489,
+      "spamScore": "78.6%",
+      "aiScore": "10.2%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "meb",
+      "displayName": "Mo",
+      "fid": 4339,
+      "spamScore": "13.9%",
+      "aiScore": "68.2%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "phil",
+      "displayName": "phil",
+      "fid": 129,
+      "spamScore": "44.7%",
+      "aiScore": "61.0%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "annoushka.eth",
+      "displayName": "annoushka",
+      "fid": 2736,
+      "spamScore": "58.8%",
+      "aiScore": "65.4%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "0xyezh",
+      "displayName": "Yezh",
+      "fid": 263943,
+      "spamScore": "80.0%",
+      "aiScore": "42.4%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "amin",
+      "displayName": "aminiman.eth",
+      "fid": 2236,
+      "spamScore": "18.8%",
+      "aiScore": "63.6%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "rafi",
+      "displayName": "Rafi",
+      "fid": 3017,
+      "spamScore": "76.4%",
+      "aiScore": "18.9%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "boysclub",
+      "displayName": "Boys club",
+      "fid": 3842,
+      "spamScore": "62.6%",
+      "aiScore": "17.5%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "bixbite",
+      "displayName": "Bixbite 👽",
+      "fid": 20147,
+      "spamScore": "44.3%",
+      "aiScore": "64.2%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "jasonmeinzer",
+      "displayName": "jasonmeinzer.eth 🎩↑",
+      "fid": 8885,
+      "spamScore": "2.3%",
+      "aiScore": "62.8%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "kanet",
+      "displayName": "Kane Thomas",
+      "fid": 820439,
+      "spamScore": "7.1%",
+      "aiScore": "67.7%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "pcaversaccio",
+      "displayName": "sudo rm -rf --no-preserve-root /",
+      "fid": 14976,
+      "spamScore": "65.1%",
+      "aiScore": "7.4%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "madebymarge.eth",
+      "displayName": "Marge 🎩⚡️",
+      "fid": 196950,
+      "spamScore": "79.3%",
+      "aiScore": "54.3%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "amerge",
+      "displayName": "Amerge Music",
+      "fid": 857950,
+      "spamScore": "71.5%",
+      "aiScore": "3.2%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "0x4b1d",
+      "displayName": "0x4b1d",
+      "fid": 866407,
+      "spamScore": "40.6%",
+      "aiScore": "60.1%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "bradbarrish",
+      "displayName": "Brad Barrish",
+      "fid": 16066,
+      "spamScore": "56.6%",
+      "aiScore": "64.1%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "mkkstacks",
+      "displayName": "Mkkstacks",
+      "fid": 394027,
+      "spamScore": "33.6%",
+      "aiScore": "69.4%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "ripe",
+      "displayName": "ripe↑",
+      "fid": 2266,
+      "spamScore": "61.3%",
+      "aiScore": "15.6%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "bleu.eth",
+      "displayName": "agusti",
+      "fid": 253127,
+      "spamScore": "29.7%",
+      "aiScore": "67.2%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "zerebro",
+      "displayName": "zerebro",
+      "fid": 869379,
+      "spamScore": "34.9%",
+      "aiScore": "64.7%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "compusophy",
+      "displayName": "compusophy",
+      "fid": 350911,
+      "spamScore": "62.0%",
+      "aiScore": "21.5%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "polymarket",
+      "displayName": "Polymarket",
+      "fid": 310928,
+      "spamScore": "79.5%",
+      "aiScore": "24.7%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "slokh",
+      "displayName": "Kartik",
+      "fid": 3887,
+      "spamScore": "43.9%",
+      "aiScore": "60.6%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "crownandpalette",
+      "displayName": "crownandpalette.base.eth ",
+      "fid": 473516,
+      "spamScore": "65.3%",
+      "aiScore": "4.5%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "aethernet",
+      "displayName": "Aether",
+      "fid": 862185,
+      "spamScore": "77.5%",
+      "aiScore": "52.7%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "jackwyldes.eth",
+      "displayName": "Jack Wyldes",
+      "fid": 323746,
+      "spamScore": "29.8%",
+      "aiScore": "64.3%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "nngllzz.eth",
+      "displayName": "Nino",
+      "fid": 193785,
+      "spamScore": "70.3%",
+      "aiScore": "67.2%",
+      "flags": [
+        "high spam",
+        "high AI"
+      ]
+    },
+    {
+      "username": "jess",
+      "displayName": "Jess Sloss !!!",
+      "fid": 139,
+      "spamScore": "65.3%",
+      "aiScore": "5.5%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "mightymoss",
+      "displayName": "MightyMoss 🎩🔵❇️",
+      "fid": 343324,
+      "spamScore": "18.9%",
+      "aiScore": "61.3%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "pmarca",
+      "displayName": "Marc Andreessen",
+      "fid": 51,
+      "spamScore": "71.3%",
+      "aiScore": "28.1%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "sgniwder",
+      "displayName": "frederick",
+      "fid": 245124,
+      "spamScore": "9.4%",
+      "aiScore": "61.9%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "cryptodima.eth",
+      "displayName": "Snobi ⌐◨-◨ 🌈☮️",
+      "fid": 410761,
+      "spamScore": "79.1%",
+      "aiScore": "18.5%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "doubting",
+      "displayName": "Trevor Biggs",
+      "fid": 335386,
+      "spamScore": "31.6%",
+      "aiScore": "68.9%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "civilmonkey",
+      "displayName": "civil🛫Denver🍄regen💚🫂",
+      "fid": 212703,
+      "spamScore": "76.7%",
+      "aiScore": "29.9%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "afrochicks",
+      "displayName": "Naomi",
+      "fid": 780900,
+      "spamScore": "63.0%",
+      "aiScore": "41.8%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "chinmay.eth",
+      "displayName": "Chinmay 🕹️🍿",
+      "fid": 15838,
+      "spamScore": "45.9%",
+      "aiScore": "68.8%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "pentacle.eth",
+      "displayName": "pentacle",
+      "fid": 1068,
+      "spamScore": "58.6%",
+      "aiScore": "68.9%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "gorebashd",
+      "displayName": "Lazygore 🇨🇦🎩⌐◨-◨ ",
+      "fid": 773367,
+      "spamScore": "37.5%",
+      "aiScore": "64.4%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "jordanisgreen.eth",
+      "displayName": "jordanᵀᴺ ",
+      "fid": 226519,
+      "spamScore": "0.2%",
+      "aiScore": "68.9%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "rev",
+      "displayName": "rev",
+      "fid": 17672,
+      "spamScore": "51.7%",
+      "aiScore": "66.2%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "tamrat",
+      "displayName": "Tamrat",
+      "fid": 21093,
+      "spamScore": "67.9%",
+      "aiScore": "15.5%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "vinito",
+      "displayName": "VINITO ✿",
+      "fid": 298503,
+      "spamScore": "32.9%",
+      "aiScore": "66.3%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "wen-airdrop.eth",
+      "displayName": "Marcus | Wen.Airdrop",
+      "fid": 191770,
+      "spamScore": "77.2%",
+      "aiScore": "28.4%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "basement5k.eth",
+      "displayName": "basement5k.⌐◨-◨ 🟡",
+      "fid": 431880,
+      "spamScore": "21.0%",
+      "aiScore": "63.7%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "seanwince",
+      "displayName": "Sean Wince 🎩",
+      "fid": 8405,
+      "spamScore": "67.0%",
+      "aiScore": "58.3%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "arrotu",
+      "displayName": "Arrotu",
+      "fid": 441956,
+      "spamScore": "72.0%",
+      "aiScore": "19.1%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "iyk",
+      "displayName": "IYK",
+      "fid": 282278,
+      "spamScore": "62.0%",
+      "aiScore": "6.3%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "compez.eth",
+      "displayName": "C O M P Ξ Z",
+      "fid": 321969,
+      "spamScore": "67.9%",
+      "aiScore": "65.3%",
+      "flags": [
+        "high spam",
+        "high AI"
+      ]
+    },
+    {
+      "username": "netnose",
+      "displayName": "Mirko 🔵🟡 .⌐◨-◨",
+      "fid": 206967,
+      "spamScore": "69.6%",
+      "aiScore": "5.3%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "coinbasewallet",
+      "displayName": "Coinbase Wallet",
+      "fid": 309857,
+      "spamScore": "65.8%",
+      "aiScore": "26.5%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "kylepatrick.eth",
+      "displayName": "Kyle Patrick",
+      "fid": 247143,
+      "spamScore": "44.5%",
+      "aiScore": "61.7%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "xdrian",
+      "displayName": "xdrian",
+      "fid": 240499,
+      "spamScore": "69.8%",
+      "aiScore": "66.6%",
+      "flags": [
+        "high spam",
+        "high AI"
+      ]
+    },
+    {
+      "username": "bigtrav205",
+      "displayName": "Trav ",
+      "fid": 379787,
+      "spamScore": "63.0%",
+      "aiScore": "37.7%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "jamesyoung",
+      "displayName": "jamesyoung.eth",
+      "fid": 6087,
+      "spamScore": "0.8%",
+      "aiScore": "68.8%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "sophia",
+      "displayName": "Sophia",
+      "fid": 10610,
+      "spamScore": "3.7%",
+      "aiScore": "69.5%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "flight",
+      "displayName": "flight 🛩️↑",
+      "fid": 292310,
+      "spamScore": "63.7%",
+      "aiScore": "42.6%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "fabrii.eth",
+      "displayName": "fabrii 🎩",
+      "fid": 340819,
+      "spamScore": "79.1%",
+      "aiScore": "69.5%",
+      "flags": [
+        "high spam",
+        "high AI"
+      ]
+    },
+    {
+      "username": "worldwideruss",
+      "displayName": "Russ🎩",
+      "fid": 343963,
+      "spamScore": "69.5%",
+      "aiScore": "15.6%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "gigarahul.eth",
+      "displayName": "optimist 🎩",
+      "fid": 2085,
+      "spamScore": "72.0%",
+      "aiScore": "45.5%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "sozi",
+      "displayName": "SOZI",
+      "fid": 527245,
+      "spamScore": "68.6%",
+      "aiScore": "43.0%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "0xlacroix",
+      "displayName": "0xlacroix ",
+      "fid": 225851,
+      "spamScore": "61.9%",
+      "aiScore": "39.2%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "joonatan.eth",
+      "displayName": "Joonatan | Phaver CEO",
+      "fid": 8035,
+      "spamScore": "61.4%",
+      "aiScore": "66.4%",
+      "flags": [
+        "high spam",
+        "high AI"
+      ]
+    },
+    {
+      "username": "checkin",
+      "displayName": "Checkin - Checkin and Earn",
+      "fid": 388302,
+      "spamScore": "2.6%",
+      "aiScore": "67.1%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "dee",
+      "displayName": "dee",
+      "fid": 3380,
+      "spamScore": "72.5%",
+      "aiScore": "3.8%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "neodaoist",
+      "displayName": "tom.base.eth",
+      "fid": 196388,
+      "spamScore": "38.4%",
+      "aiScore": "66.0%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "articuno.eth",
+      "displayName": "fry",
+      "fid": 7452,
+      "spamScore": "78.7%",
+      "aiScore": "24.7%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "akhil-bvs",
+      "displayName": "Akhil",
+      "fid": 1265,
+      "spamScore": "23.2%",
+      "aiScore": "63.2%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "ramie",
+      "displayName": "Ramie رامي",
+      "fid": 5197,
+      "spamScore": "69.3%",
+      "aiScore": "36.0%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "maxximillian",
+      "displayName": "Maxximillian.base.eth",
+      "fid": 248397,
+      "spamScore": "69.3%",
+      "aiScore": "47.4%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "nor",
+      "displayName": "Connor McCormick ☀️",
+      "fid": 2588,
+      "spamScore": "78.0%",
+      "aiScore": "30.4%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "0xfran",
+      "displayName": "0xFran 🫂",
+      "fid": 9507,
+      "spamScore": "15.9%",
+      "aiScore": "69.9%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "creator",
+      "displayName": "CR",
+      "fid": 13563,
+      "spamScore": "66.6%",
+      "aiScore": "38.3%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "radlaserfalcon",
+      "displayName": "Rad ✋",
+      "fid": 8966,
+      "spamScore": "72.5%",
+      "aiScore": "40.8%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "promptrotator.eth",
+      "displayName": "David (d/acc)",
+      "fid": 9134,
+      "spamScore": "68.6%",
+      "aiScore": "32.4%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "cincinnati",
+      "displayName": "Brennan",
+      "fid": 281374,
+      "spamScore": "67.0%",
+      "aiScore": "62.4%",
+      "flags": [
+        "high spam",
+        "high AI"
+      ]
+    },
+    {
+      "username": "plugrel",
+      "displayName": "Plug",
+      "fid": 461535,
+      "spamScore": "76.1%",
+      "aiScore": "20.2%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "vmathur",
+      "displayName": "vishal",
+      "fid": 17592,
+      "spamScore": "25.4%",
+      "aiScore": "67.4%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "esdotge.eth",
+      "displayName": "S·G 🎩↑◡̈",
+      "fid": 5431,
+      "spamScore": "68.7%",
+      "aiScore": "59.5%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "br3no.eth",
+      "displayName": "Breno",
+      "fid": 210629,
+      "spamScore": "74.9%",
+      "aiScore": "62.7%",
+      "flags": [
+        "high spam",
+        "high AI"
+      ]
+    },
+    {
+      "username": "yayou",
+      "displayName": "Yang You",
+      "fid": 1072,
+      "spamScore": "65.2%",
+      "aiScore": "0.6%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "alixkun",
+      "displayName": "alixkun🟣🎩🍡",
+      "fid": 3609,
+      "spamScore": "49.4%",
+      "aiScore": "63.2%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "thespartanlabs",
+      "displayName": "Spartan Labs",
+      "fid": 226204,
+      "spamScore": "61.4%",
+      "aiScore": "49.7%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "sigueinventando",
+      "displayName": "Gabe 🇩🇴",
+      "fid": 189405,
+      "spamScore": "77.9%",
+      "aiScore": "47.6%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "farther",
+      "displayName": "Farther✨",
+      "fid": 429188,
+      "spamScore": "71.4%",
+      "aiScore": "17.3%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "cojo.eth",
+      "displayName": "Colin Johnson 💭",
+      "fid": 4327,
+      "spamScore": "71.5%",
+      "aiScore": "11.9%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "samo.eth",
+      "displayName": "Samo",
+      "fid": 7012,
+      "spamScore": "73.6%",
+      "aiScore": "48.3%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "literature",
+      "displayName": "nis.eth",
+      "fid": 58,
+      "spamScore": "62.4%",
+      "aiScore": "21.7%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "tudorizer",
+      "displayName": "Tudor 🟣🟡",
+      "fid": 342737,
+      "spamScore": "26.7%",
+      "aiScore": "62.6%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "usersteen.eth",
+      "displayName": "Steen!!!",
+      "fid": 9055,
+      "spamScore": "61.7%",
+      "aiScore": "68.2%",
+      "flags": [
+        "high spam",
+        "high AI"
+      ]
+    },
+    {
+      "username": "niko",
+      "displayName": "niko",
+      "fid": 3789,
+      "spamScore": "68.8%",
+      "aiScore": "10.6%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "kmacb.eth",
+      "displayName": "KMac🍌 ⏩",
+      "fid": 4163,
+      "spamScore": "69.3%",
+      "aiScore": "54.4%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "tonyw",
+      "displayName": "TonyW 🎩",
+      "fid": 13933,
+      "spamScore": "61.8%",
+      "aiScore": "46.9%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "wenath",
+      "displayName": "wen ATH ᖽ",
+      "fid": 492621,
+      "spamScore": "74.6%",
+      "aiScore": "66.3%",
+      "flags": [
+        "high spam",
+        "high AI"
+      ]
+    },
+    {
+      "username": "snibb123",
+      "displayName": "Snibb123.eth",
+      "fid": 21039,
+      "spamScore": "2.1%",
+      "aiScore": "69.6%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "emr.eth",
+      "displayName": "Emre Ekinci",
+      "fid": 6227,
+      "spamScore": "47.6%",
+      "aiScore": "61.3%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "redstone",
+      "displayName": "Redstone Chain",
+      "fid": 498774,
+      "spamScore": "60.5%",
+      "aiScore": "12.4%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "septembermusic",
+      "displayName": "September",
+      "fid": 498007,
+      "spamScore": "25.9%",
+      "aiScore": "64.0%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "tameel.eth",
+      "displayName": "Matt",
+      "fid": 6591,
+      "spamScore": "50.0%",
+      "aiScore": "67.3%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "juujuumama",
+      "displayName": "SierraRenee Ayọ Ṣádé",
+      "fid": 10095,
+      "spamScore": "37.2%",
+      "aiScore": "68.5%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "flexasaurusrex",
+      "displayName": "FlexasaurusRex◨-◨Ⓜ️🎩",
+      "fid": 7418,
+      "spamScore": "70.8%",
+      "aiScore": "69.7%",
+      "flags": [
+        "high spam",
+        "high AI"
+      ]
+    },
+    {
+      "username": "benroy",
+      "displayName": "Ben Roy",
+      "fid": 12224,
+      "spamScore": "63.0%",
+      "aiScore": "69.0%",
+      "flags": [
+        "high spam",
+        "high AI"
+      ]
+    },
+    {
+      "username": "karlagod",
+      "displayName": "KarlaGod",
+      "fid": 318515,
+      "spamScore": "4.2%",
+      "aiScore": "62.3%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "wylin",
+      "displayName": "wylin",
+      "fid": 15899,
+      "spamScore": "69.1%",
+      "aiScore": "8.6%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "phaverapp",
+      "displayName": "$SOCIAL DAO",
+      "fid": 236812,
+      "spamScore": "74.6%",
+      "aiScore": "10.4%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "threeoscillators",
+      "displayName": "Three Oscillators",
+      "fid": 482768,
+      "spamScore": "60.6%",
+      "aiScore": "46.7%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "frankiestyles",
+      "displayName": "Frankie Styles",
+      "fid": 318555,
+      "spamScore": "61.2%",
+      "aiScore": "27.1%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "satwikofficial",
+      "displayName": "Satwik",
+      "fid": 223474,
+      "spamScore": "2.9%",
+      "aiScore": "68.8%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "l444u",
+      "displayName": "lau",
+      "fid": 15037,
+      "spamScore": "39.1%",
+      "aiScore": "68.0%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "ibraheem",
+      "displayName": "Ibraheem ✈️ Leone",
+      "fid": 19776,
+      "spamScore": "35.8%",
+      "aiScore": "68.4%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "arhat",
+      "displayName": "Arhat",
+      "fid": 10807,
+      "spamScore": "64.4%",
+      "aiScore": "65.6%",
+      "flags": [
+        "high spam",
+        "high AI"
+      ]
+    },
+    {
+      "username": "yunice",
+      "displayName": "YUNICE",
+      "fid": 265204,
+      "spamScore": "78.6%",
+      "aiScore": "54.8%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "sebas.eth",
+      "displayName": "Sebas",
+      "fid": 240247,
+      "spamScore": "63.1%",
+      "aiScore": "68.0%",
+      "flags": [
+        "high spam",
+        "high AI"
+      ]
+    },
+    {
+      "username": "reespect",
+      "displayName": "reespect 🛫",
+      "fid": 465798,
+      "spamScore": "9.5%",
+      "aiScore": "68.4%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "les",
+      "displayName": "Les Greys",
+      "fid": 312,
+      "spamScore": "14.3%",
+      "aiScore": "68.8%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "snax.eth",
+      "displayName": "Snax ",
+      "fid": 15516,
+      "spamScore": "37.4%",
+      "aiScore": "61.3%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "goldy",
+      "displayName": "Goldy ⌐◨-◨",
+      "fid": 3711,
+      "spamScore": "73.7%",
+      "aiScore": "63.3%",
+      "flags": [
+        "high spam",
+        "high AI"
+      ]
+    },
+    {
+      "username": "mats",
+      "displayName": "Mats",
+      "fid": 212364,
+      "spamScore": "53.7%",
+      "aiScore": "62.8%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "entropybender",
+      "displayName": "kevin j",
+      "fid": 13659,
+      "spamScore": "56.1%",
+      "aiScore": "65.7%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "itsbasil",
+      "displayName": "basil",
+      "fid": 20384,
+      "spamScore": "64.9%",
+      "aiScore": "7.5%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "eulerlagrange.eth",
+      "displayName": "EulerLagrangodamus - tevm/acc",
+      "fid": 16148,
+      "spamScore": "73.7%",
+      "aiScore": "68.4%",
+      "flags": [
+        "high spam",
+        "high AI"
+      ]
+    },
+    {
+      "username": "briantoups",
+      "displayName": "Starboy 🎩✨",
+      "fid": 357745,
+      "spamScore": "18.0%",
+      "aiScore": "64.7%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "0x0neill.eth",
+      "displayName": "0x0neill.eth 🛡️",
+      "fid": 20323,
+      "spamScore": "77.9%",
+      "aiScore": "23.1%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "akastevey",
+      "displayName": "Amanda",
+      "fid": 4547,
+      "spamScore": "65.4%",
+      "aiScore": "56.9%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "fid:12283",
+      "displayName": "edd",
+      "fid": 12283,
+      "spamScore": "64.0%",
+      "aiScore": "16.7%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "sloppy",
+      "displayName": "Sloppy.⌐◨-◨",
+      "fid": 196215,
+      "spamScore": "19.7%",
+      "aiScore": "65.8%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "paragraph",
+      "displayName": "Paragraph",
+      "fid": 12312,
+      "spamScore": "26.3%",
+      "aiScore": "66.1%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "jacksonbrinton",
+      "displayName": "Jackson",
+      "fid": 245819,
+      "spamScore": "71.0%",
+      "aiScore": "3.9%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "raccoontrading",
+      "displayName": "Raccoon",
+      "fid": 264194,
+      "spamScore": "64.9%",
+      "aiScore": "44.5%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "bakergracemusic",
+      "displayName": "Baker Grace",
+      "fid": 363197,
+      "spamScore": "35.6%",
+      "aiScore": "65.1%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "jadynviolet",
+      "displayName": "Jadyn Violet",
+      "fid": 310150,
+      "spamScore": "77.6%",
+      "aiScore": "1.5%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "ansem",
+      "displayName": "Ansem",
+      "fid": 241316,
+      "spamScore": "56.7%",
+      "aiScore": "64.2%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "2k",
+      "displayName": "2k 🎩",
+      "fid": 238655,
+      "spamScore": "25.1%",
+      "aiScore": "60.4%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "hvdson",
+      "displayName": "hvdson",
+      "fid": 5932,
+      "spamScore": "73.7%",
+      "aiScore": "63.8%",
+      "flags": [
+        "high spam",
+        "high AI"
+      ]
+    },
+    {
+      "username": "shlippin",
+      "displayName": "SHLippin",
+      "fid": 415597,
+      "spamScore": "67.5%",
+      "aiScore": "29.9%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "tokengay",
+      "displayName": "jack lennon",
+      "fid": 211158,
+      "spamScore": "74.1%",
+      "aiScore": "55.3%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "qabqabqab",
+      "displayName": "qabqabqab",
+      "fid": 382890,
+      "spamScore": "58.8%",
+      "aiScore": "68.0%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "upperreality",
+      "displayName": "Upper Reality",
+      "fid": 299967,
+      "spamScore": "60.4%",
+      "aiScore": "37.3%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "fractalvisions.eth",
+      "displayName": "Fractal Visions ⌐◨-◨",
+      "fid": 19613,
+      "spamScore": "72.2%",
+      "aiScore": "4.4%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "mshartistry",
+      "displayName": "Midday Tha Surrealist 💎",
+      "fid": 409913,
+      "spamScore": "69.6%",
+      "aiScore": "54.7%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "littlevibemusic",
+      "displayName": "little vibe",
+      "fid": 436548,
+      "spamScore": "5.5%",
+      "aiScore": "65.5%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "rarewashere",
+      "displayName": "RARE",
+      "fid": 420718,
+      "spamScore": "6.3%",
+      "aiScore": "66.0%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "edballoon",
+      "displayName": "Ed balloon ",
+      "fid": 20358,
+      "spamScore": "43.3%",
+      "aiScore": "68.7%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "gabrielle",
+      "displayName": "Gabrielle🎩✈️",
+      "fid": 362192,
+      "spamScore": "65.6%",
+      "aiScore": "59.0%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "alonearchitect",
+      "displayName": "Alone Architect ",
+      "fid": 431184,
+      "spamScore": "78.1%",
+      "aiScore": "56.5%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "pskaguya",
+      "displayName": "Kaguya",
+      "fid": 336526,
+      "spamScore": "75.6%",
+      "aiScore": "51.0%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "ladidaix",
+      "displayName": "ladidai ✈️",
+      "fid": 11646,
+      "spamScore": "61.8%",
+      "aiScore": "60.9%",
+      "flags": [
+        "high spam",
+        "high AI"
+      ]
+    },
+    {
+      "username": "stefdelev",
+      "displayName": "Stefen 🎩✈️↑",
+      "fid": 20907,
+      "spamScore": "38.7%",
+      "aiScore": "66.9%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "theo",
+      "displayName": "taayyohh",
+      "fid": 4446,
+      "spamScore": "18.1%",
+      "aiScore": "64.4%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "morgancoates",
+      "displayName": "Morgan",
+      "fid": 398233,
+      "spamScore": "35.5%",
+      "aiScore": "63.8%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "0xlenstor.eth",
+      "displayName": "Stanislav",
+      "fid": 266165,
+      "spamScore": "70.2%",
+      "aiScore": "49.7%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "statuette",
+      "displayName": "statuette.base.eth",
+      "fid": 15211,
+      "spamScore": "73.2%",
+      "aiScore": "49.8%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "carlathepoet",
+      "displayName": "Not Carla The Poet",
+      "fid": 211018,
+      "spamScore": "75.6%",
+      "aiScore": "28.8%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "kyv",
+      "displayName": "Klara Vollstaedt",
+      "fid": 5601,
+      "spamScore": "79.5%",
+      "aiScore": "63.7%",
+      "flags": [
+        "high spam",
+        "high AI"
+      ]
+    },
+    {
+      "username": "alexmasmej.eth",
+      "displayName": "$ALEX Masmej",
+      "fid": 738,
+      "spamScore": "79.5%",
+      "aiScore": "63.7%",
+      "flags": [
+        "high spam",
+        "high AI"
+      ]
+    },
+    {
+      "username": "celiainside",
+      "displayName": "celia inside ",
+      "fid": 324876,
+      "spamScore": "62.5%",
+      "aiScore": "4.2%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "papa",
+      "displayName": "Papajams",
+      "fid": 5254,
+      "spamScore": "66.9%",
+      "aiScore": "53.6%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "adworldgame",
+      "displayName": "AdWorld Incorporated",
+      "fid": 350581,
+      "spamScore": "66.4%",
+      "aiScore": "57.0%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "jx",
+      "displayName": "Jack Spallone",
+      "fid": 3686,
+      "spamScore": "73.6%",
+      "aiScore": "57.9%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "awolfee",
+      "displayName": "awolfee",
+      "fid": 312767,
+      "spamScore": "70.3%",
+      "aiScore": "36.5%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "karmawav",
+      "displayName": "karma.wav ↑ 🌊",
+      "fid": 1436,
+      "spamScore": "65.6%",
+      "aiScore": "34.2%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "musnit.eth",
+      "displayName": "musnit",
+      "fid": 523,
+      "spamScore": "71.9%",
+      "aiScore": "14.9%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "hipseynussle.eth",
+      "displayName": "HipseyNussle.eth ツ 🦉🎩",
+      "fid": 21941,
+      "spamScore": "77.8%",
+      "aiScore": "28.4%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "hotgreensauce",
+      "displayName": "S.C. 🎩🔵🧢",
+      "fid": 343580,
+      "spamScore": "63.9%",
+      "aiScore": "62.9%",
+      "flags": [
+        "high spam",
+        "high AI"
+      ]
+    },
+    {
+      "username": "mikegood",
+      "displayName": "mike good ⌐◨-◨",
+      "fid": 19530,
+      "spamScore": "2.7%",
+      "aiScore": "67.6%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "thenounsquare",
+      "displayName": "The Noun Square",
+      "fid": 20945,
+      "spamScore": "67.9%",
+      "aiScore": "2.2%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "sharidoherty",
+      "displayName": "Shari",
+      "fid": 583,
+      "spamScore": "60.0%",
+      "aiScore": "22.7%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "danib88",
+      "displayName": "Daniel Ballesteros",
+      "fid": 368096,
+      "spamScore": "70.7%",
+      "aiScore": "54.6%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "charmlikemagic",
+      "displayName": "Charm Taylor",
+      "fid": 221323,
+      "spamScore": "64.4%",
+      "aiScore": "16.1%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "artistprogram",
+      "displayName": "Artist Program",
+      "fid": 312747,
+      "spamScore": "58.9%",
+      "aiScore": "61.2%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "theegrandace",
+      "displayName": "GrandAce",
+      "fid": 379952,
+      "spamScore": "77.7%",
+      "aiScore": "12.6%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "gami.eth",
+      "displayName": "gami.eth ⎈",
+      "fid": 10810,
+      "spamScore": "14.3%",
+      "aiScore": "63.1%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "badrlaghfiry",
+      "displayName": "Badr Laghfiry ",
+      "fid": 322604,
+      "spamScore": "78.8%",
+      "aiScore": "54.6%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "jasonr",
+      "displayName": "Jason Rosenthal ",
+      "fid": 10101,
+      "spamScore": "61.7%",
+      "aiScore": "17.2%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "aneri",
+      "displayName": "aneri.base.eth",
+      "fid": 7732,
+      "spamScore": "69.1%",
+      "aiScore": "23.9%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "juar.eth",
+      "displayName": "carlos juar.eth",
+      "fid": 4132,
+      "spamScore": "24.0%",
+      "aiScore": "62.3%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "sagar",
+      "displayName": "Sagar Dhawan",
+      "fid": 1598,
+      "spamScore": "69.7%",
+      "aiScore": "0.1%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "st3ve",
+      "displayName": "st3ve.eth",
+      "fid": 3484,
+      "spamScore": "70.9%",
+      "aiScore": "34.3%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "defijesus",
+      "displayName": "defijesus.eth",
+      "fid": 2757,
+      "spamScore": "26.8%",
+      "aiScore": "60.0%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "ace",
+      "displayName": "ace",
+      "fid": 539,
+      "spamScore": "76.9%",
+      "aiScore": "19.5%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "nemild",
+      "displayName": "Nemil Dalal",
+      "fid": 223,
+      "spamScore": "67.5%",
+      "aiScore": "45.2%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "0xchris",
+      "displayName": "0xChris",
+      "fid": 15799,
+      "spamScore": "72.0%",
+      "aiScore": "30.6%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "chaskin.eth",
+      "displayName": ".",
+      "fid": 7479,
+      "spamScore": "60.8%",
+      "aiScore": "54.3%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "cdixon.eth",
+      "displayName": "Chris Dixon",
+      "fid": 25,
+      "spamScore": "65.9%",
+      "aiScore": "8.4%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "degencast.eth",
+      "displayName": "Liang @ degencast.wtf 🎩",
+      "fid": 7061,
+      "spamScore": "62.5%",
+      "aiScore": "43.9%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "originstory",
+      "displayName": "origin⚡️",
+      "fid": 13314,
+      "spamScore": "20.8%",
+      "aiScore": "60.6%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "joshuafisher.eth",
+      "displayName": "Joshua Fisher ⌐◨-◨",
+      "fid": 1079,
+      "spamScore": "34.6%",
+      "aiScore": "65.0%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "rainbow",
+      "displayName": "Rainbow",
+      "fid": 20919,
+      "spamScore": "37.0%",
+      "aiScore": "63.0%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "amiyoko",
+      "displayName": "ami",
+      "fid": 20413,
+      "spamScore": "70.9%",
+      "aiScore": "34.6%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "sweetman.eth",
+      "displayName": "sweetman",
+      "fid": 210648,
+      "spamScore": "34.2%",
+      "aiScore": "69.7%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "thepark",
+      "displayName": "the park",
+      "fid": 9581,
+      "spamScore": "43.7%",
+      "aiScore": "66.5%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "glasstempo.eth",
+      "displayName": "Glasstempo",
+      "fid": 367437,
+      "spamScore": "16.8%",
+      "aiScore": "60.2%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "atown",
+      "displayName": "atown",
+      "fid": 191042,
+      "spamScore": "62.1%",
+      "aiScore": "44.9%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "waltz",
+      "displayName": "Jon waltz",
+      "fid": 331540,
+      "spamScore": "67.5%",
+      "aiScore": "29.2%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "jemsophia.eth",
+      "displayName": "ᒍEᗰ ᔕOᑭᕼIᗩ",
+      "fid": 5587,
+      "spamScore": "0.4%",
+      "aiScore": "68.0%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "lunsen",
+      "displayName": "Lunsen ",
+      "fid": 18859,
+      "spamScore": "73.7%",
+      "aiScore": "28.0%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "divusp",
+      "displayName": "DIVUS",
+      "fid": 322261,
+      "spamScore": "72.3%",
+      "aiScore": "8.5%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "hollins",
+      "displayName": "Nick Hollins",
+      "fid": 3882,
+      "spamScore": "3.1%",
+      "aiScore": "61.0%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "valcoholics",
+      "displayName": "V",
+      "fid": 7247,
+      "spamScore": "64.0%",
+      "aiScore": "51.6%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "serboy",
+      "displayName": "serboy",
+      "fid": 268878,
+      "spamScore": "75.3%",
+      "aiScore": "24.5%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "tim",
+      "displayName": "timbeiko.eth",
+      "fid": 207,
+      "spamScore": "75.3%",
+      "aiScore": "36.1%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "pixel",
+      "displayName": "vincent",
+      "fid": 4286,
+      "spamScore": "77.3%",
+      "aiScore": "12.9%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "zachterrell",
+      "displayName": "Zach",
+      "fid": 457,
+      "spamScore": "79.6%",
+      "aiScore": "24.8%",
+      "flags": [
+        "high spam"
+      ]
+    },
+    {
+      "username": "gigamesh",
+      "displayName": "GIGAMΞSH",
+      "fid": 4378,
+      "spamScore": "24.6%",
+      "aiScore": "69.4%",
+      "flags": [
+        "high AI"
+      ]
+    },
+    {
+      "username": "v",
+      "displayName": "Varun Srinivasan",
+      "fid": 2,
+      "spamScore": "74.9%",
+      "aiScore": "47.4%",
+      "flags": [
+        "high spam"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "timestamp": "2025-03-03T13:53:17.663Z",
+  "scanParameters": {
+    "targetFid": "318473",
+    "spamThreshold": 0.6,
+    "aiThreshold": 0.75
+  },
+  "totalScanned": 672,
+  "flaggedCount": 1,
+  "flaggedRate": "0.15%",
+  "flaggedAccounts": [
+    {
+      "username": "zadanxyz",
+      "displayName": "ZADAN [ZAY-den]",
+      "fid": 476134,
+      "spamScore": "62.3%",
+      "aiScore": "0.0%",
+      "flags": [
+        "high spam"
+      ],
+      "rawScores": {
+        "ai_generated_probability": 0.00028803246666666665,
+        "spam_probability": 0.6232763852000001,
+        "sexual": 0.0009721143666666666,
+        "hate": 0.0020215725000000003,
+        "violence": 0.0010428647666666667,
+        "harassment": 0.0006812012333333332,
+        "selfharm": 0.0016938863,
+        "sexual_minors": 0.000485138,
+        "hate_threatening": 0.00028391403333333335,
+        "violence_graphic": 0.0006445149333333334
+      }
+    }
+  ]
+}
