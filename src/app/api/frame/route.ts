@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
   // Return the next frame state - redirect to the scanning process
   return NextResponse.json({
     frames: {
-      version: 'vNext',
+      version: '1',
       image: `${baseUrl}/assets/scanning-complete.png`,
       buttons: [
         {
@@ -62,7 +62,10 @@ export async function GET() {
     `<!DOCTYPE html>
     <html>
       <head>
-        <meta property="fc:frame" content="vNext" />
+        <title>Bot Scanner Frame</title>
+        <meta property="og:title" content="Bot Scanner Frame" />
+        <meta property="og:image" content="${imageUrl}" />
+        <meta property="fc:frame" content="1" />
         <meta property="fc:frame:image" content="${imageUrl}" />
         <meta property="fc:frame:button:1" content="Scan My Following List" />
         <meta property="fc:frame:post_url" content="${baseUrl}/api/frame" />
