@@ -1,101 +1,77 @@
-import Image from "next/image";
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <main className="min-h-screen bg-gradient-to-br from-purple-900 to-purple-600 text-white p-8">
+      <div className="max-w-4xl mx-auto">
+        <header className="mb-12 text-center">
+          <h1 className="text-4xl md:text-6xl font-bold mb-4">Farcaster Account Scanner</h1>
+          <p className="text-xl">Identify potentially problematic accounts you follow</p>
+        </header>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+        <div className="bg-white/10 backdrop-blur-md rounded-xl p-8 mb-12 shadow-lg">
+          <h2 className="text-2xl font-bold mb-4">What is this?</h2>
+          <p className="mb-4">
+            The Farcaster Account Scanner helps you improve the quality of your feed by identifying potentially problematic accounts you follow.
+          </p>
+          <p className="mb-4">
+            Using MBD's AI moderation API, we analyze your following list and flag accounts that might be:
+          </p>
+          <ul className="list-disc list-inside mb-6 space-y-2">
+            <li>Spam accounts</li>
+            <li>AI-generated content farms</li>
+            <li>Posting harmful or inappropriate content</li>
+            <li>Violating community standards</li>
+          </ul>
+          <p>
+            You'll get a detailed report showing any flagged accounts, allowing you to make informed decisions about who to continue following.
+          </p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+
+        <div className="bg-white/10 backdrop-blur-md rounded-xl p-8 mb-12 shadow-lg">
+          <h2 className="text-2xl font-bold mb-4">How it works</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div className="bg-purple-800/40 p-4 rounded-lg">
+              <div className="text-3xl font-bold mb-2">1</div>
+              <h3 className="font-bold mb-2">Run the scanner</h3>
+              <p className="text-sm">Launch our Frame in your favorite Farcaster client and authorize the scan</p>
+            </div>
+            
+            <div className="bg-purple-800/40 p-4 rounded-lg">
+              <div className="text-3xl font-bold mb-2">2</div>
+              <h3 className="font-bold mb-2">Wait for results</h3>
+              <p className="text-sm">We'll scan your following list and check for problematic accounts</p>
+            </div>
+            
+            <div className="bg-purple-800/40 p-4 rounded-lg">
+              <div className="text-3xl font-bold mb-2">3</div>
+              <h3 className="font-bold mb-2">Review & take action</h3>
+              <p className="text-sm">See all flagged accounts and decide who to unfollow</p>
+            </div>
+          </div>
+          
+          <p className="text-sm">
+            Your privacy is important: We don't store any information about your account or following list.
+            All processing happens on-demand and results are only shown to you.
+          </p>
+        </div>
+
+        <div className="text-center mb-12">
+          <Link 
+            href="/frames/account-scanner" 
+            className="bg-white text-purple-900 hover:bg-purple-200 px-8 py-4 rounded-full text-xl font-bold inline-block shadow-lg transition-all hover:scale-105"
+          >
+            Launch Account Scanner Frame
+          </Link>
+        </div>
+
+        <footer className="text-center text-sm text-white/70">
+          <p>Powered by MBD Moderation API - Helping build a safer Farcaster ecosystem</p>
+          <p className="mt-2">© 2023 Account Scanner. All rights reserved.</p>
+        </footer>
+      </div>
+    </main>
   );
 }

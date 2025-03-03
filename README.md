@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Account Scanner Frame
+
+A Farcaster Frame that scans a user's following list for potentially problematic accounts and provides a detailed report.
+
+## Features
+
+- **Interactive Frame**: A fully interactive Farcaster Frame experience
+- **Account Scanning**: Automatically scans a user's following list
+- **Moderation Flags**: Identifies accounts with potentially problematic content
+- **Detailed Report**: Provides a complete report with flagged accounts
+- **Modern UI**: Clean, modern design with Shadcn-style visuals
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+ and npm
+- [Neynar API key](https://neynar.com) for Farcaster integration
+- [Moderation by Design API key](https://moderationbydesign.com) for content analysis
+
+### Installation
+
+1. Clone this repository
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Create a `.env.local` file based on `.env.example`:
+
+```bash
+cp .env.example .env.local
+```
+
+4. Add your API keys to the `.env.local` file.
+
+### Running Locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The application will be available at http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Testing Your Frame
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+For Frame testing, use the [Warpcast Frame Validator](https://warpcast.com/~/developers/frames).
 
-## Learn More
+You can either:
+1. Use a service like localtunnel to expose your local server:
+   ```
+   npx localtunnel --port 3000
+   ```
+2. Or deploy to Vercel (see DEPLOYMENT.md)
 
-To learn more about Next.js, take a look at the following resources:
+The entry point for the Frame is at `/api/frame`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Development
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Project Structure
 
-## Deploy on Vercel
+- `/src/app/api/frame/route.ts` - Main Frame API entry point
+- `/src/app/frames/account-scanner/page.tsx` - Account scanner implementation
+- `/src/app/api/generate-scanner-image/route.ts` - Dynamic image generation API
+- `/src/lib/farcaster.ts` - Farcaster API integration
+- `/src/lib/moderation.ts` - Content moderation logic
+- `/public/assets/` - Static assets for Frame images
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deployment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed deployment instructions.
+
+## License
+
+MIT
