@@ -5,7 +5,7 @@ import { AnalysisResult } from '../types/farcaster';
  * Default threshold values for moderation flags
  */
 export const DEFAULT_MODERATION_THRESHOLDS = {
-  spam: 0.7,
+  spam: 0.4,
   ai_generated: 0.75,
   sexual: 0.5,
   hate: 0.5,
@@ -15,6 +15,16 @@ export const DEFAULT_MODERATION_THRESHOLDS = {
   sexual_minors: 0.25,
   hate_threatening: 0.4,
   violence_graphic: 0.4
+};
+
+/**
+ * Advanced thresholds for combination checks
+ */
+export const ADVANCED_MODERATION_CHECKS = {
+  spam_combined: 0.2, // 20% spam threshold when combined with AI
+  ai_combined: 0.05,  // 5% AI threshold when combined with spam
+  spam_standalone: 0.4, // 40% standalone spam threshold 
+  ai_standalone: 0.75,  // 75% standalone AI threshold - matches DEFAULT_MODERATION_THRESHOLDS
 };
 
 /**
@@ -33,6 +43,9 @@ export interface UserModerationResult {
     hasSexualMinorsContent: boolean;
     hasThreateningContent: boolean;
     hasGraphicViolenceContent: boolean;
+    hasCombinedSpamAndAi: boolean;
+    hasHighSpam: boolean;
+    hasHighAi: boolean;
     isFlagged: boolean; // True if any flag is true
   };
   scores: {
@@ -95,10 +108,20 @@ export async function getModerationFlags(
     const hasThreateningContent = threatening >= thresholds.hate_threatening;
     const hasGraphicViolenceContent = graphicViolence >= thresholds.violence_graphic;
     
-    // Overall flag - true if any specific flag is true
+    // Check combined criteria (spam + AI)
+    const hasCombinedSpamAndAi = 
+      spam >= ADVANCED_MODERATION_CHECKS.spam_combined && 
+      aiGenerated >= ADVANCED_MODERATION_CHECKS.ai_combined;
+    
+    // Check standalone high threshold criteria
+    const hasHighSpam = spam >= ADVANCED_MODERATION_CHECKS.spam_standalone;
+    const hasHighAi = aiGenerated >= ADVANCED_MODERATION_CHECKS.ai_standalone;
+    
+    // Overall flag - true if any specific flag is true OR if meets combined criteria
     const isFlagged = isSpam || isAiGenerated || hasSexualContent || hasHateContent || 
                       hasViolentContent || hasHarassmentContent || hasSelfHarmContent || 
-                      hasSexualMinorsContent || hasThreateningContent || hasGraphicViolenceContent;
+                      hasSexualMinorsContent || hasThreateningContent || hasGraphicViolenceContent ||
+                      hasCombinedSpamAndAi || hasHighSpam || hasHighAi;
     
     results[userId] = {
       userId,
@@ -113,6 +136,9 @@ export async function getModerationFlags(
         hasSexualMinorsContent,
         hasThreateningContent,
         hasGraphicViolenceContent,
+        hasCombinedSpamAndAi,
+        hasHighSpam,
+        hasHighAi,
         isFlagged
       },
       scores: {
