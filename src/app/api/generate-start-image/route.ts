@@ -26,20 +26,20 @@ export async function GET(request: NextRequest) {
     // Add decorative elements
     drawModernGrid(ctx, width, height);
 
-    // Set font styles - using system fonts that are similar to Shadcn style
-    const titleFont = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
-    const bodyFont = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+    // Set font styles - using Helvetica
+    const titleFont = 'Helvetica, Arial, sans-serif';
+    const bodyFont = 'Helvetica, Arial, sans-serif';
     
     // Title text
-    ctx.font = `bold 60px ${titleFont}`;
+    ctx.font = `bold 72px ${titleFont}`;
     ctx.fillStyle = '#ffffff';
     ctx.textAlign = 'center';
-    ctx.fillText('Bot Account Scanner', width / 2, 140);
+    ctx.fillText('Bot Unfollower', width / 2, 150);
 
     // Description
-    ctx.font = `28px ${bodyFont}`;
+    ctx.font = `30px ${bodyFont}`;
     ctx.fillStyle = '#a1a1aa'; // Muted gray
-    ctx.fillText('Identify potentially harmful accounts in your following list', width / 2, 200);
+    ctx.fillText('scan your following list for bots', width / 2, 210);
 
     // Add shadcn-style UI card
     drawCard(ctx, width / 2 - 400, 240, 800, 280);
