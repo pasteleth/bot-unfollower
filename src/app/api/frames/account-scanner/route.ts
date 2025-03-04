@@ -3,9 +3,12 @@ import { getModerationFlags } from '@/lib/moderation';
 import { getFollowing } from '@/lib/farcaster';
 
 // Base URL for the app (update for production)
-const BASE_URL = process.env.VERCEL_URL 
-  ? `https://${process.env.VERCEL_URL}`
+const BASE_URL = process.env.NODE_ENV === 'production'
+  ? "https://bot-unfollower.vercel.app" 
   : "http://localhost:3000";
+
+// Protection bypass key for Vercel
+const PROTECTION_BYPASS = "fdhsgioepfdgoissdifhiuads848hsdi";
 
 /**
  * State-driven Frame implementation for scanning follows
@@ -45,10 +48,17 @@ export async function GET(request: NextRequest) {
 }
 
 /**
+ * Helper function to add protection bypass to URLs
+ */
+function addProtectionBypass(url: string): string {
+  return `${url}${url.includes('?') ? '&' : '?'}x-vercel-protection-bypass=${PROTECTION_BYPASS}`;
+}
+
+/**
  * Initial frame that prompts the user to start scanning
  */
 function startFrame() {
-  const imageUrl = `${BASE_URL}/api/generate-start-image`;
+  const imageUrl = addProtectionBypass(`${BASE_URL}/api/generate-start-image`);
   
   return new Response(
     `<!DOCTYPE html>
@@ -66,7 +76,7 @@ function startFrame() {
         <meta property="fc:frame:button:1" content="Scan My Following List" />
         <meta property="fc:frame:button:1:action" content="post" />
         <meta property="fc:frame:button:1:target" content="_self" />
-        <meta property="fc:frame:post_url" content="${BASE_URL}/api/frames/account-scanner?step=scanning" />
+        <meta property="fc:frame:post_url" content="${addProtectionBypass(`${BASE_URL}/api/frames/account-scanner?step=scanning`)}" />
       </head>
       <body style="background-color: #000000; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
         <h1>Account Scanner</h1>
@@ -90,7 +100,7 @@ async function scanningFrame(fid: string) {
     const followingList = await getFollowing(parseInt(fid, 10));
     
     if (!followingList || followingList.length === 0) {
-      const noFollowingImageUrl = `${BASE_URL}/api/generate-error-image`;
+      const noFollowingImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-error-image`);
       
       return new Response(
         `<!DOCTYPE html>
@@ -108,7 +118,7 @@ async function scanningFrame(fid: string) {
             <meta property="fc:frame:button:1" content="Try Again" />
             <meta property="fc:frame:button:1:action" content="post" />
             <meta property="fc:frame:button:1:target" content="_self" />
-            <meta property="fc:frame:post_url" content="${BASE_URL}/api/frames/account-scanner" />
+            <meta property="fc:frame:post_url" content="${addProtectionBypass(`${BASE_URL}/api/frames/account-scanner`)}" />
           </head>
           <body style="background-color: #000000; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
             <h1>No Following Found</h1>
@@ -148,7 +158,7 @@ async function scanningFrame(fid: string) {
     }
 
     // Scanning complete image
-    const scanningImageUrl = `${BASE_URL}/api/generate-scanning-image?fid=${fid}`;
+    const scanningImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-scanning-image?fid=${fid}`);
     
     // Redirect to results with the count
     return new Response(
@@ -167,7 +177,7 @@ async function scanningFrame(fid: string) {
           <meta property="fc:frame:button:1" content="View Results" />
           <meta property="fc:frame:button:1:action" content="post" />
           <meta property="fc:frame:button:1:target" content="_self" />
-          <meta property="fc:frame:post_url" content="${BASE_URL}/api/frames/account-scanner?step=results&fid=${fid}&count=${flaggedCount}" />
+          <meta property="fc:frame:post_url" content="${addProtectionBypass(`${BASE_URL}/api/frames/account-scanner?step=results&fid=${fid}&count=${flaggedCount}`)}" />
         </head>
         <body style="background-color: #000000; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
           <h1>Scanning Complete</h1>
@@ -194,16 +204,16 @@ function resultsFrame(fid: string, countStr: string) {
   
   // Use different image based on whether we found flagged accounts
   const imageUrl = count > 0
-    ? `${BASE_URL}/api/generate-scanner-image?fid=${fid}&count=${count}`
-    : `${BASE_URL}/api/generate-scanner-image/no-flagged?fid=${fid}`;
+    ? addProtectionBypass(`${BASE_URL}/api/generate-scanner-image?fid=${fid}&count=${count}`)
+    : addProtectionBypass(`${BASE_URL}/api/generate-scanner-image/no-flagged?fid=${fid}`);
   
   const buttonText = count > 0
     ? "View Detailed Report" 
     : "Done";
   
   const buttonUrl = count > 0
-    ? `${BASE_URL}/report?fid=${fid}`
-    : `${BASE_URL}/api/frames/account-scanner`;
+    ? addProtectionBypass(`${BASE_URL}/report?fid=${fid}`)
+    : addProtectionBypass(`${BASE_URL}/api/frames/account-scanner`);
   
   return new Response(
     `<!DOCTYPE html>
@@ -240,7 +250,7 @@ function resultsFrame(fid: string, countStr: string) {
  * Frame to display errors
  */
 function errorFrame(message: string) {
-  const errorImageUrl = `${BASE_URL}/api/generate-error-image`;
+  const errorImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-error-image`);
   
   return new Response(
     `<!DOCTYPE html>
@@ -258,7 +268,7 @@ function errorFrame(message: string) {
         <meta property="fc:frame:button:1" content="Try Again" />
         <meta property="fc:frame:button:1:action" content="post" />
         <meta property="fc:frame:button:1:target" content="_self" />
-        <meta property="fc:frame:post_url" content="${BASE_URL}/api/frames/account-scanner" />
+        <meta property="fc:frame:post_url" content="${addProtectionBypass(`${BASE_URL}/api/frames/account-scanner`)}" />
       </head>
       <body style="background-color: #000000; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
         <h1>Error</h1>
@@ -271,4 +281,19 @@ function errorFrame(message: string) {
       },
     }
   );
+}
+
+// Handle POST requests (for button clicks)
+export async function POST(request: NextRequest) {
+  const body = await request.json();
+  const { untrustedData } = body;
+  const step = untrustedData?.buttonIndex === 1 ? 'scanning' : 'start';
+  const fid = untrustedData?.fid;
+
+  return new Response(null, {
+    status: 302,
+    headers: {
+      'Location': addProtectionBypass(`${BASE_URL}/api/frames/account-scanner?step=${step}&fid=${fid}`),
+    },
+  });
 } 

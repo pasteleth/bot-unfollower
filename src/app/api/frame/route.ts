@@ -130,8 +130,8 @@ app.frame('/results', (c) => {
 });
 
 // Base URL for the app
-const BASE_URL = process.env.VERCEL_URL 
-  ? `https://${process.env.VERCEL_URL}`
+const BASE_URL = process.env.NODE_ENV === 'production'
+  ? "https://bot-unfollower.vercel.app" 
   : "http://localhost:3000";
 
 /**
