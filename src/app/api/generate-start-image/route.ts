@@ -1,11 +1,19 @@
 import { NextRequest } from 'next/server';
-import { createCanvas } from 'canvas';
+import { createCanvas, registerFont } from 'canvas';
+import path from 'path';
 
 /**
  * Generate a start image for the frame with heading and subheading
  */
 export async function GET(request: NextRequest) {
   try {
+    // Register fonts
+    const fontPathRegular = path.join(process.cwd(), 'public/fonts/Inter-Regular.ttf');
+    const fontPathBold = path.join(process.cwd(), 'public/fonts/Inter-Bold.ttf');
+    
+    registerFont(fontPathRegular, { family: 'Inter', weight: 'normal' });
+    registerFont(fontPathBold, { family: 'Inter', weight: 'bold' });
+
     // Create canvas with frame dimensions
     const width = 1200;
     const height = 630;
@@ -18,13 +26,13 @@ export async function GET(request: NextRequest) {
     
     // Add heading text
     ctx.fillStyle = '#FFFFFF'; // White text
-    ctx.font = 'bold 60px Arial, Helvetica, sans-serif';
+    ctx.font = 'bold 60px Inter';
     ctx.textAlign = 'center';
     ctx.fillText('bot unfollower', width/2, height/2 - 30);
     
     // Add subheading text
     ctx.fillStyle = '#CCCCCC'; // Light gray text
-    ctx.font = '32px Arial, Helvetica, sans-serif';
+    ctx.font = '32px Inter';
     ctx.textAlign = 'center';
     ctx.fillText('scan your following list for bots', width/2, height/2 + 30);
     
