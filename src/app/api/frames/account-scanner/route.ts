@@ -105,33 +105,148 @@ function startFrame() {
  */
 async function scanningFrame(fid: string) {
   try {
-    // Get the user's following list
-    const followingList = await getFollowing(parseInt(fid, 10));
+    // Set up a timeout to ensure we respond within Farcaster's 5-second limit
+    let timeoutReached = false;
+    const timeout = setTimeout(() => {
+      timeoutReached = true;
+    }, 3000); // 3 second timeout to leave room for processing
+
+    // Start the actual scanning process
+    const scanningPromise = async () => {
+      // Get the user's following list
+      const followingList = await getFollowing(parseInt(fid, 10));
+      
+      if (!followingList || followingList.length === 0) {
+        const noFollowingImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-error-image?message=${encodeURIComponent("We couldn't find any accounts you're following")}`);
+        
+        return new Response(
+          `<!DOCTYPE html>
+          <html>
+            <head>
+              <title>No Following Found - Account Scanner</title>
+              <meta property="og:title" content="No Following Found" />
+              <meta property="og:description" content="We couldn't find any accounts you're following" />
+              <meta property="og:image" content="${noFollowingImageUrl}" />
+              <meta name="theme-color" content="#000000" />
+
+              <meta property="fc:frame" content="vNext" />
+              <meta property="fc:frame:image" content="${noFollowingImageUrl}" />
+              <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
+              <meta property="fc:frame:button:1" content="Try Again" />
+              <meta property="fc:frame:button:1:action" content="post" />
+              <meta property="fc:frame:button:1:target" content="_self" />
+              <meta property="fc:frame:post_url" content="${addProtectionBypass(`${BASE_URL}/api/frames/account-scanner`)}" />
+            </head>
+            <body style="background-color: #000000; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+              <h1>No Following Found</h1>
+              <p>We couldn't find any accounts you're following.</p>
+            </body>
+          </html>`,
+          {
+            headers: {
+              "Content-Type": "text/html",
+            },
+          }
+        );
+      }
+
+      // Check following list against moderation flags
+      const userIds = followingList.map(user => user.fid.toString());
+      const moderationResults = await getModerationFlags(userIds);
+
+      // Count flagged accounts
+      let flaggedCount = 0;
+      const flaggedUsers = [];
+
+      for (const userId in moderationResults) {
+        const userResult = moderationResults[userId];
+        
+        // Skip users with no data
+        if (!userResult || !userResult.flags) continue;
+        
+        // Check if any flag is true
+        if (userResult.flags.isFlagged) {
+          flaggedCount++;
+          flaggedUsers.push({
+            id: userId,
+            scores: userResult.scores
+          });
+        }
+      }
+
+      // Scanning complete image
+      const scanningImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-scanning-image?fid=${fid}`);
+      
+      // Redirect to results with the count
+      return new Response(
+        `<!DOCTYPE html>
+        <html>
+          <head>
+            <title>Scanning Complete - Account Scanner</title>
+            <meta property="og:title" content="Scanning Complete" />
+            <meta property="og:description" content="We found ${flaggedCount} potentially problematic accounts" />
+            <meta property="og:image" content="${scanningImageUrl}" />
+            <meta name="theme-color" content="#000000" />
+
+            <meta property="fc:frame" content="vNext" />
+            <meta property="fc:frame:image" content="${scanningImageUrl}" />
+            <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
+            <meta property="fc:frame:button:1" content="View Results" />
+            <meta property="fc:frame:button:1:action" content="post" />
+            <meta property="fc:frame:button:1:target" content="_self" />
+            <meta property="fc:frame:post_url" content="${addProtectionBypass(`${BASE_URL}/api/frames/account-scanner?step=results&fid=${fid}&count=${flaggedCount}`)}" />
+          </head>
+          <body style="background-color: #000000; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+            <h1>Scanning Complete</h1>
+            <p>We found ${flaggedCount} potentially problematic accounts.</p>
+          </body>
+        </html>`,
+        {
+          headers: {
+            "Content-Type": "text/html",
+          },
+        }
+      );
+    };
+
+    // Race the scanning process against the timeout
+    const scanningPromiseResult = scanningPromise();
     
-    if (!followingList || followingList.length === 0) {
-      const noFollowingImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-error-image`);
+    // Wait for either the scanning to complete or the timeout to be reached
+    await Promise.race([
+      scanningPromiseResult,
+      new Promise(resolve => setTimeout(resolve, 3000))
+    ]);
+    
+    clearTimeout(timeout);
+    
+    // If the timeout was reached, return an interim response
+    if (timeoutReached) {
+      console.log("Timeout reached, returning interim response");
+      // Return a response indicating scanning is in progress
+      const scanningImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-scanning-image?fid=${fid}`);
       
       return new Response(
         `<!DOCTYPE html>
         <html>
           <head>
-            <title>No Following Found - Account Scanner</title>
-            <meta property="og:title" content="No Following Found" />
-            <meta property="og:description" content="We couldn't find any accounts you're following" />
-            <meta property="og:image" content="${noFollowingImageUrl}" />
+            <title>Scanning in Progress - Account Scanner</title>
+            <meta property="og:title" content="Scanning in Progress" />
+            <meta property="og:description" content="We're scanning your following list..." />
+            <meta property="og:image" content="${scanningImageUrl}" />
             <meta name="theme-color" content="#000000" />
 
             <meta property="fc:frame" content="vNext" />
-            <meta property="fc:frame:image" content="${noFollowingImageUrl}" />
+            <meta property="fc:frame:image" content="${scanningImageUrl}" />
             <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
-            <meta property="fc:frame:button:1" content="Try Again" />
+            <meta property="fc:frame:button:1" content="Check Again" />
             <meta property="fc:frame:button:1:action" content="post" />
             <meta property="fc:frame:button:1:target" content="_self" />
-            <meta property="fc:frame:post_url" content="${addProtectionBypass(`${BASE_URL}/api/frames/account-scanner`)}" />
+            <meta property="fc:frame:post_url" content="${addProtectionBypass(`${BASE_URL}/api/frames/account-scanner?step=scanning&fid=${fid}`)}" />
           </head>
           <body style="background-color: #000000; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-            <h1>No Following Found</h1>
-            <p>We couldn't find any accounts you're following.</p>
+            <h1>Scanning in Progress</h1>
+            <p>Your following list is being scanned. Please check again in a moment.</p>
           </body>
         </html>`,
         {
@@ -141,67 +256,12 @@ async function scanningFrame(fid: string) {
         }
       );
     }
-
-    // Check following list against moderation flags
-    const userIds = followingList.map(user => user.fid.toString());
-    const moderationResults = await getModerationFlags(userIds);
-
-    // Count flagged accounts
-    let flaggedCount = 0;
-    const flaggedUsers = [];
-
-    for (const userId in moderationResults) {
-      const userResult = moderationResults[userId];
-      
-      // Skip users with no data
-      if (!userResult || !userResult.flags) continue;
-      
-      // Check if any flag is true
-      if (userResult.flags.isFlagged) {
-        flaggedCount++;
-        flaggedUsers.push({
-          id: userId,
-          scores: userResult.scores
-        });
-      }
-    }
-
-    // Scanning complete image
-    const scanningImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-scanning-image?fid=${fid}`);
     
-    // Redirect to results with the count
-    return new Response(
-      `<!DOCTYPE html>
-      <html>
-        <head>
-          <title>Scanning Complete - Account Scanner</title>
-          <meta property="og:title" content="Scanning Complete" />
-          <meta property="og:description" content="We found ${flaggedCount} potentially problematic accounts" />
-          <meta property="og:image" content="${scanningImageUrl}" />
-          <meta name="theme-color" content="#000000" />
-
-          <meta property="fc:frame" content="vNext" />
-          <meta property="fc:frame:image" content="${scanningImageUrl}" />
-          <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
-          <meta property="fc:frame:button:1" content="View Results" />
-          <meta property="fc:frame:button:1:action" content="post" />
-          <meta property="fc:frame:button:1:target" content="_self" />
-          <meta property="fc:frame:post_url" content="${addProtectionBypass(`${BASE_URL}/api/frames/account-scanner?step=results&fid=${fid}&count=${flaggedCount}`)}" />
-        </head>
-        <body style="background-color: #000000; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-          <h1>Scanning Complete</h1>
-          <p>We found ${flaggedCount} potentially problematic accounts.</p>
-        </body>
-      </html>`,
-      {
-        headers: {
-          "Content-Type": "text/html",
-        },
-      }
-    );
+    // If we got here, the scanning completed before the timeout
+    return await scanningPromiseResult;
   } catch (error) {
     console.error("Error during scanning:", error);
-    return errorFrame("Error scanning your following list");
+    return errorFrame("Error scanning your following list: " + (error instanceof Error ? error.message : "Unknown error"));
   }
 }
 
@@ -259,7 +319,7 @@ function resultsFrame(fid: string, countStr: string) {
  * Frame to display errors
  */
 function errorFrame(message: string) {
-  const errorImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-error-image`);
+  const errorImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-error-image?message=${encodeURIComponent(message)}`);
   
   return new Response(
     `<!DOCTYPE html>
@@ -300,27 +360,68 @@ function errorFrame(message: string) {
 
 // Handle POST requests (for button clicks)
 export async function POST(request: NextRequest) {
+  console.log("POST request received for account-scanner");
   try {
+    console.log("Parsing request body...");
     const body = await request.json();
+    console.log("Request body received:", JSON.stringify(body).substring(0, 200) + "...");
+    
     const { untrustedData } = body;
+    console.log("untrustedData:", JSON.stringify(untrustedData));
+    
     const buttonIndex = untrustedData?.buttonIndex || 1;
     const fid = untrustedData?.fid;
     
+    console.log(`Button ${buttonIndex} pressed by user with FID: ${fid}`);
+    
     if (!fid) {
+      console.error("Missing FID in request");
       return errorFrame("Missing FID in request");
     }
     
+    // Check for required environment variables
+    const neynarApiKey = process.env.NEYNAR_API_KEY;
+    const mbdApiKey = process.env.MBD_API_KEY;
+    
+    if (!neynarApiKey) {
+      console.error("NEYNAR_API_KEY is missing");
+      return errorFrame("Server configuration error: Missing API key");
+    }
+    
+    if (!mbdApiKey) {
+      console.error("MBD_API_KEY is missing");
+      return errorFrame("Server configuration error: Missing API key");
+    }
+    
+    console.log("Required API keys are present");
+    
     // Determine the step based on the button pressed
     const step = buttonIndex === 1 ? 'scanning' : 'start';
+    console.log(`Moving to step: ${step}`);
     
     // For direct response, use the appropriate frame function
     if (step === 'scanning') {
+      console.log("Starting scanning process for FID:", fid);
       return scanningFrame(fid.toString());
     } else {
+      console.log("Returning to start frame");
       return startFrame();
     }
   } catch (error) {
     console.error("Error processing POST request:", error);
-    return errorFrame("Failed to process your request");
+    
+    // Create a detailed error message
+    let errorMessage = "Failed to process your request";
+    if (error instanceof Error) {
+      errorMessage = `Error: ${error.message}`;
+      console.error("Stack trace:", error.stack);
+    }
+    
+    // Log any additional details that might help debugging
+    console.error("Request URL:", request.url);
+    console.error("Request method:", request.method);
+    console.error("Request headers:", Object.fromEntries(request.headers.entries()));
+    
+    return errorFrame(errorMessage);
   }
 } 
