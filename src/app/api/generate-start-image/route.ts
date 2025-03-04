@@ -1,38 +1,30 @@
 import { NextRequest } from 'next/server';
-import { createCanvas, registerFont } from 'canvas';
-import path from 'path';
+import { createCanvas } from 'canvas';
 
 /**
- * Generate a start image for the frame with heading and subheading
+ * Generate a simple black image with text for the frame
  */
 export async function GET(request: NextRequest) {
   try {
-    // Register fonts
-    const fontPathRegular = path.join(process.cwd(), 'public/fonts/Inter-Regular.ttf');
-    const fontPathBold = path.join(process.cwd(), 'public/fonts/Inter-Bold.ttf');
-    
-    registerFont(fontPathRegular, { family: 'Inter', weight: 'normal' });
-    registerFont(fontPathBold, { family: 'Inter', weight: 'bold' });
-
     // Create canvas with frame dimensions
     const width = 1200;
     const height = 630;
     const canvas = createCanvas(width, height);
     const ctx = canvas.getContext('2d');
 
-    // Plain black background (#000000)
-    ctx.fillStyle = '#000000'; // Pure black background
+    // Plain black background
+    ctx.fillStyle = '#000000';
     ctx.fillRect(0, 0, width, height);
     
-    // Add heading text
+    // Add heading text with system font
     ctx.fillStyle = '#FFFFFF'; // White text
-    ctx.font = 'bold 60px Inter';
+    ctx.font = 'bold 60px sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('bot unfollower', width/2, height/2 - 30);
     
-    // Add subheading text
+    // Add subheading text with system font
     ctx.fillStyle = '#CCCCCC'; // Light gray text
-    ctx.font = '32px Inter';
+    ctx.font = '32px sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('scan your following list for bots', width/2, height/2 + 30);
     
@@ -43,7 +35,7 @@ export async function GET(request: NextRequest) {
     return new Response(buffer, {
       headers: {
         'Content-Type': 'image/png',
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Cache-Control': 'public, max-age=60',
       },
     });
   } catch (error) {
