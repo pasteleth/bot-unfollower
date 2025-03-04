@@ -3,12 +3,15 @@ import { getModerationFlags } from '@/lib/moderation';
 import { getFollowing } from '@/lib/farcaster';
 
 // Base URL for the app (update for production)
-const BASE_URL = process.env.NODE_ENV === 'production'
-  ? "https://bot-unfollower.vercel.app" 
-  : "http://localhost:3000";
+const BASE_URL = process.env.NEXT_PUBLIC_HOST || 
+  (process.env.NODE_ENV === 'production' ? "https://bot-unfollower.vercel.app" :
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000"));
 
 // Protection bypass key for Vercel
 const PROTECTION_BYPASS = "fdhsgioepfdgoissdifhiuads848hsdi";
+
+// Version for cache busting
+const VERSION = Date.now().toString();
 
 /**
  * State-driven Frame implementation for scanning follows
@@ -51,7 +54,7 @@ export async function GET(request: NextRequest) {
  * Helper function to add protection bypass to URLs
  */
 function addProtectionBypass(url: string): string {
-  return `${url}${url.includes('?') ? '&' : '?'}x-vercel-protection-bypass=${PROTECTION_BYPASS}`;
+  return `${url}${url.includes('?') ? '&' : '?'}x-vercel-protection-bypass=${PROTECTION_BYPASS}&v=${VERSION}`;
 }
 
 /**
@@ -65,10 +68,16 @@ function startFrame() {
     <html>
       <head>
         <title>Account Scanner - Farcaster Frame</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta property="og:title" content="Account Scanner" />
         <meta property="og:description" content="Scan your following list for potentially problematic accounts" />
         <meta property="og:image" content="${imageUrl}" />
         <meta name="theme-color" content="#000000" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Account Scanner" />
+        <meta name="twitter:description" content="Scan your following list for potentially problematic accounts" />
+        <meta name="twitter:image" content="${imageUrl}" />
 
         <meta property="fc:frame" content="vNext" />
         <meta property="fc:frame:image" content="${imageUrl}" />
@@ -257,10 +266,16 @@ function errorFrame(message: string) {
     <html>
       <head>
         <title>Error - Account Scanner</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta property="og:title" content="Error" />
         <meta property="og:description" content="${message}" />
         <meta property="og:image" content="${errorImageUrl}" />
         <meta name="theme-color" content="#000000" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Error - Account Scanner" />
+        <meta name="twitter:description" content="${message}" />
+        <meta name="twitter:image" content="${errorImageUrl}" />
 
         <meta property="fc:frame" content="vNext" />
         <meta property="fc:frame:image" content="${errorImageUrl}" />
@@ -285,15 +300,27 @@ function errorFrame(message: string) {
 
 // Handle POST requests (for button clicks)
 export async function POST(request: NextRequest) {
-  const body = await request.json();
-  const { untrustedData } = body;
-  const step = untrustedData?.buttonIndex === 1 ? 'scanning' : 'start';
-  const fid = untrustedData?.fid;
-
-  return new Response(null, {
-    status: 302,
-    headers: {
-      'Location': addProtectionBypass(`${BASE_URL}/api/frames/account-scanner?step=${step}&fid=${fid}`),
-    },
-  });
+  try {
+    const body = await request.json();
+    const { untrustedData } = body;
+    const buttonIndex = untrustedData?.buttonIndex || 1;
+    const fid = untrustedData?.fid;
+    
+    if (!fid) {
+      return errorFrame("Missing FID in request");
+    }
+    
+    // Determine the step based on the button pressed
+    const step = buttonIndex === 1 ? 'scanning' : 'start';
+    
+    // For direct response, use the appropriate frame function
+    if (step === 'scanning') {
+      return scanningFrame(fid.toString());
+    } else {
+      return startFrame();
+    }
+  } catch (error) {
+    console.error("Error processing POST request:", error);
+    return errorFrame("Failed to process your request");
+  }
 } 
