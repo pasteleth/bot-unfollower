@@ -33,13 +33,13 @@ export async function GET(request: NextRequest) {
         if (!fid) {
           return errorFrame("Missing FID parameter");
         }
-        return scanningFrame(fid);
+        return scanningFrame(parseInt(fid, 10));
       
       case 'results':
         if (!fid || !count) {
           return errorFrame("Missing required parameters");
         }
-        return resultsFrame(fid, count);
+        return resultsFrame(parseInt(fid, 10), count);
       
       default:
         return errorFrame("Invalid state");
@@ -103,7 +103,7 @@ function startFrame() {
 /**
  * Frame shown during the scanning process
  */
-async function scanningFrame(fid: string) {
+async function scanningFrame(fid: number) {
   try {
     // Set up a timeout to ensure we respond within Farcaster's 5-second limit
     let timeoutReached = false;
@@ -115,21 +115,15 @@ async function scanningFrame(fid: string) {
     const scanningPromise = async () => {
       console.log("Starting scanning process for FID:", fid);
       
-      // Validate FID is a valid number
-      const fidNum = parseInt(fid, 10);
-      if (isNaN(fidNum)) {
-        console.error("Invalid FID format:", fid);
-        return errorFrame("Invalid FID format");
-      }
-      
       // Get the user's following list
       try {
-        console.log("Fetching following list for FID:", fidNum);
-        const followingList = await getFollowing(fidNum);
+        console.log("Fetching following list for FID:", fid);
+        const followingList = await getFollowing(fid);
         
         if (!followingList || followingList.length === 0) {
           const noFollowingImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-error-image?message=${encodeURIComponent("We couldn't find any accounts you're following")}`);
           
+          clearTimeout(timeout);
           return new Response(
             `<!DOCTYPE html>
             <html>
@@ -281,45 +275,50 @@ async function scanningFrame(fid: string) {
 }
 
 /**
- * Frame that shows the results of the scan
+ * Results frame shown after scanning completes
  */
-function resultsFrame(fid: string, countStr: string) {
+function resultsFrame(fid: number, countStr: string) {
+  // Parse the count to an integer
   const count = parseInt(countStr, 10);
   
-  // Use different image based on whether we found flagged accounts
-  const imageUrl = count > 0
-    ? addProtectionBypass(`${BASE_URL}/api/generate-scanner-image?fid=${fid}&count=${count}`)
-    : addProtectionBypass(`${BASE_URL}/api/generate-scanner-image/no-flagged?fid=${fid}`);
+  // Generate the results image URL
+  const resultsImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-scanner-image?count=${count}&fid=${fid}`);
   
-  const buttonText = count > 0
-    ? "View Detailed Report" 
-    : "Done";
+  // Message based on the count
+  const message = count === 0 ? 
+    "Your following list doesn't contain any problematic accounts!" :
+    `We found ${count} potentially problematic accounts in your following list.`;
   
-  const buttonUrl = count > 0
-    ? addProtectionBypass(`${BASE_URL}/report?fid=${fid}`)
-    : addProtectionBypass(`${BASE_URL}/api/frames/account-scanner`);
-  
+  // Button text based on the count  
+  const buttonText = count === 0 ? 
+    "Learn More" : 
+    "See Flagged Accounts";
+    
+  // Button URL based on the count
+  const buttonUrl = count === 0 ?
+    addProtectionBypass(`${BASE_URL}/api/frames/account-scanner`) :
+    addProtectionBypass(`${BASE_URL}/flagged-accounts?fid=${fid}`);
+    
   return new Response(
     `<!DOCTYPE html>
     <html>
       <head>
-        <title>Account Scanner Results</title>
-        <meta property="og:title" content="Account Scanner Results" />
-        <meta property="og:description" content="We found ${count} potentially problematic accounts you're following" />
-        <meta property="og:image" content="${imageUrl}" />
+        <title>Scan Results - Account Scanner</title>
+        <meta property="og:title" content="Scan Results" />
+        <meta property="og:description" content="${message}" />
+        <meta property="og:image" content="${resultsImageUrl}" />
         <meta name="theme-color" content="#000000" />
 
         <meta property="fc:frame" content="vNext" />
-        <meta property="fc:frame:image" content="${imageUrl}" />
+        <meta property="fc:frame:image" content="${resultsImageUrl}" />
         <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
         <meta property="fc:frame:button:1" content="${buttonText}" />
         <meta property="fc:frame:button:1:action" content="post_redirect" />
-        <meta property="fc:frame:button:1:target" content="_blank" />
-        <meta property="fc:frame:post_url" content="${buttonUrl}" />
+        <meta property="fc:frame:button:1:target" content="${buttonUrl}" />
       </head>
       <body style="background-color: #000000; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-        <h1>Account Scanner Results</h1>
-        <p>We found ${count} potentially problematic accounts you're following.</p>
+        <h1>Scan Results</h1>
+        <p>${message}</p>
       </body>
     </html>`,
     {
@@ -331,26 +330,27 @@ function resultsFrame(fid: string, countStr: string) {
 }
 
 /**
- * Frame to display errors
+ * Error frame shown when an error occurs
  */
-function errorFrame(message: string) {
-  const errorImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-error-image?message=${encodeURIComponent(message)}`);
+function errorFrame(errorMessage: string = "An error occurred") {
+  console.error("Showing error frame:", errorMessage);
+  
+  // Log additional debug information
+  console.error("Error details:", new Error().stack);
+  
+  // Encode the error message for the URL
+  const encodedMessage = encodeURIComponent(errorMessage);
+  const errorImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-error-image?message=${encodedMessage}`);
   
   return new Response(
     `<!DOCTYPE html>
     <html>
       <head>
         <title>Error - Account Scanner</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta property="og:title" content="Error" />
-        <meta property="og:description" content="${message}" />
+        <meta property="og:description" content="${errorMessage}" />
         <meta property="og:image" content="${errorImageUrl}" />
         <meta name="theme-color" content="#000000" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Error - Account Scanner" />
-        <meta name="twitter:description" content="${message}" />
-        <meta name="twitter:image" content="${errorImageUrl}" />
 
         <meta property="fc:frame" content="vNext" />
         <meta property="fc:frame:image" content="${errorImageUrl}" />
@@ -362,12 +362,15 @@ function errorFrame(message: string) {
       </head>
       <body style="background-color: #000000; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
         <h1>Error</h1>
-        <p>${message}</p>
+        <p>${errorMessage}</p>
       </body>
     </html>`,
     {
       headers: {
         "Content-Type": "text/html",
+        "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+        "Pragma": "no-cache",
+        "Expires": "0",
       },
     }
   );
@@ -418,9 +421,7 @@ export async function POST(request: NextRequest) {
     // For direct response, use the appropriate frame function
     if (step === 'scanning') {
       console.log("Starting scanning process for FID:", fid);
-      // Make sure fid is a string before passing to scanningFrame
-      const fidStr = String(fid); // Convert to string safely
-      return scanningFrame(fidStr);
+      return scanningFrame(parseInt(fid, 10));
     } else {
       console.log("Returning to start frame");
       return startFrame();
