@@ -35,14 +35,22 @@ export async function getFollowing(fid: number): Promise<Following[]> {
   try {
     console.log(`Fetching following for FID: ${fid}`);
     
+    // Validate FID
+    if (typeof fid !== 'number' || isNaN(fid) || fid <= 0) {
+      throw new Error(`Invalid FID: ${fid}. FID must be a positive number.`);
+    }
+    
+    // Ensure integer
+    const fidAsInt = Math.floor(fid);
+    
     // Use the Neynar SDK to fetch following
     const response = await neynarClient.fetchUserFollowing({
-      fid: fid,
+      fid: fidAsInt,
       limit: 100
     });
     
     // Process the response data
-    const users = response.users || [];
+    const users = response?.users || [];
     
     if (users.length === 0) {
       console.warn('No following users found in Neynar API response');
@@ -59,6 +67,20 @@ export async function getFollowing(fid: number): Promise<Following[]> {
     }));
   } catch (error) {
     console.error('Error fetching following from Neynar:', error);
-    throw new Error(`Failed to fetch following: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    
+    // Create a more detailed error message
+    let errorMessage = 'Unknown error';
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else if (typeof error === 'object' && error !== null) {
+      // Handle possible API error response structure
+      try {
+        errorMessage = JSON.stringify(error);
+      } catch (e) {
+        errorMessage = 'Unstructured error object';
+      }
+    }
+    
+    throw new Error(`Error fetching following list: ${errorMessage}`);
   }
 } 

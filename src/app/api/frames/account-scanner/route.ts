@@ -118,6 +118,11 @@ async function scanningFrame(fid: number) {
       // Get the user's following list
       try {
         console.log("Fetching following list for FID:", fid);
+        // Validate FID one more time to be extra safe
+        if (typeof fid !== 'number' || isNaN(fid) || fid <= 0) {
+          throw new Error(`Invalid FID: ${fid}. FID must be a positive number.`);
+        }
+        
         const followingList = await getFollowing(fid);
         
         if (!followingList || followingList.length === 0) {
