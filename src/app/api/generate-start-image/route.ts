@@ -3,6 +3,7 @@ import { createCanvas } from 'canvas';
 
 /**
  * Generate a simple black image with text for the frame
+ * Matches exactly the image shared by the user
  */
 export async function GET(request: NextRequest) {
   try {
@@ -20,13 +21,13 @@ export async function GET(request: NextRequest) {
     ctx.fillStyle = '#FFFFFF'; // White text
     ctx.font = 'bold 60px sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('bot unfollower', width/2, height/2 - 30);
+    ctx.fillText('bot unfollower', width/2, height/2 - 20);
     
     // Add subheading text with system font
-    ctx.fillStyle = '#CCCCCC'; // Light gray text
+    ctx.fillStyle = '#FFFFFF'; // White text (not light gray)
     ctx.font = '32px sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('scan your following list for bots', width/2, height/2 + 30);
+    ctx.fillText('find bots in your following list', width/2, height/2 + 40);
     
     // Convert canvas to buffer
     const buffer = canvas.toBuffer('image/png');
@@ -35,7 +36,7 @@ export async function GET(request: NextRequest) {
     return new Response(buffer, {
       headers: {
         'Content-Type': 'image/png',
-        'Cache-Control': 'public, max-age=60',
+        'Cache-Control': 'public, max-age=3600', // Cache for 1 hour
       },
     });
   } catch (error) {
