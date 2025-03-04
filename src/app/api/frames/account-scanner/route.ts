@@ -161,7 +161,12 @@ async function scanningFrame(fid: number) {
         }
 
         // Check following list against moderation flags
-        const userIds = followingList.map(user => user.fid.toString());
+        const userIds = followingList.map(user => {
+          if (user && typeof user.fid === 'number') {
+            return String(user.fid);
+          }
+          return `${user?.fid || ''}`;
+        });
         const moderationResults = await getModerationFlags(userIds);
 
         // Count flagged accounts
