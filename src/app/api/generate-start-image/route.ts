@@ -26,20 +26,20 @@ export async function GET(request: NextRequest) {
     // Add decorative elements
     drawModernGrid(ctx, width, height);
 
-    // Set font styles - using Helvetica
-    const titleFont = 'Helvetica, Arial, sans-serif';
-    const bodyFont = 'Helvetica, Arial, sans-serif';
+    // Set font styles - using system 'sans-serif' which is always available
+    const titleFont = 'sans-serif';
+    const bodyFont = 'sans-serif';
     
-    // Title text
-    ctx.font = `bold 72px ${titleFont}`;
+    // Title text - making it bolder and larger
+    ctx.font = `bold 90px ${titleFont}`;
     ctx.fillStyle = '#ffffff';
     ctx.textAlign = 'center';
     ctx.fillText('Bot Unfollower', width / 2, 150);
 
-    // Description
-    ctx.font = `30px ${bodyFont}`;
+    // Description - making it larger for better visibility
+    ctx.font = `bold 36px ${bodyFont}`;
     ctx.fillStyle = '#a1a1aa'; // Muted gray
-    ctx.fillText('scan your following list for bots', width / 2, 210);
+    ctx.fillText('scan your following list for bots', width / 2, 220);
 
     // Add shadcn-style UI card
     drawCard(ctx, width / 2 - 400, 240, 800, 280);
@@ -51,7 +51,7 @@ export async function GET(request: NextRequest) {
     drawLogo(ctx, 50, 50, 40);
     
     // Add call to action at bottom
-    ctx.font = `bold 24px ${bodyFont}`;
+    ctx.font = `bold 28px ${bodyFont}`;
     ctx.fillStyle = '#ffffff';
     ctx.textAlign = 'center';
     ctx.fillText('Click "Scan My Following List" to start', width / 2, height - 50);
@@ -202,7 +202,7 @@ function drawScannerSymbol(ctx: import('canvas').CanvasRenderingContext2D, x: nu
   ctx.stroke();
   
   // Add text
-  const titleFont = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+  const titleFont = 'sans-serif';
   ctx.font = `bold 28px ${titleFont}`;
   ctx.fillStyle = '#6366f1';
   ctx.textAlign = 'center';
