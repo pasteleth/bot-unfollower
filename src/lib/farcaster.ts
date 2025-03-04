@@ -49,6 +49,9 @@ export async function getFollowing(fid: number): Promise<Following[]> {
       limit: 100
     });
     
+    // Log the entire response for debugging
+    console.log('Raw Neynar response:', JSON.stringify(response));
+    
     // Process the response data
     const users = response?.users || [];
     
@@ -58,13 +61,16 @@ export async function getFollowing(fid: number): Promise<Following[]> {
     }
     
     // Map the API response to our Following type
-    return users.map((user: any) => ({
-      fid: user.fid,
-      username: user.username || `fid:${user.fid}`,
-      display_name: user.display_name || `User ${user.fid}`,
-      pfp_url: user.pfp_url || '',
-      bio: '',
-    }));
+    return users.map((user: any) => {
+      console.log('Processing user:', JSON.stringify(user));
+      return {
+        fid: user.fid,
+        username: user.username || `fid:${user.fid}`,
+        display_name: user.display_name || `User ${user.fid}`,
+        pfp_url: user.pfp_url || '',
+        bio: '',
+      };
+    });
   } catch (error) {
     console.error('Error fetching following from Neynar:', error);
     
@@ -72,6 +78,7 @@ export async function getFollowing(fid: number): Promise<Following[]> {
     let errorMessage = 'Unknown error';
     if (error instanceof Error) {
       errorMessage = error.message;
+      console.error('Error stack:', error.stack);
     } else if (typeof error === 'object' && error !== null) {
       // Handle possible API error response structure
       try {

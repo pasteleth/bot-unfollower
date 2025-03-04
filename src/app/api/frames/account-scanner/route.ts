@@ -165,8 +165,49 @@ async function scanningFrame(fid: number) {
           if (user && typeof user.fid === 'number') {
             return String(user.fid);
           }
-          return `${user?.fid || ''}`;
-        });
+          // Log problematic user objects
+          console.log('Invalid user object:', JSON.stringify(user));
+          return '';
+        }).filter(id => id !== ''); // Filter out empty strings
+        
+        console.log(`Found ${userIds.length} valid user IDs for moderation check`);
+        
+        if (userIds.length === 0) {
+          console.warn('No valid user IDs found after processing following list');
+          const noFollowingImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-error-image?message=${encodeURIComponent("We couldn't find any valid accounts you're following")}`);
+          
+          clearTimeout(timeout);
+          return new Response(
+            `<!DOCTYPE html>
+            <html>
+              <head>
+                <title>No Valid Accounts Found - Account Scanner</title>
+                <meta property="og:title" content="No Valid Accounts Found" />
+                <meta property="og:description" content="We couldn't find any valid accounts you're following" />
+                <meta property="og:image" content="${noFollowingImageUrl}" />
+                <meta name="theme-color" content="#000000" />
+
+                <meta property="fc:frame" content="vNext" />
+                <meta property="fc:frame:image" content="${noFollowingImageUrl}" />
+                <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
+                <meta property="fc:frame:button:1" content="Try Again" />
+                <meta property="fc:frame:button:1:action" content="post" />
+                <meta property="fc:frame:button:1:target" content="_self" />
+                <meta property="fc:frame:post_url" content="${addProtectionBypass(`${BASE_URL}/api/frames/account-scanner`)}" />
+              </head>
+              <body style="background-color: #000000; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+                <h1>No Valid Accounts Found</h1>
+                <p>We couldn't find any valid accounts you're following.</p>
+              </body>
+            </html>`,
+            {
+              headers: {
+                "Content-Type": "text/html",
+              },
+            }
+          );
+        }
+        
         const moderationResults = await getModerationFlags(userIds);
 
         // Count flagged accounts

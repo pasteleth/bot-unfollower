@@ -75,8 +75,16 @@ export async function getModerationFlags(
   thresholds = DEFAULT_MODERATION_THRESHOLDS,
   skipCache = false
 ): Promise<Record<string, UserModerationResult>> {
+  // Filter out any invalid userIds
+  const validUserIds = userIds.filter(id => id && typeof id === 'string' && id.trim() !== '');
+  
+  if (validUserIds.length === 0) {
+    console.warn('No valid user IDs provided to getModerationFlags');
+    return {};
+  }
+  
   // Get raw moderation data
-  const moderationData = await getUserModeration(userIds, skipCache);
+  const moderationData = await getUserModeration(validUserIds, skipCache);
   
   // Process the data to add flags
   const results: Record<string, UserModerationResult> = {};
