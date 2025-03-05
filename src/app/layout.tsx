@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 // Temporarily removing CSS import to fix build issues
 // import "./globals.css";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: "Bot Detector Frame",
@@ -15,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
