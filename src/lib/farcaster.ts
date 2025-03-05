@@ -18,6 +18,30 @@ export type NeynarUser = {
   pfp_url?: string;
 };
 
+// Define the Warpcast API response types
+type WarpcastUser = {
+  fid: number;
+  username?: string;
+  displayName?: string;
+  pfp?: {
+    url?: string;
+  };
+  profile?: {
+    bio?: {
+      text?: string;
+    };
+  };
+};
+
+type WarpcastResponse = {
+  result?: {
+    users: WarpcastUser[];
+  };
+  next?: {
+    cursor?: string;
+  };
+};
+
 /**
  * Get the list of accounts that a Farcaster user follows
  * @param fid The Farcaster ID to look up
@@ -60,72 +84,41 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
       const fidAsInt = Math.floor(fid);
       console.log(`[getFollowing] Using integer FID: ${fidAsInt}`);
       
-      // Log the outgoing request parameters in detail
-      console.log(`[getFollowing] Using fetchUserFollowing to get user following list`);
+      // Build URL with cursor if available
+      let url = `https://api.warpcast.com/v2/following?fid=${fidAsInt}&limit=100`;
+      if (cursor) {
+        url += `&cursor=${encodeURIComponent(cursor)}`;
+      }
       
       // Log the exact request details
       const requestTime = new Date().toISOString();
-      console.log(`NEYNAR_API_REQUEST [${requestTime}] Sending request to Neynar API: fetchUserFollowing fid=${fidAsInt} limit=100 cursor=${cursor || 'null'}`);
+      console.log(`WARPCAST_API_REQUEST [${requestTime}] Sending request to: ${url}`);
       
       lastRequestTime = Date.now();
-      const response = await neynarClient.fetchUserFollowing({
-        fid: fidAsInt,
-        limit: 100,
-        cursor: cursor || undefined
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        }
       });
       
       let endTime = Date.now();
       const responseTime = new Date().toISOString();
-      console.log(`NEYNAR_API_RESPONSE [${responseTime}] Successfully received response from Neynar API after ${endTime - startTime}ms`);
       
-      // Log full details of the API response summary
-      console.log(`[getFollowing] API request succeeded with ${response?.users?.length || 0} follow objects`);
-      
-      if (response && response.users && response.users.length > 0) {
-        const followedUsers = response.users
-          .filter(followObj => followObj.user)
-          .map(followObj => followObj.user);
-        
-        console.log(`[getFollowing] Extracted ${followedUsers.length} user objects`);
-        
-        const result = followedUsers.map((user: any) => {
-          return {
-            fid: user.fid,
-            username: user.username || `fid:${user.fid}`,
-            display_name: user.display_name || `User ${user.fid}`,
-            pfp_url: user.pfp_url || '',
-            bio: user.profile?.bio?.text || '',
-          };
-        });
-        
-        console.log(`[getFollowing] Returning ${result.length} following accounts`);
-        return {
-          users: result,
-          nextCursor: response.next?.cursor || null,
-        };
-      } else {
-        console.warn('[getFollowing] No following users found in Neynar API response');
-        return { users: [] };
-      }
-    } catch (error: any) {
-      let endTime = Date.now();
-      const errorTime = new Date().toISOString();
-      console.error(`NEYNAR_API_ERROR [${errorTime}] Neynar API request failed after ${endTime - startTime}ms`);
-      
-      // Check for rate limit error
-      if (error.response?.status === 429) {
+      // Check for rate limit response
+      if (response.status === 429) {
         attempt++;
-        console.warn(`NEYNAR_RATE_LIMIT_HIT [${new Date().toISOString()}] 429 encountered on attempt ${attempt}. Request parameters: fid=${fid} cursor=${cursor || 'null'}`);
+        console.warn(`WARPCAST_RATE_LIMIT_HIT [${new Date().toISOString()}] 429 encountered on attempt ${attempt}. Request parameters: fid=${fid} cursor=${cursor || 'null'}`);
         
-        // Log rate limit headers if available
-        const rateHeaders = error.response?.headers || {};
-        const resetTime = rateHeaders['x-ratelimit-reset'] || 'unknown';
-        const remaining = rateHeaders['x-ratelimit-remaining'] || 'unknown';
-        console.warn(`NEYNAR_RATE_LIMIT_HEADERS Reset time: ${resetTime}, Remaining: ${remaining}`);
+        // Get rate limit headers
+        const resetTime = response.headers.get('x-ratelimit-reset');
+        const remaining = response.headers.get('x-ratelimit-remaining');
+        console.warn(`WARPCAST_RATE_LIMIT_HEADERS Reset time: ${resetTime}, Remaining: ${remaining}`);
         
-        // If we have a reset time header, use it, otherwise wait for the full window
+        // Calculate wait time
         let waitTime = RATE_LIMIT_WINDOW;
-        if (resetTime !== 'unknown') {
+        if (resetTime) {
           const resetTimeMs = new Date(resetTime).getTime();
           const now = Date.now();
           if (resetTimeMs > now) {
@@ -133,25 +126,48 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
           }
         }
         
-        console.log(`NEYNAR_RATE_LIMIT_RETRY Waiting ${waitTime}ms for rate limit window to reset`);
+        console.log(`WARPCAST_RATE_LIMIT_RETRY Waiting ${waitTime}ms for rate limit window to reset`);
         await new Promise(resolve => setTimeout(resolve, waitTime));
         continue; // Retry the request
       }
       
-      // If it's not a rate limit error, throw
-      console.error('[getFollowing] Error fetching following from Neynar:', error);
-      let errorMessage = 'Unknown error';
-      if (error instanceof Error) {
-        errorMessage = error.message;
-        console.error('[getFollowing] Error stack:', error.stack);
-      } else if (typeof error === 'object' && error !== null) {
-        try {
-          errorMessage = JSON.stringify(error);
-        } catch (e) {
-          errorMessage = 'Unstructured error object';
-        }
+      // Handle other error responses
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}: ${await response.text()}`);
       }
-      throw new Error(`Error fetching following list: ${errorMessage}`);
+      
+      const data = await response.json() as WarpcastResponse;
+      console.log(`WARPCAST_API_RESPONSE [${responseTime}] Successfully received response after ${endTime - startTime}ms`);
+      
+      if (!data.result?.users) {
+        console.error('Unexpected API response:', data);
+        throw new Error('Unexpected API response format');
+      }
+      
+      const users = data.result.users;
+      console.log(`[getFollowing] API request succeeded with ${users.length} follow objects`);
+      
+      // Map users to our format
+      const mappedUsers = users.map((user: WarpcastUser) => ({
+        fid: user.fid,
+        username: user.username || `fid:${user.fid}`,
+        display_name: user.displayName || `User ${user.fid}`,
+        pfp_url: user.pfp?.url || '',
+        bio: user.profile?.bio?.text || '',
+      }));
+      
+      console.log(`[getFollowing] Returning ${mappedUsers.length} following accounts`);
+      return {
+        users: mappedUsers,
+        nextCursor: data.next?.cursor || null,
+      };
+    } catch (error) {
+      let endTime = Date.now();
+      const errorTime = new Date().toISOString();
+      console.error(`WARPCAST_API_ERROR [${errorTime}] API request failed after ${endTime - startTime}ms:`, error);
+      
+      // If it's not a rate limit error (which we handle above), throw
+      throw new Error(`Error fetching following list: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   }
 }
