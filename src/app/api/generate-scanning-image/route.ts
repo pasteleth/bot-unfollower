@@ -10,10 +10,6 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const fid = searchParams.get('fid');
 
-    if (!fid) {
-      return new Response('Missing FID parameter', { status: 400 });
-    }
-
     // Create canvas with frame dimensions
     const width = 1200;
     const height = 630;
@@ -35,7 +31,13 @@ export async function GET(request: NextRequest) {
     // Description
     ctx.fillStyle = '#cccccc'; // Light gray color
     ctx.font = '36px "Inter", Arial, sans-serif'; // Use Inter with fallbacks
-    ctx.fillText('Checking your following list for potential bots', width / 2, height / 2);
+    
+    // Change text based on whether FID is available
+    if (fid) {
+      ctx.fillText(`Checking following list for account ${fid}`, width / 2, height / 2);
+    } else {
+      ctx.fillText('Checking your following list for potential bots', width / 2, height / 2);
+    }
     
     // Loading indicator text
     ctx.fillStyle = '#999999'; // Medium gray color

@@ -149,7 +149,7 @@ async function scanningFrame(fid: number | string, headers: Headers): Promise<Re
   <head>
     <meta charset="utf-8">
     <meta property="fc:frame" content="vNext" />
-    <meta property="fc:frame:image" content="${BASE_URL}/api/generate-scanning-image" />
+    <meta property="fc:frame:image" content="${BASE_URL}/api/generate-scanning-image?fid=${fidNumber}" />
   </head>
   <body>
     <!-- Scanning frame content -->
