@@ -6,21 +6,45 @@ type EthProvider = {
   request: (args: { method: string; params?: any[] }) => Promise<any>;
 };
 
+// Define the SDK type structure to help TypeScript
+interface FrameSDK {
+  wallet: {
+    ethProvider: EthProvider;
+  };
+  actions: {
+    ready: () => Promise<void>;
+    openUrl?: (url: string) => void;
+    close?: () => void;
+  };
+  context: Promise<any>;
+}
+
+// Declare the SDK on the window object for TypeScript
+declare global {
+  interface Window {
+    sdk?: unknown;
+  }
+}
+
 // Using a different approach that doesn't rely on augmenting the SDK type
 const getFrameSDK = () => {
   // Only import SDK on client side
   if (typeof window === 'undefined') {
     // Return a mock for SSR
     return {
-      wallet: { ethProvider: null },
+      wallet: { 
+        ethProvider: {
+          request: async () => { throw new Error('Not available in SSR'); }
+        } 
+      },
       actions: { ready: async () => {} },
       context: Promise.resolve({})
-    };
+    } as unknown as FrameSDK;
   }
   
   // Use dynamic import in browser
-  // @ts-ignore - We know the SDK exists at runtime, TypeScript can't verify this
-  return window.sdk;
+  // We know the SDK exists at runtime, TypeScript can't verify this
+  return window.sdk as unknown as FrameSDK;
 };
 
 // Helper to safely get the provider
@@ -35,9 +59,8 @@ const getSafeProvider = async (): Promise<EthProvider> => {
       }
       
       // Check if SDK is loaded already
-      if (window && 'sdk' in window) {
-        // @ts-ignore - We know the SDK exists at runtime
-        const sdk = window.sdk;
+      if (window && window.sdk) {
+        const sdk = window.sdk as unknown as FrameSDK;
         if (sdk && sdk.wallet && sdk.wallet.ethProvider) {
           resolve(sdk.wallet.ethProvider);
           return;
@@ -50,12 +73,14 @@ const getSafeProvider = async (): Promise<EthProvider> => {
       
       const checkInterval = setInterval(() => {
         attempts++;
-        // @ts-ignore - We know the SDK exists at runtime
-        if (window && 'sdk' in window && window.sdk && window.sdk.wallet && window.sdk.wallet.ethProvider) {
-          clearInterval(checkInterval);
-          // @ts-ignore - We know the SDK exists at runtime
-          resolve(window.sdk.wallet.ethProvider);
-          return;
+        
+        if (window && window.sdk) {
+          const sdk = window.sdk as unknown as FrameSDK;
+          if (sdk && sdk.wallet && sdk.wallet.ethProvider) {
+            clearInterval(checkInterval);
+            resolve(sdk.wallet.ethProvider);
+            return;
+          }
         }
         
         if (attempts >= maxAttempts) {
