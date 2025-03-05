@@ -34,15 +34,15 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
     throw new Error("No Neynar API key provided. Add your API key to .env.local file.");
   }
 
-  const MAX_RETRIES = 5;
   const INITIAL_DELAY_MS = 1000; // Start with 1 second delay
+  const MAX_DELAY_MS = 32000; // Cap the delay at 32 seconds
   let attempt = 0;
   let delay = INITIAL_DELAY_MS;
   let startTime = Date.now();
   
-  while (attempt < MAX_RETRIES) {
+  while (true) { // Keep trying indefinitely
     try {
-      console.log(`[getFollowing] Fetching following for FID: ${fid} (Attempt ${attempt + 1}/${MAX_RETRIES})`);
+      console.log(`[getFollowing] Fetching following for FID: ${fid} (Attempt ${attempt + 1})`);
       
       // Validate FID
       if (typeof fid !== 'number' || isNaN(fid) || fid <= 0) {
@@ -108,7 +108,7 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
       // Check for rate limit error
       if (error.response?.status === 429) {
         attempt++;
-        console.warn(`NEYNAR_RATE_LIMIT_HIT [${new Date().toISOString()}] 429 encountered on attempt ${attempt}/${MAX_RETRIES}. Request parameters: fid=${fid} cursor=${cursor || 'null'}`);
+        console.warn(`NEYNAR_RATE_LIMIT_HIT [${new Date().toISOString()}] 429 encountered on attempt ${attempt}. Request parameters: fid=${fid} cursor=${cursor || 'null'}`);
         
         // Log rate limit headers if available
         const rateHeaders = error.response?.headers || {};
@@ -116,15 +116,14 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
         const remaining = rateHeaders['x-ratelimit-remaining'] || 'unknown';
         console.warn(`NEYNAR_RATE_LIMIT_HEADERS Reset time: ${resetTime}, Remaining: ${remaining}`);
         
-        if (attempt < MAX_RETRIES) {
-          console.log(`NEYNAR_RATE_LIMIT_RETRY Waiting ${delay}ms before retry ${attempt}/${MAX_RETRIES}`);
-          await new Promise(resolve => setTimeout(resolve, delay));
-          delay *= 2; // Exponential backoff
-          continue; // Retry the request
-        }
+        // Cap the delay at MAX_DELAY_MS
+        delay = Math.min(delay * 2, MAX_DELAY_MS);
+        console.log(`NEYNAR_RATE_LIMIT_RETRY Waiting ${delay}ms before retry ${attempt}`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+        continue; // Retry the request
       }
       
-      // If we've exhausted retries or it's not a rate limit error, throw
+      // If it's not a rate limit error, throw
       console.error('[getFollowing] Error fetching following from Neynar:', error);
       let errorMessage = 'Unknown error';
       if (error instanceof Error) {
@@ -140,9 +139,6 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
       throw new Error(`Error fetching following list: ${errorMessage}`);
     }
   }
-  
-  // If we've exhausted all retries
-  throw new Error(`Failed to fetch following list after ${MAX_RETRIES} attempts due to rate limits`);
 }
 
 /**
