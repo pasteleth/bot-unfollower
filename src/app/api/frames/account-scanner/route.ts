@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
 import { getModerationFlags } from '@/lib/moderation';
-import { getFollowing, fetchAllFollowing } from '@/lib/farcaster';
+import { getFollowing } from '@/lib/farcaster';
 import { getInterCssUrl } from "@/lib/fonts";
 import path from 'path';
 import { registerFont } from 'canvas';
@@ -511,80 +511,58 @@ export async function POST(request: Request) {
   }
 }
 
-// Update handleScanResults to use parallel processing
+// Update handleScanResults to use pagination
 async function handleScanResults(fidNumber: number, headers: Headers) {
-  const startTime = Date.now();
-
-  try {
-    console.log(`[TIMING] Scan process started at ${new Date().toISOString()} for FID: ${fidNumber}`);
-
-    const followingFetchStart = Date.now();
-    console.log(`FETCH_ALL_FOLLOWING_START [${new Date().toISOString()}] Starting to fetch all following for FID: ${fidNumber}`);
-    const followingList = await fetchAllFollowing(fidNumber);
-    console.log(`FETCH_ALL_FOLLOWING_COMPLETE [${new Date().toISOString()}] Total following accounts retrieved: ${followingList.length}`);
-    const followingFetchEnd = Date.now();
-
-    if (!followingList.length) throw new Error("No accounts found in your following list");
-
-    const userIds = followingList.map(user => user.fid.toString());
-
-    const batchSize = 100; // Increased from 50 to 100
-    const moderationStart = Date.now();
-    const moderationResultsCombined = {};
-
-    // Process batches in parallel with a maximum of 3 concurrent batches
-    const batches = [];
-    for (let i = 0; i < userIds.length; i += batchSize) {
-      batches.push(userIds.slice(i, i + batchSize));
-    }
-
-    // Process batches in groups of 3
-    for (let i = 0; i < batches.length; i += 3) {
-      const batchGroup = batches.slice(i, i + 3);
-      console.log(`[TIMING] Processing batch group ${Math.floor(i / 3) + 1} of ${Math.ceil(batches.length / 3)}`);
-      
-      const results = await Promise.all(
-        batchGroup.map(async (batchIds, index) => {
-          console.log(`[TIMING] Moderation check for batch ${i + index + 1}: ${batchIds.length} accounts`);
-          return getModerationFlags(batchIds);
-        })
-      );
-
-      // Combine results from the batch group
-      results.forEach(batchResults => {
-        Object.assign(moderationResultsCombined, batchResults);
-      });
-
-      // Add a small delay between groups to avoid rate limits
-      if (i + 3 < batches.length) {
-        await new Promise(resolve => setTimeout(resolve, 500)); // Reduced from 1000ms to 500ms
-      }
-    }
-
-    const moderationEnd = Date.now();
-
-    const resultsProcessingStart = Date.now();
-
-    const flaggedUsers = Object.entries(moderationResultsCombined)
-      .filter(([_, result]) => (result as { flags: { isFlagged: boolean } }).flags.isFlagged)
-      .map(([id, result]) => ({ id, scores: (result as { scores: Record<string, number> }).scores }));
-
-    const resultsProcessingEnd = Date.now();
-
-    return {
-      flaggedCount: flaggedUsers.length,
-      followingCount: userIds.length,
-      flaggedUsers,
-      timingStats: {
-        totalTimeMs: moderationEnd - startTime,
-        followingFetchMs: followingFetchStart - startTime,
-        moderationCheckMs: moderationEnd - moderationStart,
-        resultsProcessingMs: resultsProcessingEnd - resultsProcessingStart
-      }
-    };
-
-  } catch (error) {
-    console.error("Error handling scan results:", error);
-    throw error;
+  const scanStartTime = Date.now();
+  console.log(`[handleScanResults] Starting scan for FID: ${fidNumber}`);
+  
+  // Fetch following list
+  const followingFetchStart = Date.now();
+  const following = await getFollowing(fidNumber);
+  const followingFetchTime = Date.now() - followingFetchStart;
+  
+  if (!following || following.length === 0) {
+    throw new Error("No following accounts found");
   }
+  
+  // Extract user IDs
+  const userIds = following.map(user => String(user.fid));
+  
+  // Check moderation flags
+  const moderationStart = Date.now();
+  const moderationResults = await getModerationFlags(userIds);
+  const moderationTime = Date.now() - moderationStart;
+  
+  // Process results
+  const processingStart = Date.now();
+  let flaggedCount = 0;
+  const flaggedUsers = [];
+  
+  for (const userId in moderationResults) {
+    const userResult = moderationResults[userId];
+    if (!userResult || !userResult.flags) continue;
+    
+    if (userResult.flags.isFlagged) {
+      flaggedCount++;
+      flaggedUsers.push({
+        id: userId,
+        scores: userResult.scores
+      });
+    }
+  }
+  
+  const processingTime = Date.now() - processingStart;
+  const totalTime = Date.now() - scanStartTime;
+  
+  return {
+    flaggedCount,
+    followingCount: following.length,
+    timingStats: {
+      totalTimeMs: totalTime,
+      followingFetchMs: followingFetchTime,
+      moderationCheckMs: moderationTime,
+      resultsProcessingMs: processingTime
+    },
+    flaggedUsers
+  };
 } 

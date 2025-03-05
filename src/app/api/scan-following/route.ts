@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server';
 import { getModerationFlags } from '@/lib/moderation';
-import { fetchAllFollowing } from '@/lib/farcaster';
+import { getFollowing } from '@/lib/farcaster';
 
 /**
  * Scan a user's following list for potentially problematic accounts
@@ -26,8 +26,7 @@ export async function GET(request: NextRequest): Promise<Response> {
     
     // Fetch the user's following list
     console.log("Fetching following list for FID:", fid);
-    console.log("Using fetchAllFollowing to get complete following list");
-    const followingList = await fetchAllFollowing(fid);
+    const followingList = await getFollowing(fid);
     
     if (!followingList || followingList.length === 0) {
       return Response.json({ 

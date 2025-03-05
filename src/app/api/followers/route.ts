@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { fetchAllFollowing } from '../../../lib/farcaster';
+import { getFollowing } from '../../../lib/farcaster';
 
 export async function GET(request: NextRequest) {
   try {
@@ -11,9 +11,9 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid or missing FID parameter' }, { status: 400 });
     }
     
-    // Fetch the complete following data from the Farcaster API
-    console.log(`[/api/followers] Fetching all following for FID: ${fid}`);
-    const following = await fetchAllFollowing(Number(fid));
+    // Fetch the following data from the Farcaster API
+    console.log(`[/api/followers] Fetching following for FID: ${fid}`);
+    const following = await getFollowing(Number(fid));
     
     return NextResponse.json({ users: following });
   } catch (error) {
