@@ -33,7 +33,7 @@ export async function GET(request: NextRequest): Promise<Response> {
         if (!fid) {
           return errorFrame("Missing FID parameter");
         }
-        return scanningFrame(parseInt(fid, 10));
+        return scanningFrame(fid);
       
       case 'results':
         if (!fid || !count) {
@@ -113,8 +113,27 @@ function startFrame(): Response {
 /**
  * Frame shown during the scanning process
  */
-async function scanningFrame(fid: number): Promise<Response> {
+async function scanningFrame(fid: number | string): Promise<Response> {
   try {
+    console.log("[scanningFrame] Starting with FID:", fid, "Type:", typeof fid);
+    
+    // Convert string FID to number if needed
+    let fidNumber: number;
+    if (typeof fid === 'string') {
+      console.log("[scanningFrame] Converting string FID to number:", fid);
+      fidNumber = parseInt(fid, 10);
+      if (isNaN(fidNumber)) {
+        console.error("[scanningFrame] Failed to parse FID as number:", fid);
+        return errorFrame(`Invalid FID format: ${fid}. FID must be a number.`);
+      }
+      console.log("[scanningFrame] Converted FID to number:", fidNumber);
+    } else if (typeof fid === 'number') {
+      fidNumber = fid;
+    } else {
+      console.error("[scanningFrame] Unsupported FID type:", typeof fid, fid);
+      return errorFrame(`Invalid FID type: ${typeof fid}. FID must be a number.`);
+    }
+    
     // Set a timeout for the scanning operation
     const timeoutDuration = 3000; // 3 seconds
     let timeoutReached = false;
@@ -124,18 +143,18 @@ async function scanningFrame(fid: number): Promise<Response> {
 
     const scanningPromise = async (): Promise<Response> => {
       try {
-        console.log("Starting scanning process for FID:", fid);
+        console.log("Starting scanning process for FID:", fidNumber);
         
         // Safety check - start timer to measure performance
         const startTime = Date.now();
         
-        console.log("Fetching following list for FID:", fid);
+        console.log("Fetching following list for FID:", fidNumber);
         // Validate FID one more time to be extra safe
-        if (typeof fid !== 'number' || isNaN(fid) || fid <= 0) {
-          throw new Error(`Invalid FID: ${fid}. FID must be a positive number.`);
+        if (typeof fidNumber !== 'number' || isNaN(fidNumber) || fidNumber <= 0) {
+          throw new Error(`Invalid FID: ${fidNumber}. FID must be a positive number.`);
         }
         
-        const followingList = await getFollowing(fid);
+        const followingList = await getFollowing(fidNumber);
         
         if (!followingList || followingList.length === 0) {
           const noFollowingImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-error-image?message=${encodeURIComponent("We couldn't find any accounts you're following")}`);
@@ -241,10 +260,10 @@ async function scanningFrame(fid: number): Promise<Response> {
         }
 
         // Scanning complete image
-        const scanningImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-scanning-image?fid=${formatFidForUrl(fid)}`);
+        const scanningImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-scanning-image?fid=${formatFidForUrl(fidNumber)}`);
         
         // Redirect to results with the count
-        const postUrl = addProtectionBypass(`${BASE_URL}/api/frames/account-scanner?step=results&fid=${formatFidForUrl(fid)}&count=${flaggedCount}`);
+        const postUrl = addProtectionBypass(`${BASE_URL}/api/frames/account-scanner?step=results&fid=${formatFidForUrl(fidNumber)}&count=${flaggedCount}`);
         console.log("Generated post URL:", postUrl);
         return new Response(
           `<!DOCTYPE html>
@@ -282,7 +301,7 @@ async function scanningFrame(fid: number): Promise<Response> {
     };
 
     // Use safe FID formatting here too
-    const scanningImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-scanning-image?fid=${formatFidForUrl(fid)}`);
+    const scanningImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-scanning-image?fid=${formatFidForUrl(fidNumber)}`);
     
     // Race the scanning process against the timeout
     const result = await Promise.race<Response | null>([
@@ -299,7 +318,7 @@ async function scanningFrame(fid: number): Promise<Response> {
     if (timeoutReached) {
       console.log("Timeout reached, returning interim response");
       // Return a response indicating scanning is in progress
-      const postUrl = addProtectionBypass(`${BASE_URL}/api/frames/account-scanner?step=scanning&fid=${formatFidForUrl(fid)}`);
+      const postUrl = addProtectionBypass(`${BASE_URL}/api/frames/account-scanner?step=scanning&fid=${formatFidForUrl(fidNumber)}`);
       console.log("Generated post URL:", postUrl);
       return new Response(
         `<!DOCTYPE html>
@@ -451,17 +470,41 @@ function errorFrame(errorMessage: string = "An error occurred"): Response {
 export async function POST(request: NextRequest): Promise<Response> {
   console.log("Received POST request to frame");
   try {
-    console.log("Parsing request body...");
-    const body = await request.json();
-    console.log("Request body received:", JSON.stringify(body).substring(0, 200) + "...");
+    // Log full request information
+    console.log("Request URL:", request.url);
+    console.log("Request method:", request.method);
+    console.log("Request headers:", Object.fromEntries(request.headers.entries()));
     
-    const { untrustedData } = body;
-    console.log("untrustedData:", JSON.stringify(untrustedData));
+    let requestBody;
+    try {
+      console.log("Parsing request body...");
+      const clone = request.clone();
+      requestBody = await request.json();
+      
+      // Also log the raw request text for debugging
+      const rawBody = await clone.text();
+      console.log("Raw request body:", rawBody);
+      
+      console.log("Request body received:", JSON.stringify(requestBody, null, 2));
+    } catch (parseError) {
+      console.error("Failed to parse request body:", parseError);
+      return errorFrame("Failed to parse request body. This may indicate a malformed request.");
+    }
+    
+    // Verify untrustedData exists
+    if (!requestBody || !requestBody.untrustedData) {
+      console.error("Request body missing untrustedData:", JSON.stringify(requestBody));
+      return errorFrame("Invalid request format: missing untrustedData");
+    }
+    
+    const { untrustedData } = requestBody;
+    console.log("untrustedData:", JSON.stringify(untrustedData, null, 2));
     
     const buttonIndex = untrustedData?.buttonIndex || 1;
     const fid = untrustedData?.fid;
     
     console.log(`Button ${buttonIndex} pressed by user with FID:`, fid);
+    console.log("FID type:", typeof fid);
     
     // If no FID is provided, use a placeholder for testing or return an error
     if (!fid) {
@@ -492,7 +535,25 @@ export async function POST(request: NextRequest): Promise<Response> {
     // For direct response, use the appropriate frame function
     if (step === 'scanning') {
       console.log("Starting scanning process for FID:", fid);
-      return scanningFrame(parseInt(String(fid), 10));
+      
+      // Convert FID to number safely, regardless of input type
+      let fidNumber: number;
+      if (typeof fid === 'string') {
+        console.log("Converting string FID to number:", fid);
+        fidNumber = parseInt(fid, 10);
+        if (isNaN(fidNumber)) {
+          console.error("Failed to parse FID as number:", fid);
+          return errorFrame(`Invalid FID format: ${fid}. FID must be a number.`);
+        }
+        console.log("Converted FID to number:", fidNumber);
+      } else if (typeof fid === 'number') {
+        fidNumber = fid;
+      } else {
+        console.error("Unsupported FID type:", typeof fid, fid);
+        return errorFrame(`Invalid FID type: ${typeof fid}. FID must be a number.`);
+      }
+      
+      return scanningFrame(fidNumber);
     } else {
       console.log("Returning to start frame");
       return startFrame();
