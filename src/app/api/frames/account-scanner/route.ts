@@ -113,7 +113,7 @@ function startFrame(): Response {
         <meta property="fc:frame:button:1:action" content="post" />
         <meta property="fc:frame:post_url" content="${postUrl}" />
       </head>
-      <body style="background-color: #000000; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+      <body style="background-color: #000000; color: #ffffff; font-family: Arial, Helvetica, sans-serif;">
         <h1>Account Scanner</h1>
         <p>Scan your following list for potentially problematic accounts.</p>
       </body>
@@ -193,7 +193,7 @@ async function scanningFrame(fid: number | string): Promise<Response> {
                 <meta property="fc:frame:button:1:target" content="_self" />
                 <meta property="fc:frame:post_url" content="${addProtectionBypass(`${BASE_URL}/api/frames/account-scanner`)}" />
               </head>
-              <body style="background-color: #000000; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+              <body style="background-color: #000000; color: #ffffff; font-family: Arial, Helvetica, sans-serif;">
                 <h1>No Following Found</h1>
                 <p>We couldn't find any accounts you're following.</p>
               </body>
@@ -240,7 +240,7 @@ async function scanningFrame(fid: number | string): Promise<Response> {
                 <meta property="fc:frame:button:1:target" content="_self" />
                 <meta property="fc:frame:post_url" content="${addProtectionBypass(`${BASE_URL}/api/frames/account-scanner`)}" />
               </head>
-              <body style="background-color: #000000; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+              <body style="background-color: #000000; color: #ffffff; font-family: Arial, Helvetica, sans-serif;">
                 <h1>No Valid Accounts Found</h1>
                 <p>We couldn't find any valid accounts you're following.</p>
               </body>
@@ -300,7 +300,7 @@ async function scanningFrame(fid: number | string): Promise<Response> {
               <meta property="fc:frame:button:1:action" content="post" />
               <meta property="fc:frame:post_url" content="${postUrl}" />
             </head>
-            <body>
+            <body style="background-color: #000000; color: #ffffff; font-family: Arial, Helvetica, sans-serif;">
               <h1>Scanning Complete</h1>
               <p>We've scanned your following list</p>
             </body>
@@ -355,7 +355,7 @@ async function scanningFrame(fid: number | string): Promise<Response> {
             <meta property="fc:frame:button:1:action" content="post" />
             <meta property="fc:frame:post_url" content="${postUrl}" />
           </head>
-          <body>
+          <body style="background-color: #000000; color: #ffffff; font-family: Arial, Helvetica, sans-serif;">
             <h1>Scanning in Progress</h1>
             <p>We're scanning your following list... Click "Check Again" to see if it's complete.</p>
           </body>
@@ -444,7 +444,7 @@ function resultsFrame(fid: number, countStr: string): Response {
         <meta property="fc:frame:button:2:action" content="post" />
         <meta property="fc:frame:post_url" content="${postUrl}" />
       </head>
-      <body>
+      <body style="background-color: #000000; color: #ffffff; font-family: Arial, Helvetica, sans-serif;">
         <h1>Scan Results</h1>
         <p>${message}</p>
         ${hasActionButton ? `<p><a href="${buttonUrl}">${buttonText}</a></p>` : ''}
@@ -492,7 +492,7 @@ function errorFrame(errorMessage: string = "An error occurred"): Response {
         <meta property="fc:frame:button:1:action" content="post" />
         <meta property="fc:frame:post_url" content="${postUrl}" />
       </head>
-      <body>
+      <body style="background-color: #000000; color: #ffffff; font-family: Arial, Helvetica, sans-serif;">
         <h1>Error</h1>
         <p>${errorMessage}</p>
         <p><button onclick="location.href='${postUrl}'">Try Again</button></p>
