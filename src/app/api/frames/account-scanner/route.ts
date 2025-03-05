@@ -14,6 +14,7 @@ declare global {
       started?: boolean;
       completed: boolean;
       flaggedCount?: number;
+      followingCount?: number;
       error?: string;
       totalScanTimeMs?: number;
       timingStats?: {
@@ -191,91 +192,100 @@ async function scanningFrame(fid: number | string, headers: Headers): Promise<Re
       return errorFrame(`Invalid FID type: ${typeof fid}. FID must be a number.`, headers);
     }
     
-    // First, show a scanning frame response with a Check Results button
-    console.log("[scanningFrame] Creating scanning frame with button");
+    // Initialize or update scan state
+    if (!global.scanResults[fidNumber] || !global.scanResults[fidNumber].started) {
+      global.scanResults[fidNumber] = {
+        timestamp: Date.now(),
+        started: true,
+        completed: false
+      };
+      
+      // Start the scan in the background without awaiting
+      handleScanResults(fidNumber, headers)
+        .then(results => {
+          const completionTime = Date.now();
+          const totalScanTime = completionTime - frameStartTime;
+          console.log(`[TIMING] Scan completed for FID: ${fidNumber} in ${totalScanTime}ms`);
+          
+          // Store the results
+          global.scanResults[fidNumber] = {
+            timestamp: Date.now(),
+            started: true,
+            completed: true,
+            flaggedCount: results.flaggedCount,
+            followingCount: results.followingCount,
+            timingStats: results.timingStats,
+            totalScanTimeMs: totalScanTime,
+            flaggedUsers: results.flaggedUsers
+          };
+        })
+        .catch(error => {
+          console.error("[scanningFrame] Error during scan:", error);
+          global.scanResults[fidNumber] = {
+            timestamp: Date.now(),
+            started: true,
+            completed: true,
+            error: error instanceof Error ? error.message : 'Unknown error during scan'
+          };
+        });
+    }
     
-    // Create post URL for the Check Results button
-    const postUrl = addProtectionIfNeeded(`${BASE_URL}/api/frames/account-scanner?step=scanning&fid=${fidNumber}`, headers);
-    
-    // HTML for scanning frame with a button
-    const scanningFrameHtml = `<!DOCTYPE html>
+    // Check if scan is complete
+    const scanState = global.scanResults[fidNumber];
+    if (scanState?.completed) {
+      // If scan is complete, redirect to results
+      const resultsUrl = addProtectionIfNeeded(
+        `${BASE_URL}/api/frames/account-scanner?step=results&fid=${fidNumber}&count=${scanState.followingCount || 0}`,
+        headers
+      );
+      
+      return new Response(
+        `<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta property="fc:frame" content="vNext" />
-    <meta property="fc:frame:image" content="${BASE_URL}/api/generate-scanning-image?fid=${fidNumber}&message=${encodeURIComponent("Wait 10 seconds then click button")}" />
-    <meta property="fc:frame:button:1" content="Check Results" />
+    <meta property="fc:frame:image" content="${BASE_URL}/api/generate-scanning-image?fid=${fidNumber}&message=${encodeURIComponent("Scan complete! Click to view results")}" />
+    <meta property="fc:frame:button:1" content="View Results" />
+    <meta property="fc:frame:button:1:action" content="post" />
+    <meta property="fc:frame:post_url" content="${resultsUrl}" />
+  </head>
+</html>`,
+        {
+          headers: {
+            "Content-Type": "text/html",
+          },
+        }
+      );
+    }
+    
+    // If scan is still in progress, show scanning message
+    const postUrl = addProtectionIfNeeded(
+      `${BASE_URL}/api/frames/account-scanner?step=scanning&fid=${fidNumber}`,
+      headers
+    );
+    
+    return new Response(
+      `<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta property="fc:frame" content="vNext" />
+    <meta property="fc:frame:image" content="${BASE_URL}/api/generate-scanning-image?fid=${fidNumber}&message=${encodeURIComponent("Scanning in progress... Click to check status")}" />
+    <meta property="fc:frame:button:1" content="Check Progress" />
     <meta property="fc:frame:button:1:action" content="post" />
     <meta property="fc:frame:post_url" content="${postUrl}" />
   </head>
-  <body>
-    <!-- Scanning frame content with button -->
-  </body>
-</html>`;
-
-    // Handle the scanning logic asynchronously
-    console.log("[scanningFrame] Starting asynchronous scan process");
-    // Create a global variable to store scan results
-    if (!global.scanResults) {
-      global.scanResults = {};
-    }
-    
-    // Measure setup time before starting async work
-    const setupCompleteTime = Date.now();
-    console.log(`[TIMING] scanningFrame setup completed in ${setupCompleteTime - frameStartTime}ms`);
-    
-    // Start the scan in the background
-    handleScanResults(fidNumber, headers)
-      .then(results => {
-        const completionTime = Date.now();
-        const totalScanTime = completionTime - frameStartTime;
-        console.log(`[TIMING] Scan completed for FID: ${fidNumber} in ${totalScanTime}ms`);
-        console.log(`[scanningFrame] Scan completed for FID: ${fidNumber}`);
-        
-        // Store the results for later retrieval
-        global.scanResults[fidNumber] = {
-          timestamp: Date.now(),
-          flaggedCount: results.flaggedCount,
-          completed: true,
-          timingStats: results.timingStats,
-          totalScanTimeMs: totalScanTime
-        };
-      })
-      .catch(error => {
-        const errorTime = Date.now();
-        console.error("[scanningFrame] Error during scan:", error);
-        console.log(`[TIMING] Scan failed for FID: ${fidNumber} after ${errorTime - frameStartTime}ms`);
-        
-        // Store the error
-        global.scanResults[fidNumber] = {
-          timestamp: Date.now(),
-          error: error instanceof Error ? error.message : "Unknown error",
-          completed: true,
-          totalScanTimeMs: errorTime - frameStartTime
-        };
-      });
-    
-    // Mark that we've started scanning
-    global.scanResults[fidNumber] = {
-      timestamp: Date.now(),
-      started: true,
-      completed: false
-    };
-    
-    console.log("[scanningFrame] Returning scanning frame with button");
-    const responseTime = Date.now();
-    console.log(`[TIMING] scanningFrame returning response after ${responseTime - frameStartTime}ms`);
-    
-    // Return the immediate response
-    return new Response(scanningFrameHtml, {
-      headers: { "Content-Type": "text/html" }
-    });
-  
+</html>`,
+      {
+        headers: {
+          "Content-Type": "text/html",
+        },
+      }
+    );
   } catch (error) {
-    const errorTime = Date.now();
-    console.error("Error during scanning:", error);
-    console.log(`[TIMING] scanningFrame error after ${errorTime - frameStartTime}ms`);
-    return errorFrame("Error scanning your following list: " + (error instanceof Error ? error.message : "Unknown error"), headers);
+    console.error("[scanningFrame] Error:", error);
+    return errorFrame("An unexpected error occurred", headers);
   }
 }
 
