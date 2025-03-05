@@ -511,7 +511,7 @@ export async function POST(request: Request) {
   }
 }
 
-// Update handleScanResults to use pagination
+// Update handleScanResults to use parallel processing
 async function handleScanResults(fidNumber: number, headers: Headers) {
   const startTime = Date.now();
 
@@ -528,15 +528,39 @@ async function handleScanResults(fidNumber: number, headers: Headers) {
 
     const userIds = followingList.map(user => user.fid.toString());
 
-    const batchSize = 100; // MBD limit per request
+    const batchSize = 100; // Increased from 50 to 100
     const moderationStart = Date.now();
     const moderationResultsCombined = {};
+
+    // Process batches in parallel with a maximum of 3 concurrent batches
+    const batches = [];
     for (let i = 0; i < userIds.length; i += batchSize) {
-      const batchIds = userIds.slice(i, i + batchSize);
-      console.log(`[TIMING] Moderation check for batch ${Math.floor(i / batchSize) + 1}: ${batchIds.length} accounts`);
-      const batchResults = await getModerationFlags(batchIds);
-      Object.assign(moderationResultsCombined, batchResults);
+      batches.push(userIds.slice(i, i + batchSize));
     }
+
+    // Process batches in groups of 3
+    for (let i = 0; i < batches.length; i += 3) {
+      const batchGroup = batches.slice(i, i + 3);
+      console.log(`[TIMING] Processing batch group ${Math.floor(i / 3) + 1} of ${Math.ceil(batches.length / 3)}`);
+      
+      const results = await Promise.all(
+        batchGroup.map(async (batchIds, index) => {
+          console.log(`[TIMING] Moderation check for batch ${i + index + 1}: ${batchIds.length} accounts`);
+          return getModerationFlags(batchIds);
+        })
+      );
+
+      // Combine results from the batch group
+      results.forEach(batchResults => {
+        Object.assign(moderationResultsCombined, batchResults);
+      });
+
+      // Add a small delay between groups to avoid rate limits
+      if (i + 3 < batches.length) {
+        await new Promise(resolve => setTimeout(resolve, 500)); // Reduced from 1000ms to 500ms
+      }
+    }
+
     const moderationEnd = Date.now();
 
     const resultsProcessingStart = Date.now();
