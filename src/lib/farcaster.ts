@@ -143,55 +143,12 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
   }
 
   const MIN_DELAY_BETWEEN_REQUESTS = 200; // Ensure we don't exceed 5 RPS
-  const DEFAULT_RATE_LIMIT_WINDOW = 60000; // Default to 1 minute if no retry_after provided
   let attempt = 0;
   let startTime = Date.now();
   let lastRequestTime = 0;
   
   while (true) { // Keep trying indefinitely
     try {
-      // Reset minute counter if we're in a new minute
-      const now = Date.now();
-      if (now - lastMinuteTimestamp >= 60000) {
-        requestsInLastMinute = 0;
-        lastMinuteTimestamp = now;
-        console.log(`NEYNAR_RATE_LIMIT_RESET Resetting minute counter. Attempting to continue fetching from cursor: ${cursor || 'initial'}`);
-      }
-
-      // Reset second counter if we're in a new second
-      if (now - lastSecondTimestamp >= 1000) {
-        requestsInLastSecond = 0;
-        lastSecondTimestamp = now;
-      }
-
-      // Check if we're at the rate limits
-      if (requestsInLastMinute >= RATE_LIMITS.REQUESTS_PER_MINUTE) {
-        const waitTime = 60000 - (now - lastMinuteTimestamp);
-        console.warn(`NEYNAR_RATE_LIMIT_PREVENTION Waiting ${Math.round(waitTime/1000)}s for minute window to reset (${requestsInLastMinute} requests in last minute). Will resume from cursor: ${cursor || 'initial'}`);
-        await new Promise(resolve => setTimeout(resolve, waitTime));
-        // Don't continue here, let the loop naturally retry with the same cursor
-        requestsInLastMinute = 0;
-        lastMinuteTimestamp = Date.now();
-      }
-
-      if (requestsInLastSecond >= RATE_LIMITS.REQUESTS_PER_SECOND) {
-        const waitTime = 1000 - (now - lastSecondTimestamp);
-        console.warn(`NEYNAR_RATE_LIMIT_PREVENTION Waiting ${waitTime}ms for second window to reset (${requestsInLastSecond} requests in last second)`);
-        await new Promise(resolve => setTimeout(resolve, waitTime));
-        requestsInLastSecond = 0;
-        lastSecondTimestamp = Date.now();
-      }
-
-      // Increment counters before making request
-      requestsInLastMinute++;
-      requestsInLastSecond++;
-
-      // Ensure we're not exceeding RPS limit
-      const timeSinceLastRequest = Date.now() - lastRequestTime;
-      if (timeSinceLastRequest < MIN_DELAY_BETWEEN_REQUESTS) {
-        await new Promise(resolve => setTimeout(resolve, MIN_DELAY_BETWEEN_REQUESTS - timeSinceLastRequest));
-      }
-      
       attempt++;
       console.log(`[getFollowing] Fetching following for FID: ${fid} (Attempt ${attempt})`);
       
@@ -206,7 +163,7 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
       console.log(`[getFollowing] Using integer FID: ${fidAsInt}`);
       
       // Build URL with cursor if available
-      let url = `https://api.neynar.com/v2/farcaster/following?fid=${fidAsInt}&limit=100`;
+      let url = `https://api.neynar.com/v2/farcaster/following?fid=${fidAsInt}&limit=100&sort_type=desc_chron`;
       if (cursor) {
         url += `&cursor=${encodeURIComponent(cursor)}`;
       }
@@ -218,15 +175,13 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
       const requestTime = new Date().toISOString();
       console.log(`NEYNAR_API_REQUEST [${requestTime}] Sending request to Neynar API v2: ${url}`);
       
-      // Check rate limit headers before proceeding
-      await checkRateLimitHeaders();
-      
       lastRequestTime = Date.now();
       const response = await fetch(url, {
         method: 'GET',
         headers: {
           'accept': 'application/json',
-          'x-api-key': apiKey
+          'x-api-key': apiKey,
+          'x-neynar-experimental': 'false'
         }
       });
       
@@ -234,14 +189,6 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
       const responseTime = new Date().toISOString();
       console.log(`NEYNAR_API_RESPONSE [${responseTime}] Status: ${response.status} after ${endTime - startTime}ms`);
 
-      // Parse rate limit headers
-      parseRateLimitHeaders(response.headers);
-
-      // Check if we're close to rate limit based on headers
-      if (globalRateLimitRemaining !== null && globalRateLimitRemaining <= 5) {
-        console.warn(`NEYNAR_RATE_LIMIT_WARNING: Only ${globalRateLimitRemaining.toString()} requests remaining`);
-      }
-      
       const responseText = await response.text();
       console.log('Raw response:', responseText); // Log raw response for debugging
       
@@ -253,62 +200,12 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
         throw new Error(`Invalid JSON response: ${responseText}`);
       }
 
-      // Log full response data for debugging
-      console.log('Full response data:', JSON.stringify(data, null, 2));
-
-      // Enhanced rate limit detection
-      const isRateLimit = (
-        // Check status codes commonly used for rate limiting
-        (response.status === 400 || response.status === 429 || response.status === 403) &&
-        (
-          // Check error code
-          (data as NeynarErrorResponse).code === 'rate_limit' ||
-          // Check error message
-          (data as NeynarErrorResponse).message?.toLowerCase().includes('rate limit') ||
-          (data as NeynarErrorResponse).message?.toLowerCase().includes('too many requests') ||
-          // Check if we're out of requests based on headers
-          globalRateLimitRemaining === 0
-        )
-      ) || (
-        // Also consider it a rate limit if we have a reset time and no remaining requests
-        globalRateLimitReset !== null && globalRateLimitRemaining === 0
-      );
-
-      if (isRateLimit) {
-        const errorData = data as NeynarErrorResponse;
+      // Simplified rate limit detection
+      if ((data as NeynarErrorResponse).code === 'rate_limit') {
         console.warn(`NEYNAR_RATE_LIMIT_HIT [${new Date().toISOString()}] Rate limit detected on attempt ${attempt}. Current cursor: ${cursor || 'initial'}`);
-        console.warn('Rate limit response:', {
-          code: errorData.code,
-          message: errorData.message,
-          status: errorData.status,
-          retry_after: errorData.retry_after,
-          headers: {
-            remaining: globalRateLimitRemaining,
-            reset: globalRateLimitReset,
-            limit: globalRateLimitLimit
-          }
-        });
         
-        // Calculate wait time based on multiple sources
-        let waitTime = DEFAULT_RATE_LIMIT_WINDOW;
-        
-        // Try to get wait time from headers first
-        if (globalRateLimitReset) {
-          const now = Date.now();
-          waitTime = Math.max(globalRateLimitReset - now, 1000); // At least 1 second
-        }
-        // Fall back to retry_after from response body if available
-        else if (errorData.retry_after) {
-          waitTime = errorData.retry_after * 1000;
-        }
-
-        console.log(`NEYNAR_RATE_LIMIT_RETRY Waiting ${Math.round(waitTime/1000)}s before retry (attempt ${attempt}). Will resume from cursor: ${cursor || 'initial'}`);
-        await new Promise(resolve => setTimeout(resolve, waitTime));
-        // Reset our counters after waiting
-        requestsInLastMinute = 0;
-        lastMinuteTimestamp = Date.now();
-        requestsInLastSecond = 0;
-        lastSecondTimestamp = Date.now();
+        // Wait 1 second before retrying
+        await new Promise(resolve => setTimeout(resolve, 1000));
         continue; // Retry with the same cursor
       }
       
@@ -323,9 +220,7 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
         });
 
         // If it's any kind of error response, wait a bit before retrying
-        const waitTime = 1000; // Wait 1 second before retrying on errors
-        console.log(`API error, waiting ${waitTime}ms before retry. Will resume from cursor: ${cursor || 'initial'}`);
-        await new Promise(resolve => setTimeout(resolve, waitTime));
+        await new Promise(resolve => setTimeout(resolve, 1000));
         continue;
       }
       
@@ -350,6 +245,13 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
         });
         
         console.log(`[getFollowing] Returning ${result.length} following accounts`);
+        
+        // Add minimum delay before next request
+        const timeSinceLastRequest = Date.now() - lastRequestTime;
+        if (timeSinceLastRequest < MIN_DELAY_BETWEEN_REQUESTS) {
+          await new Promise(resolve => setTimeout(resolve, MIN_DELAY_BETWEEN_REQUESTS - timeSinceLastRequest));
+        }
+        
         return {
           users: result,
           nextCursor: data.next?.cursor || null,
@@ -364,9 +266,7 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
       console.error(`NEYNAR_API_ERROR [${errorTime}] Neynar API request failed after ${endTime - startTime}ms (attempt ${attempt}, cursor: ${cursor || 'initial'}):`, error);
       
       // Any error, wait a second before retrying
-      const waitTime = 1000;
-      console.log(`Error occurred, waiting ${waitTime}ms before retry. Will resume from cursor: ${cursor || 'initial'}`);
-      await new Promise(resolve => setTimeout(resolve, waitTime));
+      await new Promise(resolve => setTimeout(resolve, 1000));
       continue;
     }
   }
