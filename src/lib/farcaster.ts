@@ -189,10 +189,10 @@ export async function fetchAllFollowing(fid: number): Promise<Following[]> {
       } else {
         if (pageCount === 1) {
           console.warn(`[fetchAllFollowing] First page returned no users. User might not be following anyone.`);
+          break; // Only break on first page with no results - that means they follow no one
         } else {
-          console.warn(`[fetchAllFollowing] Page ${pageCount} returned no users, but we have a cursor. This might indicate an API issue.`);
+          console.warn(`[fetchAllFollowing] Page ${pageCount} returned no users but has cursor: ${cursor}. This might be due to rate limiting, will continue...`);
         }
-        break; // Exit the loop if we get no users but have a cursor - something's wrong
       }
       
       cursor = response.nextCursor || null;
