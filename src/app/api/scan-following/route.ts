@@ -28,7 +28,7 @@ export async function GET(request: NextRequest): Promise<Response> {
     console.log("Fetching following list for FID:", fid);
     const followingList = await getFollowing(fid);
     
-    if (!followingList || followingList.length === 0) {
+    if (!followingList || !followingList.users || followingList.users.length === 0) {
       return Response.json({ 
         flaggedCount: 0,
         message: "We couldn't find any accounts you're following",
@@ -37,7 +37,7 @@ export async function GET(request: NextRequest): Promise<Response> {
     }
     
     // Extract user IDs from the following list
-    const userIds = followingList.map(user => {
+    const userIds = followingList.users.map(user => {
       if (user && typeof user.fid === 'number') {
         return String(user.fid);
       }
