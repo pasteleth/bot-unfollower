@@ -2,6 +2,8 @@ import { NextRequest } from 'next/server';
 import { getModerationFlags } from '@/lib/moderation';
 import { getFollowing } from '@/lib/farcaster';
 import { getInterCssUrl } from "@/lib/fonts";
+import path from 'path';
+import { registerFont } from 'canvas';
 
 // Base URL for the app with proper protocol
 const BASE_URL = (() => {
@@ -26,6 +28,21 @@ const PROTECTION_KEY = 'fdhsgioepfdgoissdifhiuads848hsdi';
 
 // Version for cache busting
 const VERSION = Date.now().toString();
+
+// Absolute paths ensure fonts are correctly loaded
+try {
+  registerFont(path.resolve(process.cwd(), 'public/fonts/Inter-Regular.ttf'), {
+    family: 'Inter',
+    weight: '400',
+  });
+  registerFont(path.resolve(process.cwd(), 'public/fonts/Inter-Bold.ttf'), {
+    family: 'Inter',
+    weight: '700',
+  });
+  console.log('✅ Fonts loaded successfully!');
+} catch (e) {
+  console.error('❌ Font loading error:', e);
+}
 
 /**
  * State-driven Frame implementation for scanning follows
@@ -143,32 +160,111 @@ async function scanningFrame(fid: number | string, headers: Headers): Promise<Re
       return errorFrame(`Invalid FID type: ${typeof fid}. FID must be a number.`, headers);
     }
     
-    // First, show an immediate scanning frame response
-    const simpleScanningFrame = `<!DOCTYPE html>
+    // Instead of showing a scanning frame and processing asynchronously,
+    // directly run the scan and return results synchronously
+    try {
+      console.log("[scanningFrame] Starting direct scan for FID:", fidNumber);
+      
+      // Get the following list for the FID
+      console.log("Fetching following list for FID:", fidNumber);
+      const followingList = await getFollowing(fidNumber);
+      console.log("Following list fetched, entries:", followingList.length);
+      
+      // Check if the list is empty
+      if (!followingList || followingList.length === 0) {
+        const postUrl = addProtectionIfNeeded(`${BASE_URL}/api/frames/account-scanner`, headers);
+        
+        return new Response(
+          `<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta property="fc:frame" content="vNext" />
-    <meta property="fc:frame:image" content="${BASE_URL}/api/generate-scanning-image?fid=${fidNumber}" />
+    <meta property="fc:frame:image" content="${BASE_URL}/api/generate-error-image?message=${encodeURIComponent("No accounts found in your following list.")}" />
+    <meta property="fc:frame:button:1" content="Try Again" />
+    <meta property="fc:frame:button:1:action" content="post" />
+    <meta property="fc:frame:post_url" content="${postUrl}" />
   </head>
   <body>
-    <!-- Scanning frame content -->
+    <!-- Empty following list frame content -->
   </body>
-</html>`;
-
-    // Handle the scanning logic asynchronously
-    handleScanResults(fidNumber, headers)
-      .then(result => {
-        console.log("Scan completed successfully");
-      })
-      .catch(error => {
-        console.error("Error during scan:", error);
-      });
-    
-    // Return the immediate response
-    return new Response(simpleScanningFrame, {
-      headers: { "Content-Type": "text/html" }
-    });
+</html>`,
+          { headers: { "Content-Type": "text/html" } }
+        );
+      }
+      
+      console.log(`Found ${followingList.length} following accounts for FID: ${fidNumber}`);
+      
+      // Process following list 
+      const userIds = followingList.map(user => {
+        if (user && typeof user.fid === 'number') {
+          return String(user.fid);
+        }
+        console.log('Invalid user object:', JSON.stringify(user));
+        return '';
+      }).filter(id => id !== '');
+      
+      console.log(`Found ${userIds.length} valid user IDs for moderation check`);
+      
+      // No valid user IDs found
+      if (!userIds || userIds.length === 0) {
+        console.warn('No valid user IDs found after processing following list');
+        const postUrl = addProtectionIfNeeded(`${BASE_URL}/api/frames/account-scanner`, headers);
+        
+        return new Response(
+          `<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta property="fc:frame" content="vNext" />
+    <meta property="fc:frame:image" content="${BASE_URL}/api/generate-error-image?message=${encodeURIComponent("No valid accounts found to analyze.")}" />
+    <meta property="fc:frame:button:1" content="Try Again" />
+    <meta property="fc:frame:button:1:action" content="post" />
+    <meta property="fc:frame:post_url" content="${postUrl}" />
+  </head>
+  <body>
+    <!-- No valid user IDs frame content -->
+  </body>
+</html>`,
+          { headers: { "Content-Type": "text/html" } }
+        );
+      }
+      
+      // Perform moderation check
+      console.log("Checking for potential bots among following");
+      const moderationResults = await getModerationFlags(userIds);
+      
+      let flaggedCount = 0;
+      const flaggedUsers = [];
+      
+      // Process moderation results to count flagged accounts
+      console.log("Processing moderation results");
+      
+      for (const userId in moderationResults) {
+        const userResult = moderationResults[userId];
+        
+        // Skip users with no data
+        if (!userResult || !userResult.flags) continue;
+        
+        // Check if any flag is true
+        if (userResult.flags.isFlagged) {
+          flaggedCount++;
+          flaggedUsers.push({
+            id: userId,
+            scores: userResult.scores
+          });
+        }
+      }
+      
+      console.log(`Found ${flaggedCount} flagged accounts`);
+      
+      // Return results frame directly
+      return resultsFrame(fidNumber, flaggedCount.toString(), headers);
+      
+    } catch (scanError) {
+      console.error("Error during direct scanning:", scanError);
+      return errorFrame("Error scanning your following list: " + (scanError instanceof Error ? scanError.message : "Unknown error"), headers);
+    }
   
   } catch (error) {
     console.error("Error during scanning:", error);
@@ -356,124 +452,5 @@ export async function POST(request: Request) {
     console.error("Request headers:", Object.fromEntries(request.headers.entries()));
     
     return errorFrame(errorMessage, request.headers);
-  }
-}
-
-// Helper function to handle scan results processing
-async function handleScanResults(fidNumber: number, headers: Headers) {
-  try {
-    console.log("[handleScanResults] Starting with FID:", fidNumber);
-    
-    // Get the following list for the FID
-    let followingList;
-    try {
-      console.log("Fetching following list for FID:", fidNumber);
-      followingList = await getFollowing(fidNumber);
-      console.log("Following list fetched, entries:", followingList.length);
-    } catch (apiError) {
-      console.error("API error during following list fetch:", apiError);
-      return errorFrame("Error fetching following list: " + (apiError instanceof Error ? apiError.message : "Unknown error"), headers);
-    }
-    
-    // Check if the list is empty
-    if (!followingList || followingList.length === 0) {
-      // Use direct HTML content instead of generated image for empty following list
-      const postUrl = addProtectionIfNeeded(`${BASE_URL}/api/frames/account-scanner`, headers);
-      
-      return new Response(
-        `<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta property="fc:frame" content="vNext" />
-    <meta property="fc:frame:image" content="${BASE_URL}/api/generate-error-image?message=${encodeURIComponent("No accounts found in your following list.")}" />
-    <meta property="fc:frame:button:1" content="Try Again" />
-    <meta property="fc:frame:button:1:action" content="post" />
-    <meta property="fc:frame:post_url" content="${postUrl}" />
-  </head>
-  <body>
-    <!-- Empty following list frame content -->
-  </body>
-</html>`,
-        { headers: { "Content-Type": "text/html" } }
-      );
-    }
-    
-    console.log(`Found ${followingList.length} following accounts for FID: ${fidNumber}`);
-    
-    // Process following list in batches to avoid excessive API calls
-    console.log("Processing following list in batches");
-    
-    // Check following list against moderation flags
-    const userIds = followingList.map(user => {
-      if (user && typeof user.fid === 'number') {
-        return String(user.fid);
-      }
-      // Log problematic user objects
-      console.log('Invalid user object:', JSON.stringify(user));
-      return '';
-    }).filter(id => id !== ''); // Filter out empty strings
-    
-    console.log(`Found ${userIds.length} valid user IDs for moderation check`);
-    
-    // No valid user IDs found
-    if (!userIds || userIds.length === 0) {
-      console.warn('No valid user IDs found after processing following list');
-      // Use direct HTML content instead of generated image
-      const postUrl = addProtectionIfNeeded(`${BASE_URL}/api/frames/account-scanner`, headers);
-      
-      return new Response(
-        `<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta property="fc:frame" content="vNext" />
-    <meta property="fc:frame:image" content="${BASE_URL}/api/generate-error-image?message=${encodeURIComponent("No valid accounts found to analyze.")}" />
-    <meta property="fc:frame:button:1" content="Try Again" />
-    <meta property="fc:frame:button:1:action" content="post" />
-    <meta property="fc:frame:post_url" content="${postUrl}" />
-  </head>
-  <body>
-    <!-- No valid user IDs frame content -->
-  </body>
-</html>`,
-        { headers: { "Content-Type": "text/html" } }
-      );
-    }
-    
-    // Perform moderation check
-    console.log("Checking for potential bots among following");
-    const moderationResults = await getModerationFlags(userIds);
-    
-    let flaggedCount = 0;
-    const flaggedUsers = [];
-    
-    // Process moderation results to count flagged accounts
-    console.log("Processing moderation results");
-    
-    for (const userId in moderationResults) {
-      const userResult = moderationResults[userId];
-      
-      // Skip users with no data
-      if (!userResult || !userResult.flags) continue;
-      
-      // Check if any flag is true
-      if (userResult.flags.isFlagged) {
-        flaggedCount++;
-        flaggedUsers.push({
-          id: userId,
-          scores: userResult.scores
-        });
-      }
-    }
-    
-    console.log(`Found ${flaggedCount} flagged accounts`);
-    
-    // Return results frame
-    return resultsFrame(fidNumber, flaggedCount.toString(), headers);
-    
-  } catch (error) {
-    console.error("Error handling scan results:", error);
-    return errorFrame("Error handling scan results: " + (error instanceof Error ? error.message : "Unknown error"), headers);
   }
 } 
