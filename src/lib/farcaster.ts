@@ -155,6 +155,7 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
       if (now - lastMinuteTimestamp >= 60000) {
         requestsInLastMinute = 0;
         lastMinuteTimestamp = now;
+        console.log(`NEYNAR_RATE_LIMIT_RESET Resetting minute counter. Attempting to continue fetching from cursor: ${cursor || 'initial'}`);
       }
 
       // Reset second counter if we're in a new second
@@ -166,16 +167,19 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
       // Check if we're at the rate limits
       if (requestsInLastMinute >= RATE_LIMITS.REQUESTS_PER_MINUTE) {
         const waitTime = 60000 - (now - lastMinuteTimestamp);
-        console.warn(`NEYNAR_RATE_LIMIT_PREVENTION Waiting ${waitTime}ms for minute window to reset (${requestsInLastMinute} requests in last minute)`);
+        console.warn(`NEYNAR_RATE_LIMIT_PREVENTION Waiting ${Math.round(waitTime/1000)}s for minute window to reset (${requestsInLastMinute} requests in last minute). Will resume from cursor: ${cursor || 'initial'}`);
         await new Promise(resolve => setTimeout(resolve, waitTime));
-        continue;
+        // Don't continue here, let the loop naturally retry with the same cursor
+        requestsInLastMinute = 0;
+        lastMinuteTimestamp = Date.now();
       }
 
       if (requestsInLastSecond >= RATE_LIMITS.REQUESTS_PER_SECOND) {
         const waitTime = 1000 - (now - lastSecondTimestamp);
         console.warn(`NEYNAR_RATE_LIMIT_PREVENTION Waiting ${waitTime}ms for second window to reset (${requestsInLastSecond} requests in last second)`);
         await new Promise(resolve => setTimeout(resolve, waitTime));
-        continue;
+        requestsInLastSecond = 0;
+        lastSecondTimestamp = Date.now();
       }
 
       // Increment counters before making request
@@ -272,7 +276,7 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
 
       if (isRateLimit) {
         const errorData = data as NeynarErrorResponse;
-        console.warn(`NEYNAR_RATE_LIMIT_HIT [${new Date().toISOString()}] Rate limit detected on attempt ${attempt}`);
+        console.warn(`NEYNAR_RATE_LIMIT_HIT [${new Date().toISOString()}] Rate limit detected on attempt ${attempt}. Current cursor: ${cursor || 'initial'}`);
         console.warn('Rate limit response:', {
           code: errorData.code,
           message: errorData.message,
@@ -298,9 +302,14 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
           waitTime = errorData.retry_after * 1000;
         }
 
-        console.log(`NEYNAR_RATE_LIMIT_RETRY Waiting ${waitTime}ms before retry (${waitTime/1000}s)`);
+        console.log(`NEYNAR_RATE_LIMIT_RETRY Waiting ${Math.round(waitTime/1000)}s before retry (attempt ${attempt}). Will resume from cursor: ${cursor || 'initial'}`);
         await new Promise(resolve => setTimeout(resolve, waitTime));
-        continue; // Retry the request
+        // Reset our counters after waiting
+        requestsInLastMinute = 0;
+        lastMinuteTimestamp = Date.now();
+        requestsInLastSecond = 0;
+        lastSecondTimestamp = Date.now();
+        continue; // Retry with the same cursor
       }
       
       // Handle other errors
@@ -315,7 +324,7 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
 
         // If it's any kind of error response, wait a bit before retrying
         const waitTime = 1000; // Wait 1 second before retrying on errors
-        console.log(`API error, waiting ${waitTime}ms before retry`);
+        console.log(`API error, waiting ${waitTime}ms before retry. Will resume from cursor: ${cursor || 'initial'}`);
         await new Promise(resolve => setTimeout(resolve, waitTime));
         continue;
       }
@@ -352,11 +361,11 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
     } catch (error) {
       let endTime = Date.now();
       const errorTime = new Date().toISOString();
-      console.error(`NEYNAR_API_ERROR [${errorTime}] Neynar API request failed after ${endTime - startTime}ms:`, error);
+      console.error(`NEYNAR_API_ERROR [${errorTime}] Neynar API request failed after ${endTime - startTime}ms (attempt ${attempt}, cursor: ${cursor || 'initial'}):`, error);
       
       // Any error, wait a second before retrying
       const waitTime = 1000;
-      console.log(`Error occurred, waiting ${waitTime}ms before retry`);
+      console.log(`Error occurred, waiting ${waitTime}ms before retry. Will resume from cursor: ${cursor || 'initial'}`);
       await new Promise(resolve => setTimeout(resolve, waitTime));
       continue;
     }
