@@ -1,9 +1,21 @@
 import { NextRequest } from 'next/server';
 import { createCanvas, registerFont } from 'canvas';
+import path from 'path';
 
-// Register the Inter fonts. Ensure the TTF files are placed in the public/fonts directory.
-registerFont('public/fonts/Inter-Regular.ttf', { family: 'Inter', weight: '400' });
-registerFont('public/fonts/Inter-Bold.ttf', { family: 'Inter', weight: '700' });
+// Register the Inter fonts with absolute paths to ensure they're found correctly
+try {
+  registerFont(path.resolve(process.cwd(), 'public/fonts/Inter-Regular.ttf'), {
+    family: 'Inter',
+    weight: '400',
+  });
+  registerFont(path.resolve(process.cwd(), 'public/fonts/Inter-Bold.ttf'), {
+    family: 'Inter',
+    weight: '700',
+  });
+  console.log('✅ Fonts loaded successfully!');
+} catch (e) {
+  console.error('❌ Font loading error:', e);
+}
 
 /**
  * Generate an image for the scanning frame that shows scanning is in progress
