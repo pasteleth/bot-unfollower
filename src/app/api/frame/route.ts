@@ -60,7 +60,7 @@ app.frame('/scan', async (c) => {
     // Get the user's following list
     const followingList = await getFollowing(fid);
     
-    if (!followingList || followingList.length === 0) {
+    if (!followingList || !followingList.users || followingList.users.length === 0) {
       return c.res({
         image: `${process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000"}/frame_image.png`,
         intents: [
@@ -71,7 +71,7 @@ app.frame('/scan', async (c) => {
     }
 
     // Check following list against moderation flags
-    const userIds = followingList.map(user => user.fid.toString());
+    const userIds = followingList.users.map(user => user.fid.toString());
     const moderationResults = await getModerationFlags(userIds);
 
     // Count flagged accounts
