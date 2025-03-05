@@ -93,65 +93,61 @@ function startFrame(): Response {
   
   return new Response(
     `<!DOCTYPE html>
-    <html>
-      <head>
-        <title>Account Scanner - Farcaster Frame</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta property="og:title" content="Account Scanner" />
-        <meta property="og:description" content="Scan your following list for potentially problematic accounts" />
-        <meta property="og:image" content="${imageUrl}" />
-        <meta name="theme-color" content="#000000" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Account Scanner" />
-        <meta name="twitter:description" content="Scan your following list for potentially problematic accounts" />
-        <meta name="twitter:image" content="${imageUrl}" />
-
-        <meta property="fc:frame" content="vNext" />
-        <meta property="fc:frame:image" content="${imageUrl}" />
-        <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
-        <meta property="fc:frame:button:1" content="Scan My Following List" />
-        <meta property="fc:frame:button:1:action" content="post" />
-        <meta property="fc:frame:post_url" content="${postUrl}" />
-        
-        <!-- Preconnect to Google Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        
-        <!-- Load Inter font with multiple weights -->
-        <link rel="stylesheet" href="${getInterCssUrl()}" />
-        
-        <style>
-          /* Define font variables */
-          :root {
-            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-          }
-          
-          /* Apply fonts globally */
-          body {
-            font-family: var(--font-sans);
-            background-color: #000000;
-            color: #ffffff;
-            margin: 0;
-            padding: 0;
-          }
-          
-          h1, h2, h3, h4, h5, h6 {
-            font-family: var(--font-sans);
-            font-weight: 700;
-          }
-          
-          p, span, div {
-            font-family: var(--font-sans);
-            font-weight: 400;
-          }
-        </style>
-      </head>
-      <body>
-        <h1>Account Scanner</h1>
-        <p>Scan your following list for potentially problematic accounts.</p>
-      </body>
-    </html>`,
+<html>
+  <head>
+    <title>Account Scanner - Farcaster Frame</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="Account Scanner" />
+    <meta property="og:description" content="Scan your following list for potentially problematic accounts" />
+    <meta property="og:image" content="${imageUrl}" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Account Scanner" />
+    <meta name="twitter:description" content="Scan your following list for potentially problematic accounts" />
+    <meta name="twitter:image" content="${imageUrl}" />
+    <meta property="fc:frame" content="vNext" />
+    <meta property="fc:frame:image" content="${imageUrl}" />
+    <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
+    <meta property="fc:frame:button:1" content="Scan My Following List" />
+    <meta property="fc:frame:button:1:action" content="post" />
+    <meta property="fc:frame:post_url" content="${postUrl}" />
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Load Inter font with multiple weights -->
+    <link rel="stylesheet" href="${getInterCssUrl()}" />
+    <style>
+      /* Define font variables */
+      :root {
+        --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      }
+      
+      /* Apply fonts globally */
+      body {
+        font-family: var(--font-sans);
+        background-color: #000000;
+        color: #ffffff;
+        margin: 0;
+        padding: 0;
+      }
+      
+      h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-sans);
+        font-weight: 700;
+      }
+      
+      p, span, div {
+        font-family: var(--font-sans);
+        font-weight: 400;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Account Scanner</h1>
+    <p>Scan your following list for potentially problematic accounts.</p>
+  </body>
+</html>`,
     {
       headers: {
         "Content-Type": "text/html",
@@ -478,51 +474,48 @@ function resultsFrame(fid: number, countStr: string): Response {
   
   return new Response(
     `<!DOCTYPE html>
-    <html>
-      <head>
-        <title>Results - Account Scanner</title>
-        <meta property="og:title" content="Scan Results" />
-        <meta property="og:description" content="${message}" />
-        
-        <meta property="fc:frame" content="vNext" />
-        ${hasActionButton ? `
-        <meta property="fc:frame:button:1" content="${buttonText}" />
-        ${buttonText === 'View Detailed Report' 
-          ? `<meta property="fc:frame:button:1:action" content="link" />
-             <meta property="fc:frame:button:1:target" content="${buttonUrl}" />`
-          : `<meta property="fc:frame:button:1:action" content="post" />
-             <meta property="fc:frame:post_url" content="${postUrl}" />`
-        }` : ''}
-        <meta property="fc:frame:button:2" content="Scan Again" />
-        <meta property="fc:frame:button:2:action" content="post" />
-        <meta property="fc:frame:post_url" content="${postUrl}" />
-        
-        <!-- Load Inter font with multiple weights -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" />
-      </head>
-      <body style="margin: 0; padding: 40px; background-color: #000000; color: #ffffff; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 630px; text-align: center;">
-        <h1 style="font-size: 48px; font-weight: 700; margin-bottom: 20px; color: ${count > 0 ? '#ff9800' : '#4caf50'};">Scan Results</h1>
-        <p style="font-size: 24px; margin-bottom: 30px;">${message}</p>
-        
-        ${count > 0 ? `
-        <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 30px;">
-          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: rgba(255, 152, 0, 0.1); border-radius: 12px; padding: 20px; width: 160px;">
-            <span style="font-size: 72px; font-weight: 700; color: #ff9800;">${count}</span>
-            <span style="font-size: 18px; color: #aaaaaa;">Flagged</span>
-          </div>
-        </div>
-        <p style="font-size: 20px; color: #aaaaaa;">Click "${buttonText}" to see detailed information</p>
-        ` : `
-        <div style="display: flex; align-items: center; justify-content: center; width: 200px; height: 200px; border-radius: 50%; background-color: rgba(76, 175, 80, 0.1); margin-bottom: 30px;">
-          <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-          </svg>
-        </div>
-        <p style="font-size: 20px; color: #aaaaaa;">Your following list looks clean!</p>
-        `}
-      </body>
-    </html>`,
+<html>
+  <head>
+    <title>Results - Account Scanner</title>
+    <meta property="og:title" content="Scan Results" />
+    <meta property="og:description" content="${message}" />
+    <meta property="fc:frame" content="vNext" />
+    ${hasActionButton ? `
+    <meta property="fc:frame:button:1" content="${buttonText}" />
+    ${buttonText === 'View Detailed Report' 
+      ? `<meta property="fc:frame:button:1:action" content="link" />
+    <meta property="fc:frame:button:1:target" content="${buttonUrl}" />`
+      : `<meta property="fc:frame:button:1:action" content="post" />
+    <meta property="fc:frame:post_url" content="${postUrl}" />`
+    }` : ''}
+    <meta property="fc:frame:button:2" content="Scan Again" />
+    <meta property="fc:frame:button:2:action" content="post" />
+    <meta property="fc:frame:post_url" content="${postUrl}" />
+    <!-- Load Inter font with multiple weights -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" />
+  </head>
+  <body style="margin: 0; padding: 40px; background-color: #000000; color: #ffffff; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 630px; text-align: center;">
+    <h1 style="font-size: 48px; font-weight: 700; margin-bottom: 20px; color: ${count > 0 ? '#ff9800' : '#4caf50'};">Scan Results</h1>
+    <p style="font-size: 24px; margin-bottom: 30px;">${message}</p>
+    ${count > 0 ? `
+    <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 30px;">
+      <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: rgba(255, 152, 0, 0.1); border-radius: 12px; padding: 20px; width: 160px;">
+        <span style="font-size: 72px; font-weight: 700; color: #ff9800;">${count}</span>
+        <span style="font-size: 18px; color: #aaaaaa;">Flagged</span>
+      </div>
+    </div>
+    <p style="font-size: 20px; color: #aaaaaa;">Click "${buttonText}" to see detailed information</p>
+    ` : `
+    <div style="display: flex; align-items: center; justify-content: center; width: 200px; height: 200px; border-radius: 50%; background-color: rgba(76, 175, 80, 0.1); margin-bottom: 30px;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+      </svg>
+    </div>
+    <p style="font-size: 20px; color: #aaaaaa;">Your following list looks clean!</p>
+    `}
+  </body>
+</html>`,
     {
       headers: {
         "Content-Type": "text/html",
@@ -546,39 +539,34 @@ function errorFrame(errorMessage: string = "An error occurred"): Response {
   
   return new Response(
     `<!DOCTYPE html>
-    <html>
-      <head>
-        <title>Error - Account Scanner</title>
-        <meta property="og:title" content="Error" />
-        <meta property="og:description" content="${errorMessage}" />
-        
-        <meta property="fc:frame" content="vNext" />
-        <meta property="fc:frame:button:1" content="Try Again" />
-        <meta property="fc:frame:button:1:action" content="post" />
-        <meta property="fc:frame:post_url" content="${postUrl}" />
-        
-        <!-- Load Inter font with multiple weights -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" />
-      </head>
-      <body style="margin: 0; padding: 40px; background-color: #000000; color: #ffffff; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 630px; text-align: center;">
-        <h1 style="font-size: 48px; font-weight: 700; margin-bottom: 20px; color: #f44336;">Error</h1>
-        <p style="font-size: 24px; margin-bottom: 30px;">Something went wrong</p>
-        
-        <div style="padding: 20px; border-radius: 12px; background-color: rgba(244, 67, 54, 0.1); border: 1px solid rgba(244, 67, 54, 0.2); max-width: 600px; margin-bottom: 30px;">
-          <p style="font-size: 18px; color: #ff8080;">${errorMessage}</p>
-        </div>
-        
-        <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
-          <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#f44336" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="12" y1="8" x2="12" y2="12"></line>
-            <line x1="12" y1="16" x2="12.01" y2="16"></line>
-          </svg>
-        </div>
-        
-        <p style="font-size: 20px; color: #aaaaaa;">Click "Try Again" to restart the scanner</p>
-      </body>
-    </html>`,
+<html>
+  <head>
+    <title>Error - Account Scanner</title>
+    <meta property="og:title" content="Error" />
+    <meta property="og:description" content="${errorMessage}" />
+    <meta property="fc:frame" content="vNext" />
+    <meta property="fc:frame:button:1" content="Try Again" />
+    <meta property="fc:frame:button:1:action" content="post" />
+    <meta property="fc:frame:post_url" content="${postUrl}" />
+    <!-- Load Inter font with multiple weights -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" />
+  </head>
+  <body style="margin: 0; padding: 40px; background-color: #000000; color: #ffffff; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 630px; text-align: center;">
+    <h1 style="font-size: 48px; font-weight: 700; margin-bottom: 20px; color: #f44336;">Error</h1>
+    <p style="font-size: 24px; margin-bottom: 30px;">Something went wrong</p>
+    <div style="padding: 20px; border-radius: 12px; background-color: rgba(244, 67, 54, 0.1); border: 1px solid rgba(244, 67, 54, 0.2); max-width: 600px; margin-bottom: 30px;">
+      <p style="font-size: 18px; color: #ff8080;">${errorMessage}</p>
+    </div>
+    <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#f44336" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+    </div>
+    <p style="font-size: 20px; color: #aaaaaa;">Click "Try Again" to restart the scanner</p>
+  </body>
+</html>`,
     {
       headers: {
         "Content-Type": "text/html",
