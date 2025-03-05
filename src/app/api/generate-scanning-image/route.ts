@@ -1,5 +1,9 @@
 import { NextRequest } from 'next/server';
-import { createCanvas } from 'canvas';
+import { createCanvas, registerFont } from 'canvas';
+
+// Register the Inter fonts. Ensure the TTF files are placed in the public/fonts directory.
+registerFont('public/fonts/Inter-Regular.ttf', { family: 'Inter', weight: '400' });
+registerFont('public/fonts/Inter-Bold.ttf', { family: 'Inter', weight: '700' });
 
 /**
  * Generate an image for the scanning frame that shows scanning is in progress
