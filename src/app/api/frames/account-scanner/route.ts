@@ -14,6 +14,13 @@ declare global {
       completed: boolean;
       flaggedCount?: number;
       error?: string;
+      totalScanTimeMs?: number;
+      timingStats?: {
+        totalTimeMs: number;
+        followingFetchMs: number;
+        moderationCheckMs: number;
+        resultsProcessingMs: number;
+      };
     };
   };
 }
@@ -158,6 +165,9 @@ function startFrame(): Response {
  * Frame shown during the scanning process
  */
 async function scanningFrame(fid: number | string, headers: Headers): Promise<Response> {
+  const frameStartTime = Date.now();
+  console.log(`[TIMING] scanningFrame started at ${new Date().toISOString()}`);
+
   try {
     console.log("[scanningFrame] Starting with FID:", fid, "Type:", typeof fid);
     
@@ -207,24 +217,38 @@ async function scanningFrame(fid: number | string, headers: Headers): Promise<Re
       global.scanResults = {};
     }
     
+    // Measure setup time before starting async work
+    const setupCompleteTime = Date.now();
+    console.log(`[TIMING] scanningFrame setup completed in ${setupCompleteTime - frameStartTime}ms`);
+    
     // Start the scan in the background
     handleScanResults(fidNumber, headers)
       .then(results => {
+        const completionTime = Date.now();
+        const totalScanTime = completionTime - frameStartTime;
+        console.log(`[TIMING] Scan completed for FID: ${fidNumber} in ${totalScanTime}ms`);
         console.log(`[scanningFrame] Scan completed for FID: ${fidNumber}`);
+        
         // Store the results for later retrieval
         global.scanResults[fidNumber] = {
           timestamp: Date.now(),
           flaggedCount: results.flaggedCount,
-          completed: true
+          completed: true,
+          timingStats: results.timingStats,
+          totalScanTimeMs: totalScanTime
         };
       })
       .catch(error => {
+        const errorTime = Date.now();
         console.error("[scanningFrame] Error during scan:", error);
+        console.log(`[TIMING] Scan failed for FID: ${fidNumber} after ${errorTime - frameStartTime}ms`);
+        
         // Store the error
         global.scanResults[fidNumber] = {
           timestamp: Date.now(),
           error: error instanceof Error ? error.message : "Unknown error",
-          completed: true
+          completed: true,
+          totalScanTimeMs: errorTime - frameStartTime
         };
       });
     
@@ -236,13 +260,18 @@ async function scanningFrame(fid: number | string, headers: Headers): Promise<Re
     };
     
     console.log("[scanningFrame] Returning scanning frame with button");
+    const responseTime = Date.now();
+    console.log(`[TIMING] scanningFrame returning response after ${responseTime - frameStartTime}ms`);
+    
     // Return the immediate response
     return new Response(scanningFrameHtml, {
       headers: { "Content-Type": "text/html" }
     });
   
   } catch (error) {
+    const errorTime = Date.now();
     console.error("Error during scanning:", error);
+    console.log(`[TIMING] scanningFrame error after ${errorTime - frameStartTime}ms`);
     return errorFrame("Error scanning your following list: " + (error instanceof Error ? error.message : "Unknown error"), headers);
   }
 }
@@ -341,11 +370,16 @@ function errorFrame(errorMessage: string = "An error occurred", headers: Headers
 
 // Handle POST requests (for button clicks)
 export async function POST(request: Request) {
+  const postStartTime = Date.now();
+  console.log(`[TIMING] POST request started at ${new Date().toISOString()}`);
+  
   try {
     // Parse the request body as JSON
     let requestBody;
     try {
       requestBody = await request.json();
+      const parseTime = Date.now();
+      console.log(`[TIMING] Request body parsed in ${parseTime - postStartTime}ms`);
     } catch (parseError) {
       console.error("Failed to parse request body:", parseError);
       return errorFrame("Failed to parse request body. This may indicate a malformed request.", request.headers);
@@ -400,6 +434,8 @@ export async function POST(request: Request) {
     const step = url.searchParams.get('step') || '';
     const count = url.searchParams.get('count') || '';
     
+    const processingTime = Date.now();
+    console.log(`[TIMING] POST request processing completed in ${processingTime - postStartTime}ms`);
     console.log(`Processing button ${buttonIndex} press for step: ${step}`);
     
     // Handle button actions based on the current step
@@ -410,25 +446,35 @@ export async function POST(request: Request) {
       if (!global.scanResults || !global.scanResults[fidNumber]) {
         console.log(`[POST] No scan data found for FID: ${fidNumber}, starting scan`);
         // No results found, start a new scan
+        const newScanTime = Date.now();
+        console.log(`[TIMING] Starting new scan at ${newScanTime - postStartTime}ms`);
         return scanningFrame(fidNumber, request.headers);
       }
       
       const scanData = global.scanResults[fidNumber];
       console.log(`[POST] Scan data for FID: ${fidNumber}:`, scanData);
       
+      const scanCheckTime = Date.now();
+      console.log(`[TIMING] Scan status check completed in ${scanCheckTime - postStartTime}ms`);
+      
       if (scanData.completed) {
         // If there was an error during scanning
         if (scanData.error) {
           console.log(`[POST] Scan completed with error for FID: ${fidNumber}`);
+          console.log(`[TIMING] Returning error response at ${Date.now() - postStartTime}ms`);
           return errorFrame(`Error during scan: ${scanData.error}`, request.headers);
         }
         
         // Results are ready, show them
         console.log(`[POST] Scan completed successfully for FID: ${fidNumber}`);
+        const resultsTime = Date.now();
+        console.log(`[TIMING] Returning results response at ${resultsTime - postStartTime}ms`);
         return resultsFrame(fidNumber, scanData.flaggedCount?.toString() || "0", request.headers);
       } else {
         // Scan is still in progress, show "not ready yet" page
         console.log(`[POST] Scan still in progress for FID: ${fidNumber}`);
+        const notReadyTime = Date.now();
+        console.log(`[TIMING] Returning not-ready response at ${notReadyTime - postStartTime}ms`);
         const postUrl = addProtectionIfNeeded(`${BASE_URL}/api/frames/account-scanner?step=scanning&fid=${fidNumber}`, request.headers);
         
         return new Response(
@@ -453,14 +499,17 @@ export async function POST(request: Request) {
       // In results state, Button 1 is for viewing report (handled by redirect)
       // Button 2 is for restarting scan
       if (buttonIndex === 2) {
+        console.log(`[TIMING] Returning to start frame at ${Date.now() - postStartTime}ms`);
         return startFrame();
       }
     } else {
       // Default start state - begin scanning
+      console.log(`[TIMING] Starting scan from default state at ${Date.now() - postStartTime}ms`);
       return scanningFrame(fidNumber, request.headers);
     }
     
     // If no specific handler matched, return to start
+    console.log(`[TIMING] Falling back to start frame at ${Date.now() - postStartTime}ms`);
     return startFrame();
 
   } catch (error) {
@@ -469,20 +518,40 @@ export async function POST(request: Request) {
     const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred";
     console.error("Request headers:", Object.fromEntries(request.headers.entries()));
     
+    const errorTime = Date.now();
+    console.log(`[TIMING] Error in POST handling after ${errorTime - postStartTime}ms`);
     return errorFrame(errorMessage, request.headers);
   }
 }
 
 // Helper function to handle scan results processing
 async function handleScanResults(fidNumber: number, headers: Headers) {
+  // Start timing the entire scan process
+  const startTime = Date.now();
+  // Variables for timing metrics that need broader scope
+  let followingFetchStart = 0;
+  let followingFetchEnd = 0;
+  let processingStart = 0;
+  let processingEnd = 0;
+  let moderationStart = 0;
+  let moderationEnd = 0;
+  let resultsProcessingStart = 0;
+  let resultsProcessingEnd = 0;
+  
   try {
+    console.log(`[TIMING] Scan process started at ${new Date().toISOString()} for FID: ${fidNumber}`);
+    
     console.log("[handleScanResults] Starting with FID:", fidNumber);
     
     // Get the following list for the FID
     let followingList;
     try {
+      followingFetchStart = Date.now();
+      console.log(`[TIMING] Starting following list fetch at ${followingFetchStart - startTime}ms`);
       console.log("Fetching following list for FID:", fidNumber);
       followingList = await getFollowing(fidNumber);
+      followingFetchEnd = Date.now();
+      console.log(`[TIMING] Following list fetch completed in ${followingFetchEnd - followingFetchStart}ms (total: ${followingFetchEnd - startTime}ms)`);
       console.log("Following list fetched, entries:", followingList.length);
     } catch (apiError) {
       console.error("API error during following list fetch:", apiError);
@@ -491,12 +560,16 @@ async function handleScanResults(fidNumber: number, headers: Headers) {
     
     // Check if the list is empty
     if (!followingList || followingList.length === 0) {
+      const emptyListTime = Date.now();
+      console.log(`[TIMING] Empty list detection at ${emptyListTime - startTime}ms`);
       throw new Error("No accounts found in your following list");
     }
     
     console.log(`Found ${followingList.length} following accounts for FID: ${fidNumber}`);
     
     // Process following list
+    processingStart = Date.now();
+    console.log(`[TIMING] Starting list processing at ${processingStart - startTime}ms`);
     console.log("Processing following list");
     
     // Check following list against moderation flags
@@ -509,22 +582,32 @@ async function handleScanResults(fidNumber: number, headers: Headers) {
       return '';
     }).filter(id => id !== ''); // Filter out empty strings
     
+    processingEnd = Date.now();
+    console.log(`[TIMING] List processing completed in ${processingEnd - processingStart}ms (total: ${processingEnd - startTime}ms)`);
     console.log(`Found ${userIds.length} valid user IDs for moderation check`);
     
     // No valid user IDs found
     if (!userIds || userIds.length === 0) {
       console.warn('No valid user IDs found after processing following list');
+      const noValidIdsTime = Date.now();
+      console.log(`[TIMING] No valid IDs detection at ${noValidIdsTime - startTime}ms`);
       throw new Error("No valid accounts found to analyze");
     }
     
     // Perform moderation check
+    moderationStart = Date.now();
+    console.log(`[TIMING] Starting moderation check at ${moderationStart - startTime}ms`);
     console.log("Checking for potential bots among following");
     const moderationResults = await getModerationFlags(userIds);
+    moderationEnd = Date.now();
+    console.log(`[TIMING] Moderation check completed in ${moderationEnd - moderationStart}ms (total: ${moderationEnd - startTime}ms)`);
     
     let flaggedCount = 0;
     const flaggedUsers = [];
     
     // Process moderation results to count flagged accounts
+    resultsProcessingStart = Date.now();
+    console.log(`[TIMING] Starting results processing at ${resultsProcessingStart - startTime}ms`);
     console.log("Processing moderation results");
     
     for (const userId in moderationResults) {
@@ -543,17 +626,38 @@ async function handleScanResults(fidNumber: number, headers: Headers) {
       }
     }
     
+    resultsProcessingEnd = Date.now();
+    console.log(`[TIMING] Results processing completed in ${resultsProcessingEnd - resultsProcessingStart}ms (total: ${resultsProcessingEnd - startTime}ms)`);
     console.log(`Found ${flaggedCount} flagged accounts`);
+    
+    // Complete timing
+    const endTime = Date.now();
+    const totalTime = endTime - startTime;
+    console.log(`[TIMING] Total scan process completed in ${totalTime}ms`);
+    console.log(`[TIMING] SUMMARY for FID ${fidNumber}:`);
+    console.log(`[TIMING] - Following list fetch: ${followingFetchEnd - followingFetchStart}ms`);
+    console.log(`[TIMING] - List processing: ${processingEnd - processingStart}ms`);
+    console.log(`[TIMING] - Moderation check: ${moderationEnd - moderationStart}ms`);
+    console.log(`[TIMING] - Results processing: ${resultsProcessingEnd - resultsProcessingStart}ms`);
+    console.log(`[TIMING] - Total time: ${totalTime}ms`);
     
     // Return results data
     return {
       flaggedCount,
       followingCount: userIds.length,
-      flaggedUsers
+      flaggedUsers,
+      timingStats: {
+        totalTimeMs: totalTime,
+        followingFetchMs: followingFetchEnd - followingFetchStart,
+        moderationCheckMs: moderationEnd - moderationStart,
+        resultsProcessingMs: resultsProcessingEnd - resultsProcessingStart
+      }
     };
     
   } catch (error) {
+    const errorTime = Date.now() - startTime;
     console.error("Error handling scan results:", error);
+    console.log(`[TIMING] Error occurred after ${errorTime}ms`);
     throw error;
   }
 } 
