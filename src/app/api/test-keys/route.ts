@@ -98,8 +98,8 @@ export async function GET() {
         success: true,
         message: `Successfully retrieved following data for FID ${testFid}`,
         data: {
-          userCount: followingData?.length || 0,
-          sample: followingData?.slice(0, 2) || []
+          userCount: followingData?.users?.length || 0,
+          sample: followingData?.users?.slice(0, 2) || []
         }
       };
     } catch (error) {
