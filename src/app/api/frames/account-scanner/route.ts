@@ -21,8 +21,8 @@ const BASE_URL = (() => {
 
 console.log("Using BASE_URL:", BASE_URL);
 
-// Protection bypass key for Vercel
-const PROTECTION_BYPASS = "fdhsgioepfdgoissdifhiuads848hsdi";
+// Secret key for protection bypass
+const PROTECTION_KEY = 'fdhsgioepfdgoissdifhiuads848hsdi';
 
 // Version for cache busting
 const VERSION = Date.now().toString();
@@ -45,33 +45,35 @@ export async function GET(request: NextRequest): Promise<Response> {
       
       case 'scanning':
         if (!fid) {
-          return errorFrame("Missing FID parameter");
+          return errorFrame("Missing FID parameter", request.headers);
         }
-        return scanningFrame(fid);
+        return scanningFrame(fid, request.headers);
       
       case 'results':
         if (!fid || !count) {
-          return errorFrame("Missing required parameters");
+          return errorFrame("Missing required parameters", request.headers);
         }
-        return resultsFrame(parseInt(fid, 10), count);
+        return resultsFrame(parseInt(fid, 10), count, request.headers);
       
       default:
-        return errorFrame("Invalid state");
+        return errorFrame("Invalid state", request.headers);
     }
   } catch (error) {
     console.error("Frame error:", error);
-    return errorFrame("An unexpected error occurred");
+    return errorFrame("An unexpected error occurred", request.headers);
   }
 }
 
 /**
- * Helper function to add protection bypass to URLs
+ * Helper function to add protection parameter to URLs if needed
  */
-function addProtectionBypass(url: string): string {
-  // Check if URL already has parameters
-  const hasParams = url.includes('?');
-  const separator = hasParams ? '&' : '?';
-  return `${url}${separator}protection=${PROTECTION_BYPASS}`;
+function addProtectionIfNeeded(url: string, headers: Headers): string {
+  const shouldAddProtection = headers.get('x-add-protection-to-urls') === 'true';
+  if (shouldAddProtection && !url.includes('protection=')) {
+    const separator = url.includes('?') ? '&' : '?';
+    return `${url}${separator}protection=${PROTECTION_KEY}`;
+  }
+  return url;
 }
 
 // Helper function to safely format FID for URL
@@ -161,7 +163,7 @@ function startFrame(): Response {
 /**
  * Frame shown during the scanning process
  */
-async function scanningFrame(fid: number | string): Promise<Response> {
+async function scanningFrame(fid: number | string, headers: Headers): Promise<Response> {
   try {
     console.log("[scanningFrame] Starting with FID:", fid, "Type:", typeof fid);
     
@@ -172,14 +174,14 @@ async function scanningFrame(fid: number | string): Promise<Response> {
       fidNumber = parseInt(fid, 10);
       if (isNaN(fidNumber)) {
         console.error("[scanningFrame] Failed to parse FID as number:", fid);
-        return errorFrame(`Invalid FID format: ${fid}. FID must be a number.`);
+        return errorFrame(`Invalid FID format: ${fid}. FID must be a number.`, headers);
       }
       console.log("[scanningFrame] Converted FID to number:", fidNumber);
     } else if (typeof fid === 'number') {
       fidNumber = fid;
     } else {
       console.error("[scanningFrame] Unsupported FID type:", typeof fid, fid);
-      return errorFrame(`Invalid FID type: ${typeof fid}. FID must be a number.`);
+      return errorFrame(`Invalid FID type: ${typeof fid}. FID must be a number.`, headers);
     }
     
     // Set a timeout for the scanning operation
@@ -206,7 +208,7 @@ async function scanningFrame(fid: number | string): Promise<Response> {
         
         if (!followingList || followingList.length === 0) {
           // Use direct HTML content instead of generated image for empty following list
-          const postUrl = addProtectionBypass(`${BASE_URL}/api/frames/account-scanner`);
+          const postUrl = addProtectionIfNeeded(`${BASE_URL}/api/frames/account-scanner`, headers);
           
           return new Response(
             `<!DOCTYPE html>
@@ -260,7 +262,7 @@ async function scanningFrame(fid: number | string): Promise<Response> {
         if (userIds.length === 0) {
           console.warn('No valid user IDs found after processing following list');
           // Use direct HTML content instead of generated image
-          const postUrl = addProtectionBypass(`${BASE_URL}/api/frames/account-scanner`);
+          const postUrl = addProtectionIfNeeded(`${BASE_URL}/api/frames/account-scanner`, headers);
           
           return new Response(
             `<!DOCTYPE html>
@@ -324,7 +326,7 @@ async function scanningFrame(fid: number | string): Promise<Response> {
         
         // Fully qualified URL for results
         const resultsParam = `step=results&fid=${formatFidForUrl(fidNumber)}&count=${flaggedCount}`;
-        const postUrl = addProtectionBypass(`${BASE_URL}/api/frames/account-scanner?${resultsParam}`);
+        const postUrl = addProtectionIfNeeded(`${BASE_URL}/api/frames/account-scanner?${resultsParam}`, headers);
         console.log("Generated results post URL:", postUrl);
         
         return new Response(
@@ -364,7 +366,7 @@ async function scanningFrame(fid: number | string): Promise<Response> {
         );
       } catch (apiError) {
         console.error("API error during following list fetch:", apiError);
-        return errorFrame("Error fetching following list: " + (apiError instanceof Error ? apiError.message : "Unknown error"));
+        return errorFrame("Error fetching following list: " + (apiError instanceof Error ? apiError.message : "Unknown error"), headers);
       }
     };
 
@@ -384,7 +386,7 @@ async function scanningFrame(fid: number | string): Promise<Response> {
       // Return a scanning in progress frame with HTML instead of image
       // Construct a fully qualified post URL for the frame
       const scanningParam = `step=scanning&fid=${formatFidForUrl(fidNumber)}`;
-      const postUrl = addProtectionBypass(`${BASE_URL}/api/frames/account-scanner?${scanningParam}`);
+      const postUrl = addProtectionIfNeeded(`${BASE_URL}/api/frames/account-scanner?${scanningParam}`, headers);
       console.log("Generated post URL for scanning in progress frame:", postUrl);
       
       return new Response(
@@ -429,18 +431,18 @@ async function scanningFrame(fid: number | string): Promise<Response> {
       return result as Response;
     } else {
       // Provide a fallback response if result is null
-      return errorFrame("Scanning timed out or failed to complete");
+      return errorFrame("Scanning timed out or failed to complete", headers);
     }
   } catch (error) {
     console.error("Error during scanning:", error);
-    return errorFrame("Error scanning your following list: " + (error instanceof Error ? error.message : "Unknown error"));
+    return errorFrame("Error scanning your following list: " + (error instanceof Error ? error.message : "Unknown error"), headers);
   }
 }
 
 /**
  * Results frame shown after scanning completes
  */
-function resultsFrame(fid: number, countStr: string): Response {
+function resultsFrame(fid: number, countStr: string, headers: Headers): Response {
   const count = parseInt(countStr);
   let message = '';
   let buttonText = '';
@@ -529,46 +531,26 @@ function resultsFrame(fid: number, countStr: string): Response {
 /**
  * Error frame to display when something goes wrong
  */
-function errorFrame(errorMessage: string = "An error occurred"): Response {
+function errorFrame(errorMessage: string = "An error occurred", headers: Headers): Response {
   console.error("Showing error frame:", errorMessage);
   
-  // Log error stack for debugging
-  console.error("Error details:", new Error().stack);
-  
-  // Construct a fully qualified post URL without protection param for validators
-  const postUrl = `${BASE_URL}/api/frames/account-scanner`;
-  console.log("Generated post URL for error frame:", postUrl);
+  const hostname = headers.get('host') || 'bot-unfollower.vercel.app';
+  const protocol = hostname.includes('localhost') ? 'http' : 'https';
+  const restartUrl = `${protocol}://${hostname}/api/frames/account-scanner`;
+  const restartButtonUrl = addProtectionIfNeeded(restartUrl, headers);
   
   return new Response(
     `<!DOCTYPE html>
-<html>
-  <head>
-    <title>Error - Account Scanner</title>
-    <meta property="og:title" content="Error" />
-    <meta property="og:description" content="${errorMessage}" />
-    <meta property="fc:frame" content="vNext" />
-    <meta property="fc:frame:button:1" content="Try Again" />
-    <meta property="fc:frame:button:1:action" content="post" />
-    <meta property="fc:frame:post_url" content="${postUrl}" />
-    <!-- Load Inter font with multiple weights -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" />
-  </head>
-  <body style="margin: 0; padding: 40px; background-color: #000000; color: #ffffff; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 630px; text-align: center;">
-    <h1 style="font-size: 48px; font-weight: 700; margin-bottom: 20px; color: #f44336;">Error</h1>
-    <p style="font-size: 24px; margin-bottom: 30px;">Something went wrong</p>
-    <div style="padding: 20px; border-radius: 12px; background-color: rgba(244, 67, 54, 0.1); border: 1px solid rgba(244, 67, 54, 0.2); max-width: 600px; margin-bottom: 30px;">
-      <p style="font-size: 18px; color: #ff8080;">${errorMessage}</p>
-    </div>
-    <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
-      <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#f44336" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10"></circle>
-        <line x1="12" y1="8" x2="12" y2="12"></line>
-        <line x1="12" y1="16" x2="12.01" y2="16"></line>
-      </svg>
-    </div>
-    <p style="font-size: 20px; color: #aaaaaa;">Click "Try Again" to restart the scanner</p>
-  </body>
-</html>`,
+    <html>
+      <head>
+        <meta property="fc:frame" content="vNext" />
+        <meta property="fc:frame:image" content="https://bot-unfollower.vercel.app/api/generate-error-image?message=${encodeURIComponent(errorMessage)}" />
+        <meta property="fc:frame:button:1" content="Try Again" />
+        <meta property="fc:frame:button:1:action" content="post" />
+        <meta property="fc:frame:post_url" content="${restartButtonUrl}" />
+      </head>
+      <body></body>
+    </html>`,
     {
       headers: {
         "Content-Type": "text/html",
@@ -578,103 +560,136 @@ function errorFrame(errorMessage: string = "An error occurred"): Response {
 }
 
 // Handle POST requests (for button clicks)
-export async function POST(request: NextRequest): Promise<Response> {
-  console.log("Received POST request to frame");
+export async function POST(request: Request) {
   try {
-    // Log full request information
-    console.log("Request URL:", request.url);
-    console.log("Request method:", request.method);
-    console.log("Request headers:", Object.fromEntries(request.headers.entries()));
-    
+    // Parse the request body as JSON
     let requestBody;
     try {
-      console.log("Parsing request body...");
-      const clone = request.clone();
       requestBody = await request.json();
-      
-      // Also log the raw request text for debugging
-      const rawBody = await clone.text();
-      console.log("Raw request body:", rawBody);
-      
-      console.log("Request body received:", JSON.stringify(requestBody, null, 2));
     } catch (parseError) {
       console.error("Failed to parse request body:", parseError);
-      return errorFrame("Failed to parse request body. This may indicate a malformed request.");
+      return errorFrame("Failed to parse request body. This may indicate a malformed request.", request.headers);
     }
     
     // Verify untrustedData exists
     if (!requestBody || !requestBody.untrustedData) {
       console.error("Request body missing untrustedData:", JSON.stringify(requestBody));
-      return errorFrame("Invalid request format: missing untrustedData");
+      return errorFrame("Invalid request format: missing untrustedData", request.headers);
     }
     
-    const { untrustedData } = requestBody;
-    console.log("untrustedData:", JSON.stringify(untrustedData, null, 2));
+    // Extract button index and FID from the frame action
+    const { buttonIndex = 0, fid = null } = requestBody.untrustedData;
     
-    const buttonIndex = untrustedData?.buttonIndex || 1;
-    const fid = untrustedData?.fid;
-    
-    console.log(`Button ${buttonIndex} pressed by user with FID:`, fid);
-    console.log("FID type:", typeof fid);
-    
-    // If no FID is provided, use a placeholder for testing or return an error
     if (!fid) {
       console.error("Missing FID in request");
-      return errorFrame("Missing FID in request. This may happen if you're testing outside of a Farcaster client.");
+      return errorFrame("Missing FID in request. This may happen if you're testing outside of a Farcaster client.", request.headers);
     }
     
-    // Check for required environment variables
+    // Get API keys
     const neynarApiKey = process.env.NEYNAR_API_KEY;
     const mbdApiKey = process.env.MBD_API_KEY;
     
     if (!neynarApiKey) {
       console.error("NEYNAR_API_KEY is missing");
-      return errorFrame("Server configuration error: Missing API key");
+      return errorFrame("Server configuration error: Missing API key", request.headers);
     }
     
     if (!mbdApiKey) {
       console.error("MBD_API_KEY is missing");
-      return errorFrame("Server configuration error: Missing API key");
+      return errorFrame("Server configuration error: Missing API key", request.headers);
     }
     
-    console.log("Required API keys are present");
-    
-    // Always start scanning when a button is clicked from the start frame
-    console.log("Starting scanning process for FID:", fid);
-    
-    // Convert FID to number safely, regardless of input type
+    // Convert FID to a number
     let fidNumber: number;
-    if (typeof fid === 'string') {
-      console.log("Converting string FID to number:", fid);
+    if (typeof fid === 'number') {
+      fidNumber = fid;
+    } else if (typeof fid === 'string') {
       fidNumber = parseInt(fid, 10);
       if (isNaN(fidNumber)) {
         console.error("Failed to parse FID as number:", fid);
-        return errorFrame(`Invalid FID format: ${fid}. FID must be a number.`);
+        return errorFrame(`Invalid FID format: ${fid}. FID must be a number.`, request.headers);
       }
       console.log("Converted FID to number:", fidNumber);
-    } else if (typeof fid === 'number') {
-      fidNumber = fid;
     } else {
       console.error("Unsupported FID type:", typeof fid, fid);
-      return errorFrame(`Invalid FID type: ${typeof fid}. FID must be a number.`);
+      return errorFrame(`Invalid FID type: ${typeof fid}. FID must be a number.`, request.headers);
     }
     
-    return scanningFrame(fidNumber);
+    // Extract URL parameters from search params if present
+    const url = new URL(request.url);
+    const step = url.searchParams.get('step') || '';
+    const count = url.searchParams.get('count') || '';
+    
+    console.log(`Processing button ${buttonIndex} press for step: ${step}`);
+    
+    // Handle button actions based on the current step
+    if (step === 'scanning') {
+      // User clicked during scanning state - continue scanning
+      return scanningFrame(fidNumber, request.headers);
+    } else if (step === 'results') {
+      // In results state, Button 1 is for viewing report (handled by redirect)
+      // Button 2 is for restarting scan
+      if (buttonIndex === 2) {
+        return startFrame();
+      }
+    } else {
+      // Default start state - begin scanning
+      return scanningFrame(fidNumber, request.headers);
+    }
+    
+    // If no specific handler matched, return to start
+    return startFrame();
+
   } catch (error) {
-    console.error("Error processing POST request:", error);
+    console.error("Error processing request:", error);
     
-    // Create a detailed error message
-    let errorMessage = "Failed to process your request";
-    if (error instanceof Error) {
-      errorMessage = `Error: ${error.message}`;
-      console.error("Stack trace:", error.stack);
-    }
-    
-    // Log any additional details that might help debugging
-    console.error("Request URL:", request.url);
-    console.error("Request method:", request.method);
+    const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred";
     console.error("Request headers:", Object.fromEntries(request.headers.entries()));
     
-    return errorFrame(errorMessage);
+    return errorFrame(errorMessage, request.headers);
+  }
+}
+
+// Helper function to handle scan results processing
+async function handleScanResults(fidNumber: number, headers: Headers) {
+  try {
+    console.log("[handleScanResults] Starting with FID:", fidNumber);
+    
+    // Get the following list for the FID
+    let followingList;
+    try {
+      console.log("Fetching following list for FID:", fidNumber);
+      followingList = await getFollowing(fidNumber);
+      console.log("Following list fetched, entries:", followingList.length);
+    } catch (apiError) {
+      console.error("API error during following list fetch:", apiError);
+      return errorFrame("Error fetching following list: " + (apiError instanceof Error ? apiError.message : "Unknown error"), headers);
+    }
+    
+    // Check if the list is empty
+    if (!followingList || followingList.length === 0) {
+      // Use direct HTML content instead of generated image for empty following list
+      const postUrl = addProtectionIfNeeded(`${BASE_URL}/api/frames/account-scanner`, headers);
+      
+      return new Response(
+        `<!DOCTYPE html>
+        <html>
+          <head>
+            <meta property="fc:frame" content="vNext" />
+            <meta property="fc:frame:image" content="${BASE_URL}/api/generate-error-image?message=${encodeURIComponent("No accounts found in your following list.")}" />
+            <meta property="fc:frame:button:1" content="Try Again" />
+            <meta property="fc:frame:button:1:action" content="post" />
+            <meta property="fc:frame:post_url" content="${postUrl}" />
+          </head>
+          <body></body>
+        </html>`,
+        { headers: { "Content-Type": "text/html" } }
+      );
+    }
+    
+    // Rest of function...
+  } catch (error) {
+    console.error("Error handling scan results:", error);
+    return errorFrame("Error handling scan results: " + (error instanceof Error ? error.message : "Unknown error"), headers);
   }
 } 
