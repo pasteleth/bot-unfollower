@@ -1,10 +1,10 @@
 import { NextRequest } from 'next/server';
 import { getModerationFlags } from '@/lib/moderation';
-import { getFollowing } from '@/lib/farcaster';
+import { getFollowing, fetchAllFollowing } from '@/lib/farcaster';
 import { getInterCssUrl } from "@/lib/fonts";
 import path from 'path';
 import { registerFont } from 'canvas';
-import { Following } from '@/types/farcaster';
+import type { Following } from "../../../../types/farcaster";
 
 // Custom type declarations for global state
 declare global {
@@ -92,7 +92,7 @@ export async function GET(request: NextRequest): Promise<Response> {
         if (!fid) {
           return errorFrame("Missing FID parameter", request.headers);
         }
-        return scanningFrame(fid, request.headers);
+        return scanningFrame(parseInt(fid, 10), request.headers);
       
       case 'results':
         if (!fid || !count) {
@@ -501,21 +501,6 @@ export async function POST(request: Request) {
   }
 }
 
-async function fetchAllFollowing(fidNumber: number): Promise<Following[]> {
-  let allFollowing: Following[] = [];
-  let cursor: string | null = null;
-  let hasMore = true;
-
-  while (hasMore) {
-    const response = await getFollowing(fidNumber, cursor);
-    allFollowing = allFollowing.concat(response.users);
-    cursor = response.nextCursor || null;
-    hasMore = !!cursor;
-  }
-
-  return allFollowing;
-}
-
 // Update handleScanResults to use pagination
 async function handleScanResults(fidNumber: number, headers: Headers) {
   const startTime = Date.now();
@@ -525,21 +510,29 @@ async function handleScanResults(fidNumber: number, headers: Headers) {
 
     const followingFetchStart = Date.now();
     const followingList = await fetchAllFollowing(fidNumber);
+    console.log(`[DEBUG] Total following accounts retrieved: ${followingList.length}`);
     const followingFetchEnd = Date.now();
 
     if (!followingList.length) throw new Error("No accounts found in your following list");
 
     const userIds = followingList.map(user => user.fid.toString());
 
+    const batchSize = 100; // MBD limit per request
     const moderationStart = Date.now();
-    const moderationResults = await getModerationFlags(userIds);
+    const moderationResultsCombined = {};
+    for (let i = 0; i < userIds.length; i += batchSize) {
+      const batchIds = userIds.slice(i, i + batchSize);
+      console.log(`[TIMING] Moderation check for batch ${Math.floor(i / batchSize) + 1}: ${batchIds.length} accounts`);
+      const batchResults = await getModerationFlags(batchIds);
+      Object.assign(moderationResultsCombined, batchResults);
+    }
     const moderationEnd = Date.now();
 
     const resultsProcessingStart = Date.now();
 
-    const flaggedUsers = Object.entries(moderationResults)
-      .filter(([_, result]) => result.flags.isFlagged)
-      .map(([id, result]) => ({ id, scores: result.scores }));
+    const flaggedUsers = Object.entries(moderationResultsCombined)
+      .filter(([_, result]) => (result as { flags: { isFlagged: boolean } }).flags.isFlagged)
+      .map(([id, result]) => ({ id, scores: (result as { scores: Record<string, number> }).scores }));
 
     const resultsProcessingEnd = Date.now();
 

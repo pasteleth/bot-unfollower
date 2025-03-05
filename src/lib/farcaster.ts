@@ -47,8 +47,8 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
     const fidAsInt = Math.floor(fid);
     console.log(`[getFollowing] Using integer FID: ${fidAsInt}`);
     
-    // Use the direct following endpoint without retry logic
-    console.log('[getFollowing] Using fetchUserFollowing to get user following list');
+    // Log the outgoing request parameters in detail
+    console.log(`[getFollowing] Using fetchUserFollowing to get user following list`);
     
     const response = await neynarClient.fetchUserFollowing({
       fid: fidAsInt,
@@ -56,6 +56,7 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
       cursor: cursor || undefined
     });
     
+    // Log full details of the API response summary
     console.log(`[getFollowing] API request succeeded with ${response?.users?.length || 0} follow objects`);
     
     if (response && response.users && response.users.length > 0) {
@@ -85,8 +86,9 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
       return { users: [] };
     }
   } catch (error: unknown) {
-    // If the error is due to rate limit, return an empty result with the same cursor so that calling code can resume later
+    // If the error is due to rate limit, log detailed info and return an empty result with the same cursor
     if ((error as any).response && (error as any).response.status === 429) {
+      console.warn('[getFollowing][RATE LIMIT] 429 encountered. Request parameters: ', { fid, cursor });
       console.warn('[getFollowing] Rate limit encountered. Returning empty result and preserving cursor for later retry.');
       return { users: [], nextCursor: cursor || null };
     }
@@ -103,5 +105,40 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
       }
     }
     throw new Error(`Error fetching following list: ${errorMessage}`);
+  }
+}
+
+/**
+ * Fetch all accounts that a Farcaster user follows by handling pagination
+ * @param fid The Farcaster ID to look up
+ * @returns Complete array of all following accounts
+ */
+export async function fetchAllFollowing(fid: number): Promise<Following[]> {
+  console.log(`[fetchAllFollowing] Starting to fetch all following for FID: ${fid}`);
+  let allFollowing: Following[] = [];
+  let cursor: string | null = null;
+  let pageCount = 0;
+  
+  try {
+    do {
+      pageCount++;
+      console.log(`[fetchAllFollowing] Fetching page ${pageCount} with cursor: ${cursor || 'initial'}`);
+      const response = await getFollowing(fid, cursor);
+      
+      if (response.users && response.users.length > 0) {
+        allFollowing = allFollowing.concat(response.users);
+        console.log(`[fetchAllFollowing] Added ${response.users.length} users, total so far: ${allFollowing.length}`);
+      } else {
+        console.log(`[fetchAllFollowing] No users returned on page ${pageCount}, possibly due to rate limiting`);
+      }
+      
+      cursor = response.nextCursor || null;
+    } while (cursor);
+    
+    console.log(`[fetchAllFollowing] Completed fetching all following. Total: ${allFollowing.length} users across ${pageCount} pages`);
+    return allFollowing;
+  } catch (error) {
+    console.error(`[fetchAllFollowing] Error fetching all following:`, error);
+    throw error;
   }
 } 
