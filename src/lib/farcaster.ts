@@ -34,14 +34,20 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
     throw new Error("No Neynar API key provided. Add your API key to .env.local file.");
   }
 
-  const INITIAL_DELAY_MS = 1000; // Start with 1 second delay
-  const MAX_DELAY_MS = 32000; // Cap the delay at 32 seconds
+  const MIN_DELAY_BETWEEN_REQUESTS = 200; // Ensure we don't exceed 5 RPS
+  const RATE_LIMIT_WINDOW = 60000; // 1 minute in milliseconds
   let attempt = 0;
-  let delay = INITIAL_DELAY_MS;
   let startTime = Date.now();
+  let lastRequestTime = 0;
   
   while (true) { // Keep trying indefinitely
     try {
+      // Ensure we're not exceeding RPS limit
+      const timeSinceLastRequest = Date.now() - lastRequestTime;
+      if (timeSinceLastRequest < MIN_DELAY_BETWEEN_REQUESTS) {
+        await new Promise(resolve => setTimeout(resolve, MIN_DELAY_BETWEEN_REQUESTS - timeSinceLastRequest));
+      }
+      
       console.log(`[getFollowing] Fetching following for FID: ${fid} (Attempt ${attempt + 1})`);
       
       // Validate FID
@@ -61,6 +67,7 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
       const requestTime = new Date().toISOString();
       console.log(`NEYNAR_API_REQUEST [${requestTime}] Sending request to Neynar API: fetchUserFollowing fid=${fidAsInt} limit=100 cursor=${cursor || 'null'}`);
       
+      lastRequestTime = Date.now();
       const response = await neynarClient.fetchUserFollowing({
         fid: fidAsInt,
         limit: 100,
@@ -116,10 +123,18 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
         const remaining = rateHeaders['x-ratelimit-remaining'] || 'unknown';
         console.warn(`NEYNAR_RATE_LIMIT_HEADERS Reset time: ${resetTime}, Remaining: ${remaining}`);
         
-        // Cap the delay at MAX_DELAY_MS
-        delay = Math.min(delay * 2, MAX_DELAY_MS);
-        console.log(`NEYNAR_RATE_LIMIT_RETRY Waiting ${delay}ms before retry ${attempt}`);
-        await new Promise(resolve => setTimeout(resolve, delay));
+        // If we have a reset time header, use it, otherwise wait for the full window
+        let waitTime = RATE_LIMIT_WINDOW;
+        if (resetTime !== 'unknown') {
+          const resetTimeMs = new Date(resetTime).getTime();
+          const now = Date.now();
+          if (resetTimeMs > now) {
+            waitTime = resetTimeMs - now;
+          }
+        }
+        
+        console.log(`NEYNAR_RATE_LIMIT_RETRY Waiting ${waitTime}ms for rate limit window to reset`);
+        await new Promise(resolve => setTimeout(resolve, waitTime));
         continue; // Retry the request
       }
       
