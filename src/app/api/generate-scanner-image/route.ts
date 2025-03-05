@@ -1,17 +1,5 @@
 import { NextRequest } from 'next/server';
-import { createCanvas, registerFont } from 'canvas';
-import path from 'path';
-
-// Register Inter font
-// Using a try-catch so the app doesn't crash if the font path is incorrect
-try {
-  registerFont(path.resolve('./public/fonts/Inter-Regular.ttf'), { family: 'Inter', weight: 'normal' });
-  registerFont(path.resolve('./public/fonts/Inter-Bold.ttf'), { family: 'Inter', weight: 'bold' });
-  console.log('Inter font registered successfully for scanner image');
-} catch (error) {
-  console.error('Failed to register Inter font for scanner image:', error);
-  // The canvas will fall back to system fonts if registration fails
-}
+import { createCanvas } from 'canvas';
 
 /**
  * Generate a sleek, modern Shadcn-style image for the scanner results
@@ -47,9 +35,9 @@ export async function GET(request: NextRequest) {
     // Add decorative elements
     drawModernGrid(ctx, width, height);
 
-    // Set font styles - using Inter font
-    const titleFont = 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
-    const bodyFont = 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+    // Set font styles - using system fonts that look clean and modern
+    const titleFont = 'system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
+    const bodyFont = 'system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif';
     
     // Title text
     ctx.font = `bold 48px ${titleFont}`;
