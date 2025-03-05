@@ -33,29 +33,34 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
     console.error('[getFollowing] No Neynar API key provided');
     throw new Error("No Neynar API key provided. Add your API key to .env.local file.");
   }
+
+  const MAX_RETRIES = 5;
+  const INITIAL_DELAY_MS = 1000; // Start with 1 second delay
+  let attempt = 0;
+  let delay = INITIAL_DELAY_MS;
+  let startTime = Date.now();
   
-  try {
-    console.log(`[getFollowing] Fetching following for FID: ${fid}`);
-    
-    // Validate FID
-    if (typeof fid !== 'number' || isNaN(fid) || fid <= 0) {
-      console.error(`[getFollowing] Invalid FID: ${fid}. FID must be a positive number.`);
-      throw new Error(`Invalid FID: ${fid}. FID must be a positive number.`);
-    }
-    
-    // Ensure integer
-    const fidAsInt = Math.floor(fid);
-    console.log(`[getFollowing] Using integer FID: ${fidAsInt}`);
-    
-    // Log the outgoing request parameters in detail
-    console.log(`[getFollowing] Using fetchUserFollowing to get user following list`);
-    
-    // Log the exact request details
-    const requestTime = new Date().toISOString();
-    console.log(`NEYNAR_API_REQUEST [${requestTime}] Sending request to Neynar API: fetchUserFollowing fid=${fidAsInt} limit=100 cursor=${cursor || 'null'}`);
-    
-    let startTime = Date.now();
+  while (attempt < MAX_RETRIES) {
     try {
+      console.log(`[getFollowing] Fetching following for FID: ${fid} (Attempt ${attempt + 1}/${MAX_RETRIES})`);
+      
+      // Validate FID
+      if (typeof fid !== 'number' || isNaN(fid) || fid <= 0) {
+        console.error(`[getFollowing] Invalid FID: ${fid}. FID must be a positive number.`);
+        throw new Error(`Invalid FID: ${fid}. FID must be a positive number.`);
+      }
+      
+      // Ensure integer
+      const fidAsInt = Math.floor(fid);
+      console.log(`[getFollowing] Using integer FID: ${fidAsInt}`);
+      
+      // Log the outgoing request parameters in detail
+      console.log(`[getFollowing] Using fetchUserFollowing to get user following list`);
+      
+      // Log the exact request details
+      const requestTime = new Date().toISOString();
+      console.log(`NEYNAR_API_REQUEST [${requestTime}] Sending request to Neynar API: fetchUserFollowing fid=${fidAsInt} limit=100 cursor=${cursor || 'null'}`);
+      
       const response = await neynarClient.fetchUserFollowing({
         fid: fidAsInt,
         limit: 100,
@@ -95,53 +100,49 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
         console.warn('[getFollowing] No following users found in Neynar API response');
         return { users: [] };
       }
-    } catch (apiError) {
+    } catch (error: any) {
       let endTime = Date.now();
       const errorTime = new Date().toISOString();
       console.error(`NEYNAR_API_ERROR [${errorTime}] Neynar API request failed after ${endTime - startTime}ms`);
       
-      if (apiError && typeof apiError === 'object') {
-        // Full error logging to see all properties
-        console.error('[NEYNAR-ERROR-DETAILS] Full error object:', JSON.stringify(apiError, null, 2));
+      // Check for rate limit error
+      if (error.response?.status === 429) {
+        attempt++;
+        console.warn(`NEYNAR_RATE_LIMIT_HIT [${new Date().toISOString()}] 429 encountered on attempt ${attempt}/${MAX_RETRIES}. Request parameters: fid=${fid} cursor=${cursor || 'null'}`);
         
-        // Try to extract the status code
-        const statusCode = (apiError as any).response?.status || (apiError as any).status || 'unknown';
-        console.error(`[NEYNAR-ERROR-STATUS] Status code: ${statusCode}`);
+        // Log rate limit headers if available
+        const rateHeaders = error.response?.headers || {};
+        const resetTime = rateHeaders['x-ratelimit-reset'] || 'unknown';
+        const remaining = rateHeaders['x-ratelimit-remaining'] || 'unknown';
+        console.warn(`NEYNAR_RATE_LIMIT_HEADERS Reset time: ${resetTime}, Remaining: ${remaining}`);
         
-        // Log the request details for correlation
-        console.error(`[NEYNAR-ERROR-REQUEST] Failed request parameters: fid=${fidAsInt}, cursor=${cursor || 'null'}`);
+        if (attempt < MAX_RETRIES) {
+          console.log(`NEYNAR_RATE_LIMIT_RETRY Waiting ${delay}ms before retry ${attempt}/${MAX_RETRIES}`);
+          await new Promise(resolve => setTimeout(resolve, delay));
+          delay *= 2; // Exponential backoff
+          continue; // Retry the request
+        }
       }
       
-      throw apiError;
-    }
-  } catch (error: unknown) {
-    // If the error is due to rate limit, log detailed info and return an empty result with the same cursor
-    if ((error as any).response && (error as any).response.status === 429) {
-      console.warn(`NEYNAR_RATE_LIMIT_HIT [${new Date().toISOString()}] 429 encountered. Request parameters: fid=${fid} cursor=${cursor || 'null'}`);
-      console.warn('NEYNAR_RATE_LIMIT_HIT Rate limit encountered. Returning empty result and preserving cursor for later retry.');
-      
-      // Log rate limit headers if available
-      const rateHeaders = (error as any).response?.headers || {};
-      const resetTime = rateHeaders['x-ratelimit-reset'] || 'unknown';
-      const remaining = rateHeaders['x-ratelimit-remaining'] || 'unknown';
-      console.warn(`NEYNAR_RATE_LIMIT_HEADERS Reset time: ${resetTime}, Remaining: ${remaining}`);
-      
-      return { users: [], nextCursor: cursor || null };
-    }
-    console.error('[getFollowing] Error fetching following from Neynar:', error);
-    let errorMessage = 'Unknown error';
-    if (error instanceof Error) {
-      errorMessage = error.message;
-      console.error('[getFollowing] Error stack:', error.stack);
-    } else if (typeof error === 'object' && error !== null) {
-      try {
-        errorMessage = JSON.stringify(error);
-      } catch (e) {
-        errorMessage = 'Unstructured error object';
+      // If we've exhausted retries or it's not a rate limit error, throw
+      console.error('[getFollowing] Error fetching following from Neynar:', error);
+      let errorMessage = 'Unknown error';
+      if (error instanceof Error) {
+        errorMessage = error.message;
+        console.error('[getFollowing] Error stack:', error.stack);
+      } else if (typeof error === 'object' && error !== null) {
+        try {
+          errorMessage = JSON.stringify(error);
+        } catch (e) {
+          errorMessage = 'Unstructured error object';
+        }
       }
+      throw new Error(`Error fetching following list: ${errorMessage}`);
     }
-    throw new Error(`Error fetching following list: ${errorMessage}`);
   }
+  
+  // If we've exhausted all retries
+  throw new Error(`Failed to fetch following list after ${MAX_RETRIES} attempts due to rate limits`);
 }
 
 /**
