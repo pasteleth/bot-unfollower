@@ -1,5 +1,17 @@
 import { NextRequest } from 'next/server';
-import { createCanvas } from 'canvas';
+import { createCanvas, registerFont } from 'canvas';
+import path from 'path';
+
+// Register Inter font
+// Using a try-catch so the app doesn't crash if the font path is incorrect
+try {
+  registerFont(path.resolve('./public/fonts/Inter-Regular.ttf'), { family: 'Inter', weight: 'normal' });
+  registerFont(path.resolve('./public/fonts/Inter-Bold.ttf'), { family: 'Inter', weight: 'bold' });
+  console.log('Inter font registered successfully');
+} catch (error) {
+  console.error('Failed to register Inter font:', error);
+  // The canvas will fall back to system fonts if registration fails
+}
 
 /**
  * Generate an image for the scanning frame that shows scanning is in progress
@@ -27,19 +39,19 @@ export async function GET(request: NextRequest) {
     // Add text to the image
     // Title
     ctx.fillStyle = '#ffffff'; // White color
-    ctx.font = 'bold 64px Arial, sans-serif';
+    ctx.font = 'bold 64px Inter, Arial, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText('Scanning in progress...', width / 2, height / 3);
     
     // Description
     ctx.fillStyle = '#cccccc'; // Light gray color
-    ctx.font = '36px Arial, sans-serif';
+    ctx.font = '36px Inter, Arial, sans-serif';
     ctx.fillText('Checking your following list for potential bots', width / 2, height / 2);
     
     // Loading indicator text
     ctx.fillStyle = '#999999'; // Medium gray color
-    ctx.font = '24px Arial, sans-serif';
+    ctx.font = '24px Inter, Arial, sans-serif';
     ctx.fillText('This may take a few moments', width / 2, height / 1.5);
     
     // Convert canvas to buffer

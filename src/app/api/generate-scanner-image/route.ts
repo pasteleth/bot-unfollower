@@ -1,5 +1,17 @@
 import { NextRequest } from 'next/server';
-import { createCanvas } from 'canvas';
+import { createCanvas, registerFont } from 'canvas';
+import path from 'path';
+
+// Register Inter font
+// Using a try-catch so the app doesn't crash if the font path is incorrect
+try {
+  registerFont(path.resolve('./public/fonts/Inter-Regular.ttf'), { family: 'Inter', weight: 'normal' });
+  registerFont(path.resolve('./public/fonts/Inter-Bold.ttf'), { family: 'Inter', weight: 'bold' });
+  console.log('Inter font registered successfully for scanner image');
+} catch (error) {
+  console.error('Failed to register Inter font for scanner image:', error);
+  // The canvas will fall back to system fonts if registration fails
+}
 
 /**
  * Generate a sleek, modern Shadcn-style image for the scanner results
@@ -35,9 +47,9 @@ export async function GET(request: NextRequest) {
     // Add decorative elements
     drawModernGrid(ctx, width, height);
 
-    // Set font styles - using system fonts that are similar to Shadcn style
-    const titleFont = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
-    const bodyFont = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+    // Set font styles - using Inter font
+    const titleFont = 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+    const bodyFont = 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
     
     // Title text
     ctx.font = `bold 48px ${titleFont}`;
@@ -63,10 +75,10 @@ export async function GET(request: NextRequest) {
     // Draw statistics box
     if (count !== '0') {
       const countNum = parseInt(count, 10);
-      drawStatistics(ctx, countNum, width, 300);
+      drawStatistics(ctx, countNum, width, 300, titleFont);
     } else {
       // Draw checkmark for clean result
-      drawCheckmark(ctx, width / 2, 380, 80);
+      drawCheckmark(ctx, width / 2, 380, 80, titleFont);
     }
 
     // Draw modern app logo/branding
@@ -165,9 +177,7 @@ function drawCard(ctx: import('canvas').CanvasRenderingContext2D, x: number, y: 
 /**
  * Draws statistics in the card
  */
-function drawStatistics(ctx: import('canvas').CanvasRenderingContext2D, count: number, width: number, y: number) {
-  const titleFont = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
-  
+function drawStatistics(ctx: import('canvas').CanvasRenderingContext2D, count: number, width: number, y: number, titleFont: string) {
   // Main count
   ctx.font = `bold 80px ${titleFont}`;
   ctx.fillStyle = 'rgba(113, 42, 255, 0.9)'; // Purple for count
@@ -193,7 +203,7 @@ function drawStatistics(ctx: import('canvas').CanvasRenderingContext2D, count: n
 /**
  * Draws a checkmark for clean results
  */
-function drawCheckmark(ctx: import('canvas').CanvasRenderingContext2D, x: number, y: number, size: number) {
+function drawCheckmark(ctx: import('canvas').CanvasRenderingContext2D, x: number, y: number, size: number, titleFont: string) {
   ctx.strokeStyle = '#10b981'; // Green color for success
   ctx.lineWidth = size / 10;
   ctx.lineCap = 'round';
@@ -213,7 +223,6 @@ function drawCheckmark(ctx: import('canvas').CanvasRenderingContext2D, x: number
   ctx.stroke();
   
   // Add success text
-  const titleFont = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
   ctx.font = `bold 28px ${titleFont}`;
   ctx.fillStyle = '#10b981';
   ctx.textAlign = 'center';

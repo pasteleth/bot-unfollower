@@ -1,5 +1,17 @@
 import { NextRequest } from 'next/server';
-import { createCanvas } from 'canvas';
+import { createCanvas, registerFont } from 'canvas';
+import path from 'path';
+
+// Register Inter font
+// Using a try-catch so the app doesn't crash if the font path is incorrect
+try {
+  registerFont(path.resolve('./public/fonts/Inter-Regular.ttf'), { family: 'Inter', weight: 'normal' });
+  registerFont(path.resolve('./public/fonts/Inter-Bold.ttf'), { family: 'Inter', weight: 'bold' });
+  console.log('Inter font registered successfully for error image');
+} catch (error) {
+  console.error('Failed to register Inter font for error image:', error);
+  // The canvas will fall back to system fonts if registration fails
+}
 
 /**
  * Generate an error image with text for the error frame
@@ -23,14 +35,14 @@ export async function GET(request: NextRequest) {
     // Add error text to the image
     // Error title
     ctx.fillStyle = '#ffffff'; // White color
-    ctx.font = 'bold 64px Arial, sans-serif';
+    ctx.font = 'bold 64px Inter, Arial, sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText('Frame error', width / 2, height / 3);
     
     // Error message
     ctx.fillStyle = '#cccccc'; // Light gray color
-    ctx.font = '36px Arial, sans-serif';
+    ctx.font = '36px Inter, Arial, sans-serif';
     
     // Handle longer error messages by wrapping text
     const maxLineWidth = width * 0.8; // 80% of canvas width
