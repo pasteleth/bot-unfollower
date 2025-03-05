@@ -85,11 +85,13 @@ function formatFidForUrl(fid: number | string | null): string {
  * Initial frame that prompts the user to start scanning
  */
 function startFrame(): Response {
-  const imageUrl = addProtectionBypass(`${BASE_URL}/api/generate-start-image`);
+  // Get simplified URLs for validators - remove query params that might confuse parsers
+  const imageUrl = `${BASE_URL}/api/generate-start-image`;
+  const postUrl = `${BASE_URL}/api/frames/account-scanner`;
   
-  // Construct a fully qualified, safe post URL with HTTPS protocol
-  const postUrl = addProtectionBypass(`${BASE_URL}/api/frames/account-scanner`);
-  console.log("Generated post URL for startFrame:", postUrl);
+  // Log for debugging
+  console.log("Generated image URL:", imageUrl);
+  console.log("Generated post URL:", postUrl);
   
   return new Response(
     `<!DOCTYPE html>
@@ -450,7 +452,7 @@ function resultsFrame(fid: number, countStr: string): Response {
       message = `We found ${count} potentially problematic account${count === 1 ? '' : 's'} in your following list`;
       buttonText = 'View Detailed Report';
       
-      // Construct a fully qualified URL
+      // Construct a fully qualified URL without protection param for validators
       const reportParams = `fid=${formatFidForUrl(fid)}&count=${count}`;
       buttonUrl = `${BASE_URL}/report?${reportParams}`;
       console.log("Generated report button URL:", buttonUrl);
@@ -458,7 +460,7 @@ function resultsFrame(fid: number, countStr: string): Response {
       message = "Great news! We didn't find any potentially problematic accounts in your following list";
       buttonText = 'Start New Scan';
       
-      // Construct fully qualified URL for restart
+      // Construct fully qualified URL for restart without protection param for validators
       buttonUrl = `${BASE_URL}/api/frames/account-scanner`;
       console.log("Generated restart button URL:", buttonUrl);
     }
@@ -468,8 +470,8 @@ function resultsFrame(fid: number, countStr: string): Response {
     hasActionButton = false;
   }
   
-  // Construct post URL for scan again button
-  const postUrl = addProtectionBypass(`${BASE_URL}/api/frames/account-scanner`);
+  // Construct post URL without protection param for validators
+  const postUrl = `${BASE_URL}/api/frames/account-scanner`;
   console.log("Generated post URL for results frame:", postUrl);
   
   return new Response(
@@ -533,8 +535,8 @@ function errorFrame(errorMessage: string = "An error occurred"): Response {
   // Log error stack for debugging
   console.error("Error details:", new Error().stack);
   
-  // Construct a fully qualified post URL for the "Try Again" button
-  const postUrl = addProtectionBypass(`${BASE_URL}/api/frames/account-scanner`);
+  // Construct a fully qualified post URL without protection param for validators
+  const postUrl = `${BASE_URL}/api/frames/account-scanner`;
   console.log("Generated post URL for error frame:", postUrl);
   
   return new Response(
