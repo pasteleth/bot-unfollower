@@ -10,6 +10,7 @@ type FrameContext = {
   buttonIndex?: number;
   inputText?: string;
   state?: string;
+  notInFrame?: boolean;
 };
 
 type FrameSDK = {
@@ -28,15 +29,21 @@ const getFrameSDK = (): FrameSDK => {
       context: Promise.resolve({})
     };
   }
-  // Use dynamic import in browser
+  
+  // Check if we're in a Frame context (window.sdk should exist)
   if (window && 'sdk' in window) {
     // @ts-ignore - We know the SDK exists at runtime
     return window.sdk;
   }
-  // Fallback mock
+  
+  // If not in a Frame context, provide a helpful mock that indicates this
   return {
-    actions: { ready: async () => {} },
-    context: Promise.resolve({})
+    actions: { 
+      ready: async () => {
+        console.warn('Not running in a Frame context');
+      } 
+    },
+    context: Promise.resolve({ notInFrame: true })
   };
 };
 
@@ -70,6 +77,29 @@ export default function AccountScanner() {
     // Mark the frame as ready
     const initFrameSdk = async () => {
       try {
+        // Add a short delay to ensure SDK is loaded
+        if (typeof window !== 'undefined') {
+          // Wait for document to be fully loaded
+          if (document.readyState !== 'complete') {
+            await new Promise<void>((resolve) => {
+              const handleLoaded = () => {
+                window.removeEventListener('load', handleLoaded);
+                resolve();
+              };
+              
+              if (document.readyState === 'complete') {
+                resolve();
+              } else {
+                window.addEventListener('load', handleLoaded);
+              }
+            });
+          }
+          
+          // Give a short additional delay for any scripts to load
+          await new Promise(resolve => setTimeout(resolve, 100));
+        }
+        
+        // Now try to access the SDK
         const sdk = getFrameSDK();
         await sdk.actions.ready();
         setIsReady(true);
@@ -78,10 +108,15 @@ export default function AccountScanner() {
         const context = await sdk.context;
         if (context && context.fid) {
           setFid(Number(context.fid));
+        } else if (context && 'notInFrame' in context) {
+          // This is our custom property to detect if we're not in a Frame
+          setError('Not running in Farcaster Frame context');
+          setScanState('error');
         }
       } catch (error) {
         console.error('Failed to initialize Frame SDK:', error);
         setError('Failed to initialize Frame SDK');
+        setScanState('error');
       }
     };
 

@@ -85,7 +85,7 @@ const getSafeProvider = async (): Promise<EthProvider> => {
         
         if (attempts >= maxAttempts) {
           clearInterval(checkInterval);
-          reject(new Error('Farcaster Wallet provider not available after multiple attempts'));
+          reject(new Error('Farcaster wallet provider not available after multiple attempts'));
         }
       }, 500);
     });
@@ -242,7 +242,33 @@ export function frameConnector() {
     
     async getProvider() {
       try {
-        // Use our helper function to safely access the SDK
+        // Don't try to access the provider during SSR
+        if (typeof window === 'undefined') {
+          console.warn('Provider requested during SSR, returning mock');
+          return {
+            request: async () => { 
+              throw new Error('Not available in SSR'); 
+            }
+          } as EthProvider;
+        }
+
+        // Wait for document to be loaded and responsive before trying to get provider
+        if (document.readyState !== 'complete' && typeof window !== 'undefined') {
+          await new Promise<void>((resolve) => {
+            const handleLoaded = () => {
+              window.removeEventListener('load', handleLoaded);
+              resolve();
+            };
+            
+            if (document.readyState === 'complete') {
+              resolve();
+            } else {
+              window.addEventListener('load', handleLoaded);
+            }
+          });
+        }
+
+        // Try to get the provider, with retries
         return await getSafeProvider();
       } catch (error) {
         console.error('Farcaster getProvider error:', error);
