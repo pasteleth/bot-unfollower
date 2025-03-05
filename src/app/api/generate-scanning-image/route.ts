@@ -25,6 +25,7 @@ export async function GET(request: NextRequest) {
     // Get parameters from the request URL
     const { searchParams } = new URL(request.url);
     const fid = searchParams.get('fid');
+    const message = searchParams.get('message');
 
     // Create canvas with frame dimensions
     const width = 1200;
@@ -59,6 +60,13 @@ export async function GET(request: NextRequest) {
     ctx.fillStyle = '#999999'; // Medium gray color
     ctx.font = '24px "Inter", Arial, sans-serif'; // Use Inter with fallbacks
     ctx.fillText('This may take a few moments', width / 2, height / 1.5);
+    
+    // Custom instruction message (if provided)
+    if (message) {
+      ctx.fillStyle = '#FF9900'; // Orange color for emphasis
+      ctx.font = 'bold 28px "Inter", Arial, sans-serif'; // Use Inter with fallbacks
+      ctx.fillText(decodeURIComponent(message), width / 2, height / 1.25);
+    }
     
     // Convert canvas to buffer
     const buffer = canvas.toBuffer('image/png');
