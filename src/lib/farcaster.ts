@@ -74,7 +74,8 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
         await new Promise(resolve => setTimeout(resolve, MIN_DELAY_BETWEEN_REQUESTS - timeSinceLastRequest));
       }
       
-      console.log(`[getFollowing] Fetching following for FID: ${fid} (Attempt ${attempt + 1})`);
+      attempt++;
+      console.log(`[getFollowing] Fetching following for FID: ${fid} (Attempt ${attempt})`);
       
       // Validate FID
       if (typeof fid !== 'number' || isNaN(fid) || fid <= 0) {
@@ -113,6 +114,8 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
       console.log(`NEYNAR_API_RESPONSE [${responseTime}] Status: ${response.status} after ${endTime - startTime}ms`);
       
       const responseText = await response.text();
+      console.log('Raw response:', responseText); // Log raw response for debugging
+      
       let data;
       try {
         data = JSON.parse(responseText);
@@ -121,10 +124,18 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
         throw new Error(`Invalid JSON response: ${responseText}`);
       }
 
-      // Check if response indicates a rate limit
-      if (response.status === 400 && data.message?.toLowerCase().includes('rate limit')) {
-        attempt++;
-        console.warn(`NEYNAR_RATE_LIMIT_HIT [${new Date().toISOString()}] Rate limit in response on attempt ${attempt}`);
+      // Log full response data for debugging
+      console.log('Full response data:', JSON.stringify(data, null, 2));
+
+      // Check for any indication of rate limiting in the response
+      const isRateLimit = 
+        (response.status === 400 && data.message?.toLowerCase().includes('rate limit')) ||
+        (response.status === 400 && data.error?.toLowerCase().includes('rate limit')) ||
+        data.message?.toLowerCase().includes('too many requests') ||
+        data.error?.toLowerCase().includes('too many requests');
+
+      if (isRateLimit) {
+        console.warn(`NEYNAR_RATE_LIMIT_HIT [${new Date().toISOString()}] Rate limit detected on attempt ${attempt}`);
         console.warn('Rate limit response:', data);
         
         // Wait for rate limit window
@@ -136,6 +147,11 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
       
       // Handle other errors
       if (!response.ok) {
+        console.error(`API error response:`, {
+          status: response.status,
+          statusText: response.statusText,
+          data: data
+        });
         throw new Error(`API request failed with status ${response.status}: ${responseText}`);
       }
       
@@ -173,7 +189,19 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
       const errorTime = new Date().toISOString();
       console.error(`NEYNAR_API_ERROR [${errorTime}] Neynar API request failed after ${endTime - startTime}ms:`, error);
       
-      throw new Error(`Error fetching following list: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      // Check if the error message indicates a rate limit
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      if (errorMessage.toLowerCase().includes('rate limit') || errorMessage.toLowerCase().includes('too many requests')) {
+        console.warn(`NEYNAR_RATE_LIMIT_HIT [${new Date().toISOString()}] Rate limit in error message on attempt ${attempt}`);
+        
+        // Wait for rate limit window
+        const waitTime = RATE_LIMIT_WINDOW;
+        console.log(`NEYNAR_RATE_LIMIT_RETRY Waiting ${waitTime}ms for rate limit window to reset`);
+        await new Promise(resolve => setTimeout(resolve, waitTime));
+        continue; // Retry the request
+      }
+      
+      throw new Error(`Error fetching following list: ${errorMessage}`);
     }
   }
 }
