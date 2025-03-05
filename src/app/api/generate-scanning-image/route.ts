@@ -1,9 +1,21 @@
 import { NextRequest } from 'next/server';
-import { createCanvas } from 'canvas';
+import { createCanvas, registerFont } from 'canvas';
 import path from 'path';
 
-// Instead of registering fonts, we'll use system fonts that are available on most platforms
-// This avoids issues with loading font files on serverless environments
+// Register the Inter variable fonts
+try {
+  registerFont(path.resolve(process.cwd(), 'public/fonts/Inter-VariableFont_opsz,wght.ttf'), {
+    family: 'Inter',
+    weight: '400',
+  });
+  registerFont(path.resolve(process.cwd(), 'public/fonts/Inter-VariableFont_opsz,wght.ttf'), {
+    family: 'Inter',
+    weight: '700',
+  });
+  console.log('✅ Fonts loaded successfully!');
+} catch (e) {
+  console.error('❌ Font loading error:', e);
+}
 
 /**
  * Generate an image for the scanning frame that shows scanning is in progress
@@ -27,14 +39,14 @@ export async function GET(request: NextRequest) {
     // Add text to the image
     // Title
     ctx.fillStyle = '#ffffff'; // White color
-    ctx.font = 'bold 64px Arial, sans-serif'; // Use system font
+    ctx.font = 'bold 64px "Inter", Arial, sans-serif'; // Use Inter with fallbacks
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText('Scanning in progress...', width / 2, height / 3);
     
     // Description
     ctx.fillStyle = '#cccccc'; // Light gray color
-    ctx.font = '36px Arial, sans-serif'; // Use system font
+    ctx.font = '36px "Inter", Arial, sans-serif'; // Use Inter with fallbacks
     
     // Change text based on whether FID is available
     if (fid) {
@@ -45,7 +57,7 @@ export async function GET(request: NextRequest) {
     
     // Loading indicator text
     ctx.fillStyle = '#999999'; // Medium gray color
-    ctx.font = '24px Arial, sans-serif'; // Use system font
+    ctx.font = '24px "Inter", Arial, sans-serif'; // Use Inter with fallbacks
     ctx.fillText('This may take a few moments', width / 2, height / 1.5);
     
     // Convert canvas to buffer
