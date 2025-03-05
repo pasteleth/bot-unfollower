@@ -4,6 +4,7 @@ import { getFollowing } from '@/lib/farcaster';
 import { getInterCssUrl } from "@/lib/fonts";
 import path from 'path';
 import { registerFont } from 'canvas';
+import { Following } from '@/types/farcaster';
 
 // Custom type declarations for global state
 declare global {
@@ -21,6 +22,7 @@ declare global {
         moderationCheckMs: number;
         resultsProcessingMs: number;
       };
+      flaggedUsers?: { id: string; scores: Record<string, number> }[];
     };
   };
 }
@@ -56,15 +58,16 @@ const VERSION = Date.now().toString();
 
 // Absolute paths ensure fonts are correctly loaded
 try {
-  registerFont(path.resolve(process.cwd(), 'public/fonts/Inter-Regular.ttf'), {
+  registerFont(path.resolve(process.cwd(), 'public/fonts/Inter-VariableFont_opsz,wght.ttf'), {
     family: 'Inter',
-    weight: '400',
+    weight: '400 700',
   });
-  registerFont(path.resolve(process.cwd(), 'public/fonts/Inter-Bold.ttf'), {
+  registerFont(path.resolve(process.cwd(), 'public/fonts/Inter-Italic-VariableFont_opsz,wght.ttf'), {
     family: 'Inter',
-    weight: '700',
+    style: 'italic',
+    weight: '400 700',
   });
-  console.log('✅ Fonts loaded successfully!');
+  console.log('✅ Variable fonts loaded successfully!');
 } catch (e) {
   console.error('❌ Font loading error:', e);
 }
@@ -280,50 +283,24 @@ async function scanningFrame(fid: number | string, headers: Headers): Promise<Re
  * Results frame shown after scanning completes
  */
 function resultsFrame(fid: number, countStr: string, headers: Headers): Response {
-  const count = parseInt(countStr);
-  let message = '';
-  
-  if (isNaN(count)) {
-    message = 'Scan complete';
-  } else if (count === 0) {
-    message = 'No potential issue accounts found';
-  } else if (count === 1) {
-    message = '1 potential issue account found';
-  } else {
-    message = `${count} potential issue accounts found`;
-  }
-  
-  // Generate URLs that will be presented to the user
-  const hostname = headers.get('host') || 'bot-unfollower.vercel.app';
-  const protocol = hostname.includes('localhost') ? 'http' : 'https';
-  
-  // Create the report URL without protection for validation, it will be added later if needed
-  const reportUrl = `${protocol}://${hostname}/reports/${fid}`;
-  const restartUrl = `${protocol}://${hostname}/api/frames/account-scanner`;
-  
-  // Add protection if needed
-  const reportButtonUrl = addProtectionIfNeeded(reportUrl, headers);
-  const restartButtonUrl = addProtectionIfNeeded(restartUrl, headers);
-  
-  console.log("Report button URL:", reportButtonUrl);
-  console.log("Restart button URL:", restartButtonUrl);
-  
+  const scanData = global.scanResults[fid];
+  const flaggedUsers: { id: string; scores: Record<string, number> }[] = scanData?.flaggedUsers || [];
+
+  const flaggedListHtml = flaggedUsers.map(user => `<li>User ID: ${user.id}</li>`).join('');
+
+  const message = flaggedUsers.length > 0 ? 'These users might be bots:' : 'No potential issue accounts found';
+
   return new Response(
     `<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta property="fc:frame" content="vNext" />
-    <meta property="fc:frame:image" content="https://bot-unfollower.vercel.app/api/generate-success-image?unfollowers=${count}" />
-    <meta property="fc:frame:button:1" content="View Full Report" />
-    <meta property="fc:frame:button:1:action" content="post_redirect" />
-    <meta property="fc:frame:button:1:target" content="${reportButtonUrl}" />
-    <meta property="fc:frame:button:2" content="Scan Again" />
-    <meta property="fc:frame:button:2:action" content="post" />
-    <meta property="fc:frame:post_url" content="${restartButtonUrl}" />
+    <meta property="fc:frame:image" content="${BASE_URL}/api/generate-success-image?unfollowers=${flaggedUsers.length}" />
   </head>
   <body>
-    <!-- Results frame content -->
+    <h1>${message}</h1>
+    <ul>${flaggedListHtml}</ul>
   </body>
 </html>`,
     {
@@ -524,140 +501,62 @@ export async function POST(request: Request) {
   }
 }
 
-// Helper function to handle scan results processing
+async function fetchAllFollowing(fidNumber: number): Promise<Following[]> {
+  let allFollowing: Following[] = [];
+  let cursor: string | null = null;
+  let hasMore = true;
+
+  while (hasMore) {
+    const response = await getFollowing(fidNumber, cursor);
+    allFollowing = allFollowing.concat(response.users);
+    cursor = response.nextCursor || null;
+    hasMore = !!cursor;
+  }
+
+  return allFollowing;
+}
+
+// Update handleScanResults to use pagination
 async function handleScanResults(fidNumber: number, headers: Headers) {
-  // Start timing the entire scan process
   const startTime = Date.now();
-  // Variables for timing metrics that need broader scope
-  let followingFetchStart = 0;
-  let followingFetchEnd = 0;
-  let processingStart = 0;
-  let processingEnd = 0;
-  let moderationStart = 0;
-  let moderationEnd = 0;
-  let resultsProcessingStart = 0;
-  let resultsProcessingEnd = 0;
-  
+
   try {
     console.log(`[TIMING] Scan process started at ${new Date().toISOString()} for FID: ${fidNumber}`);
-    
-    console.log("[handleScanResults] Starting with FID:", fidNumber);
-    
-    // Get the following list for the FID
-    let followingList;
-    try {
-      followingFetchStart = Date.now();
-      console.log(`[TIMING] Starting following list fetch at ${followingFetchStart - startTime}ms`);
-      console.log("Fetching following list for FID:", fidNumber);
-      followingList = await getFollowing(fidNumber);
-      followingFetchEnd = Date.now();
-      console.log(`[TIMING] Following list fetch completed in ${followingFetchEnd - followingFetchStart}ms (total: ${followingFetchEnd - startTime}ms)`);
-      console.log("Following list fetched, entries:", followingList.length);
-    } catch (apiError) {
-      console.error("API error during following list fetch:", apiError);
-      throw new Error("Error fetching following list: " + (apiError instanceof Error ? apiError.message : "Unknown error"));
-    }
-    
-    // Check if the list is empty
-    if (!followingList || followingList.length === 0) {
-      const emptyListTime = Date.now();
-      console.log(`[TIMING] Empty list detection at ${emptyListTime - startTime}ms`);
-      throw new Error("No accounts found in your following list");
-    }
-    
-    console.log(`Found ${followingList.length} following accounts for FID: ${fidNumber}`);
-    
-    // Process following list
-    processingStart = Date.now();
-    console.log(`[TIMING] Starting list processing at ${processingStart - startTime}ms`);
-    console.log("Processing following list");
-    
-    // Check following list against moderation flags
-    const userIds = followingList.map(user => {
-      if (user && typeof user.fid === 'number') {
-        return String(user.fid);
-      }
-      // Log problematic user objects
-      console.log('Invalid user object:', JSON.stringify(user));
-      return '';
-    }).filter(id => id !== ''); // Filter out empty strings
-    
-    processingEnd = Date.now();
-    console.log(`[TIMING] List processing completed in ${processingEnd - processingStart}ms (total: ${processingEnd - startTime}ms)`);
-    console.log(`Found ${userIds.length} valid user IDs for moderation check`);
-    
-    // No valid user IDs found
-    if (!userIds || userIds.length === 0) {
-      console.warn('No valid user IDs found after processing following list');
-      const noValidIdsTime = Date.now();
-      console.log(`[TIMING] No valid IDs detection at ${noValidIdsTime - startTime}ms`);
-      throw new Error("No valid accounts found to analyze");
-    }
-    
-    // Perform moderation check
-    moderationStart = Date.now();
-    console.log(`[TIMING] Starting moderation check at ${moderationStart - startTime}ms`);
-    console.log("Checking for potential bots among following");
+
+    const followingFetchStart = Date.now();
+    const followingList = await fetchAllFollowing(fidNumber);
+    const followingFetchEnd = Date.now();
+
+    if (!followingList.length) throw new Error("No accounts found in your following list");
+
+    const userIds = followingList.map(user => user.fid.toString());
+
+    const moderationStart = Date.now();
     const moderationResults = await getModerationFlags(userIds);
-    moderationEnd = Date.now();
-    console.log(`[TIMING] Moderation check completed in ${moderationEnd - moderationStart}ms (total: ${moderationEnd - startTime}ms)`);
-    
-    let flaggedCount = 0;
-    const flaggedUsers = [];
-    
-    // Process moderation results to count flagged accounts
-    resultsProcessingStart = Date.now();
-    console.log(`[TIMING] Starting results processing at ${resultsProcessingStart - startTime}ms`);
-    console.log("Processing moderation results");
-    
-    for (const userId in moderationResults) {
-      const userResult = moderationResults[userId];
-      
-      // Skip users with no data
-      if (!userResult || !userResult.flags) continue;
-      
-      // Check if any flag is true
-      if (userResult.flags.isFlagged) {
-        flaggedCount++;
-        flaggedUsers.push({
-          id: userId,
-          scores: userResult.scores
-        });
-      }
-    }
-    
-    resultsProcessingEnd = Date.now();
-    console.log(`[TIMING] Results processing completed in ${resultsProcessingEnd - resultsProcessingStart}ms (total: ${resultsProcessingEnd - startTime}ms)`);
-    console.log(`Found ${flaggedCount} flagged accounts`);
-    
-    // Complete timing
-    const endTime = Date.now();
-    const totalTime = endTime - startTime;
-    console.log(`[TIMING] Total scan process completed in ${totalTime}ms`);
-    console.log(`[TIMING] SUMMARY for FID ${fidNumber}:`);
-    console.log(`[TIMING] - Following list fetch: ${followingFetchEnd - followingFetchStart}ms`);
-    console.log(`[TIMING] - List processing: ${processingEnd - processingStart}ms`);
-    console.log(`[TIMING] - Moderation check: ${moderationEnd - moderationStart}ms`);
-    console.log(`[TIMING] - Results processing: ${resultsProcessingEnd - resultsProcessingStart}ms`);
-    console.log(`[TIMING] - Total time: ${totalTime}ms`);
-    
-    // Return results data
+    const moderationEnd = Date.now();
+
+    const resultsProcessingStart = Date.now();
+
+    const flaggedUsers = Object.entries(moderationResults)
+      .filter(([_, result]) => result.flags.isFlagged)
+      .map(([id, result]) => ({ id, scores: result.scores }));
+
+    const resultsProcessingEnd = Date.now();
+
     return {
-      flaggedCount,
+      flaggedCount: flaggedUsers.length,
       followingCount: userIds.length,
       flaggedUsers,
       timingStats: {
-        totalTimeMs: totalTime,
-        followingFetchMs: followingFetchEnd - followingFetchStart,
+        totalTimeMs: moderationEnd - startTime,
+        followingFetchMs: followingFetchStart - startTime,
         moderationCheckMs: moderationEnd - moderationStart,
         resultsProcessingMs: resultsProcessingEnd - resultsProcessingStart
       }
     };
-    
+
   } catch (error) {
-    const errorTime = Date.now() - startTime;
     console.error("Error handling scan results:", error);
-    console.log(`[TIMING] Error occurred after ${errorTime}ms`);
     throw error;
   }
 } 

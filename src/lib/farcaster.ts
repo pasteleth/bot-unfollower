@@ -21,9 +21,10 @@ export type NeynarUser = {
 /**
  * Get the list of accounts that a Farcaster user follows
  * @param fid The Farcaster ID to look up
- * @returns Array of following accounts
+ * @param cursor Optional cursor for pagination
+ * @returns Array of following accounts and next cursor
  */
-export async function getFollowing(fid: number): Promise<Following[]> {
+export async function getFollowing(fid: number, cursor?: string | null): Promise<{ users: Following[]; nextCursor?: string | null }> {
   // Check if we have a Neynar API key
   const apiKey = process.env.NEYNAR_API_KEY;
   console.log(`[getFollowing] Using Neynar API key: ${apiKey ? apiKey.substring(0, 4) + '...' + apiKey.substring(apiKey.length - 4) : 'undefined'}`);
@@ -52,7 +53,8 @@ export async function getFollowing(fid: number): Promise<Following[]> {
     try {
       const response = await neynarClient.fetchUserFollowing({
         fid: fidAsInt,
-        limit: 100
+        limit: 100,
+        cursor: cursor || undefined
       });
       
       // Log a summary of the response for debugging
@@ -78,10 +80,13 @@ export async function getFollowing(fid: number): Promise<Following[]> {
         });
         
         console.log(`[getFollowing] Returning ${result.length} following accounts`);
-        return result;
+        return {
+          users: result,
+          nextCursor: response.next?.cursor || null,
+        };
       } else {
         console.warn('[getFollowing] No following users found in Neynar API response');
-        return [];
+        return { users: [] };
       }
     } catch (apiError: unknown) {
       console.error('[getFollowing] API request failed:', apiError);
