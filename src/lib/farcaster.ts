@@ -18,14 +18,13 @@ export type NeynarUser = {
   pfp_url?: string;
 };
 
-// Define the Warpcast API response types
-type WarpcastUser = {
+// Define the Neynar v2 API response types
+type NeynarV2User = {
+  object: 'user';
   fid: number;
   username?: string;
-  displayName?: string;
-  pfp?: {
-    url?: string;
-  };
+  display_name?: string;
+  pfp_url?: string;
   profile?: {
     bio?: {
       text?: string;
@@ -33,12 +32,15 @@ type WarpcastUser = {
   };
 };
 
-type WarpcastResponse = {
-  result?: {
-    users: WarpcastUser[];
-  };
+type NeynarV2Follow = {
+  object: 'follow';
+  user: NeynarV2User;
+};
+
+type NeynarV2Response = {
+  users: NeynarV2Follow[];
   next?: {
-    cursor?: string;
+    cursor: string;
   };
 };
 
@@ -85,36 +87,40 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
       console.log(`[getFollowing] Using integer FID: ${fidAsInt}`);
       
       // Build URL with cursor if available
-      let url = `https://api.warpcast.com/v2/following?fid=${fidAsInt}&limit=100`;
+      let url = `https://api.neynar.com/v2/farcaster/following?fid=${fidAsInt}&limit=100`;
       if (cursor) {
         url += `&cursor=${encodeURIComponent(cursor)}`;
       }
       
+      // Log the outgoing request parameters in detail
+      console.log(`[getFollowing] Using v2 API endpoint: ${url}`);
+      
       // Log the exact request details
       const requestTime = new Date().toISOString();
-      console.log(`WARPCAST_API_REQUEST [${requestTime}] Sending request to: ${url}`);
+      console.log(`NEYNAR_API_REQUEST [${requestTime}] Sending request to Neynar API v2: ${url}`);
       
       lastRequestTime = Date.now();
       const response = await fetch(url, {
         method: 'GET',
         headers: {
-          'Accept': 'application/json',
-          'Authorization': `Bearer ${apiKey}`
+          'accept': 'application/json',
+          'x-api-key': apiKey
         }
       });
       
       let endTime = Date.now();
       const responseTime = new Date().toISOString();
+      console.log(`NEYNAR_API_RESPONSE [${responseTime}] Status: ${response.status} after ${endTime - startTime}ms`);
       
-      // Check for rate limit response
+      // Handle rate limits
       if (response.status === 429) {
         attempt++;
-        console.warn(`WARPCAST_RATE_LIMIT_HIT [${new Date().toISOString()}] 429 encountered on attempt ${attempt}. Request parameters: fid=${fid} cursor=${cursor || 'null'}`);
+        console.warn(`NEYNAR_RATE_LIMIT_HIT [${new Date().toISOString()}] 429 encountered on attempt ${attempt}`);
         
         // Get rate limit headers
         const resetTime = response.headers.get('x-ratelimit-reset');
         const remaining = response.headers.get('x-ratelimit-remaining');
-        console.warn(`WARPCAST_RATE_LIMIT_HEADERS Reset time: ${resetTime}, Remaining: ${remaining}`);
+        console.warn(`NEYNAR_RATE_LIMIT_HEADERS Reset time: ${resetTime}, Remaining: ${remaining}`);
         
         // Calculate wait time
         let waitTime = RATE_LIMIT_WINDOW;
@@ -126,45 +132,51 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
           }
         }
         
-        console.log(`WARPCAST_RATE_LIMIT_RETRY Waiting ${waitTime}ms for rate limit window to reset`);
+        console.log(`NEYNAR_RATE_LIMIT_RETRY Waiting ${waitTime}ms for rate limit window to reset`);
         await new Promise(resolve => setTimeout(resolve, waitTime));
         continue; // Retry the request
       }
       
-      // Handle other error responses
+      // Handle other errors
       if (!response.ok) {
         throw new Error(`API request failed with status ${response.status}: ${await response.text()}`);
       }
       
-      const data = await response.json() as WarpcastResponse;
-      console.log(`WARPCAST_API_RESPONSE [${responseTime}] Successfully received response after ${endTime - startTime}ms`);
+      const data = await response.json();
       
-      if (!data.result?.users) {
-        console.error('Unexpected API response:', data);
-        throw new Error('Unexpected API response format');
+      // Log full details of the API response summary
+      console.log(`[getFollowing] API request succeeded with ${data?.users?.length || 0} follow objects`);
+      
+      if (data && data.users && data.users.length > 0) {
+        const followedUsers = data.users
+          .filter((followObj: NeynarV2Follow) => followObj.user)
+          .map((followObj: NeynarV2Follow) => followObj.user);
+        
+        console.log(`[getFollowing] Extracted ${followedUsers.length} user objects`);
+        
+        const result = followedUsers.map((user: NeynarV2User) => {
+          return {
+            fid: user.fid,
+            username: user.username || `fid:${user.fid}`,
+            display_name: user.display_name || `User ${user.fid}`,
+            pfp_url: user.pfp_url || '',
+            bio: user.profile?.bio?.text || '',
+          };
+        });
+        
+        console.log(`[getFollowing] Returning ${result.length} following accounts`);
+        return {
+          users: result,
+          nextCursor: data.next?.cursor || null,
+        };
+      } else {
+        console.warn('[getFollowing] No following users found in Neynar API response');
+        return { users: [] };
       }
-      
-      const users = data.result.users;
-      console.log(`[getFollowing] API request succeeded with ${users.length} follow objects`);
-      
-      // Map users to our format
-      const mappedUsers = users.map((user: WarpcastUser) => ({
-        fid: user.fid,
-        username: user.username || `fid:${user.fid}`,
-        display_name: user.displayName || `User ${user.fid}`,
-        pfp_url: user.pfp?.url || '',
-        bio: user.profile?.bio?.text || '',
-      }));
-      
-      console.log(`[getFollowing] Returning ${mappedUsers.length} following accounts`);
-      return {
-        users: mappedUsers,
-        nextCursor: data.next?.cursor || null,
-      };
     } catch (error) {
       let endTime = Date.now();
       const errorTime = new Date().toISOString();
-      console.error(`WARPCAST_API_ERROR [${errorTime}] API request failed after ${endTime - startTime}ms:`, error);
+      console.error(`NEYNAR_API_ERROR [${errorTime}] Neynar API request failed after ${endTime - startTime}ms:`, error);
       
       // If it's not a rate limit error (which we handle above), throw
       throw new Error(`Error fetching following list: ${error instanceof Error ? error.message : 'Unknown error'}`);
