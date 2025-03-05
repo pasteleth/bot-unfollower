@@ -52,7 +52,7 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
     
     // Log the exact request details
     const requestTime = new Date().toISOString();
-    console.log(`[NEYNAR-REQUEST][${requestTime}] Sending request to Neynar API: fetchUserFollowing(fid: ${fidAsInt}, limit: 100, cursor: ${cursor || 'null'})`);
+    console.log(`NEYNAR_API_REQUEST [${requestTime}] Sending request to Neynar API: fetchUserFollowing fid=${fidAsInt} limit=100 cursor=${cursor || 'null'}`);
     
     let startTime = Date.now();
     try {
@@ -64,7 +64,7 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
       
       let endTime = Date.now();
       const responseTime = new Date().toISOString();
-      console.log(`[NEYNAR-RESPONSE][${responseTime}] Successfully received response from Neynar API after ${endTime - startTime}ms`);
+      console.log(`NEYNAR_API_RESPONSE [${responseTime}] Successfully received response from Neynar API after ${endTime - startTime}ms`);
       
       // Log full details of the API response summary
       console.log(`[getFollowing] API request succeeded with ${response?.users?.length || 0} follow objects`);
@@ -98,7 +98,7 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
     } catch (apiError) {
       let endTime = Date.now();
       const errorTime = new Date().toISOString();
-      console.error(`[NEYNAR-ERROR][${errorTime}] Neynar API request failed after ${endTime - startTime}ms`);
+      console.error(`NEYNAR_API_ERROR [${errorTime}] Neynar API request failed after ${endTime - startTime}ms`);
       
       if (apiError && typeof apiError === 'object') {
         // Full error logging to see all properties
@@ -117,14 +117,14 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
   } catch (error: unknown) {
     // If the error is due to rate limit, log detailed info and return an empty result with the same cursor
     if ((error as any).response && (error as any).response.status === 429) {
-      console.warn('[getFollowing][RATE LIMIT] 429 encountered. Request parameters: ', { fid, cursor });
-      console.warn('[getFollowing] Rate limit encountered. Returning empty result and preserving cursor for later retry.');
+      console.warn(`NEYNAR_RATE_LIMIT_HIT [${new Date().toISOString()}] 429 encountered. Request parameters: fid=${fid} cursor=${cursor || 'null'}`);
+      console.warn('NEYNAR_RATE_LIMIT_HIT Rate limit encountered. Returning empty result and preserving cursor for later retry.');
       
       // Log rate limit headers if available
       const rateHeaders = (error as any).response?.headers || {};
       const resetTime = rateHeaders['x-ratelimit-reset'] || 'unknown';
       const remaining = rateHeaders['x-ratelimit-remaining'] || 'unknown';
-      console.warn(`[NEYNAR-RATE-LIMIT] Rate limit information - Reset time: ${resetTime}, Remaining: ${remaining}`);
+      console.warn(`NEYNAR_RATE_LIMIT_HEADERS Reset time: ${resetTime}, Remaining: ${remaining}`);
       
       return { users: [], nextCursor: cursor || null };
     }

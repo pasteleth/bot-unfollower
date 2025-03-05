@@ -509,8 +509,9 @@ async function handleScanResults(fidNumber: number, headers: Headers) {
     console.log(`[TIMING] Scan process started at ${new Date().toISOString()} for FID: ${fidNumber}`);
 
     const followingFetchStart = Date.now();
+    console.log(`FETCH_ALL_FOLLOWING_START [${new Date().toISOString()}] Starting to fetch all following for FID: ${fidNumber}`);
     const followingList = await fetchAllFollowing(fidNumber);
-    console.log(`[DEBUG] Total following accounts retrieved: ${followingList.length}`);
+    console.log(`FETCH_ALL_FOLLOWING_COMPLETE [${new Date().toISOString()}] Total following accounts retrieved: ${followingList.length}`);
     const followingFetchEnd = Date.now();
 
     if (!followingList.length) throw new Error("No accounts found in your following list");
