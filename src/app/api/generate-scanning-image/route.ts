@@ -27,19 +27,19 @@ export async function GET(request: NextRequest) {
     // Add text to the image
     // Title
     ctx.fillStyle = '#ffffff'; // White color
-    ctx.font = 'bold 64px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+    ctx.font = 'bold 64px "Inter", Arial, sans-serif'; // Use Inter with fallbacks
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText('Scanning in progress...', width / 2, height / 3);
     
     // Description
     ctx.fillStyle = '#cccccc'; // Light gray color
-    ctx.font = '36px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+    ctx.font = '36px "Inter", Arial, sans-serif'; // Use Inter with fallbacks
     ctx.fillText('Checking your following list for potential bots', width / 2, height / 2);
     
     // Loading indicator text
     ctx.fillStyle = '#999999'; // Medium gray color
-    ctx.font = '24px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+    ctx.font = '24px "Inter", Arial, sans-serif'; // Use Inter with fallbacks
     ctx.fillText('This may take a few moments', width / 2, height / 1.5);
     
     // Convert canvas to buffer

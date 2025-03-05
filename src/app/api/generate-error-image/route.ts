@@ -23,14 +23,14 @@ export async function GET(request: NextRequest) {
     // Add error text to the image
     // Error title
     ctx.fillStyle = '#ffffff'; // White color
-    ctx.font = 'bold 64px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+    ctx.font = 'bold 64px "Inter", Arial, sans-serif'; // Use Inter with fallbacks
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText('Frame error', width / 2, height / 3);
     
     // Error message
     ctx.fillStyle = '#cccccc'; // Light gray color
-    ctx.font = '36px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+    ctx.font = '36px "Inter", Arial, sans-serif'; // Use Inter with fallbacks
     
     // Handle longer error messages by wrapping text
     const maxLineWidth = width * 0.8; // 80% of canvas width

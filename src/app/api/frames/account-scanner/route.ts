@@ -1,6 +1,7 @@
 import { NextRequest } from 'next/server';
 import { getModerationFlags } from '@/lib/moderation';
 import { getFollowing } from '@/lib/farcaster';
+import { getInterCssUrl } from "@/lib/fonts";
 
 // Base URL for the app with proper protocol
 const BASE_URL = (() => {
@@ -112,8 +113,41 @@ function startFrame(): Response {
         <meta property="fc:frame:button:1" content="Scan My Following List" />
         <meta property="fc:frame:button:1:action" content="post" />
         <meta property="fc:frame:post_url" content="${postUrl}" />
+        
+        <!-- Preconnect to Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        
+        <!-- Load Inter font with multiple weights -->
+        <link rel="stylesheet" href="${getInterCssUrl()}" />
+        
+        <style>
+          /* Define font variables */
+          :root {
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+          }
+          
+          /* Apply fonts globally */
+          body {
+            font-family: var(--font-sans);
+            background-color: #000000;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+          }
+          
+          h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-sans);
+            font-weight: 700;
+          }
+          
+          p, span, div {
+            font-family: var(--font-sans);
+            font-weight: 400;
+          }
+        </style>
       </head>
-      <body style="background-color: #000000; color: #ffffff;">
+      <body>
         <h1>Account Scanner</h1>
         <p>Scan your following list for potentially problematic accounts.</p>
       </body>
@@ -173,7 +207,8 @@ async function scanningFrame(fid: number | string): Promise<Response> {
         const followingList = await getFollowing(fidNumber);
         
         if (!followingList || followingList.length === 0) {
-          const noFollowingImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-error-image?message=${encodeURIComponent("We couldn't find any accounts you're following")}`);
+          // Use direct HTML content instead of generated image for empty following list
+          const postUrl = addProtectionBypass(`${BASE_URL}/api/frames/account-scanner`);
           
           return new Response(
             `<!DOCTYPE html>
@@ -182,20 +217,21 @@ async function scanningFrame(fid: number | string): Promise<Response> {
                 <title>No Following Found - Account Scanner</title>
                 <meta property="og:title" content="No Following Found" />
                 <meta property="og:description" content="We couldn't find any accounts you're following" />
-                <meta property="og:image" content="${noFollowingImageUrl}" />
-                <meta name="theme-color" content="#000000" />
-
+                
                 <meta property="fc:frame" content="vNext" />
-                <meta property="fc:frame:image" content="${noFollowingImageUrl}" />
-                <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
                 <meta property="fc:frame:button:1" content="Try Again" />
                 <meta property="fc:frame:button:1:action" content="post" />
-                <meta property="fc:frame:button:1:target" content="_self" />
-                <meta property="fc:frame:post_url" content="${addProtectionBypass(`${BASE_URL}/api/frames/account-scanner`)}" />
+                <meta property="fc:frame:post_url" content="${postUrl}" />
+                
+                <!-- Load Inter font with multiple weights -->
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" />
               </head>
-              <body style="background-color: #000000; color: #ffffff;">
-                <h1>No Following Found</h1>
-                <p>We couldn't find any accounts you're following.</p>
+              <body style="margin: 0; padding: 40px; background-color: #000000; color: #ffffff; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 630px; text-align: center;">
+                <h1 style="font-size: 48px; font-weight: 700; margin-bottom: 20px; color: #ff4040;">No Following Found</h1>
+                <p style="font-size: 24px; margin-bottom: 30px;">We couldn't find any accounts you're following.</p>
+                <div style="padding: 20px; border-radius: 12px; background-color: rgba(255, 64, 64, 0.1); border: 1px solid rgba(255, 64, 64, 0.2); max-width: 600px;">
+                  <p style="font-size: 18px; color: #ff8080;">This could be due to API limitations or because your account is new.</p>
+                </div>
               </body>
             </html>`,
             {
@@ -206,6 +242,11 @@ async function scanningFrame(fid: number | string): Promise<Response> {
           );
         }
 
+        console.log(`Found ${followingList.length} following accounts for FID: ${fidNumber}`);
+        
+        // Process following list in batches to avoid excessive API calls
+        console.log("Processing following list in batches");
+        
         // Check following list against moderation flags
         const userIds = followingList.map(user => {
           if (user && typeof user.fid === 'number') {
@@ -220,7 +261,8 @@ async function scanningFrame(fid: number | string): Promise<Response> {
         
         if (userIds.length === 0) {
           console.warn('No valid user IDs found after processing following list');
-          const noFollowingImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-error-image?message=${encodeURIComponent("We couldn't find any valid accounts you're following")}`);
+          // Use direct HTML content instead of generated image
+          const postUrl = addProtectionBypass(`${BASE_URL}/api/frames/account-scanner`);
           
           return new Response(
             `<!DOCTYPE html>
@@ -229,20 +271,21 @@ async function scanningFrame(fid: number | string): Promise<Response> {
                 <title>No Valid Accounts Found - Account Scanner</title>
                 <meta property="og:title" content="No Valid Accounts Found" />
                 <meta property="og:description" content="We couldn't find any valid accounts you're following" />
-                <meta property="og:image" content="${noFollowingImageUrl}" />
-                <meta name="theme-color" content="#000000" />
-
+                
                 <meta property="fc:frame" content="vNext" />
-                <meta property="fc:frame:image" content="${noFollowingImageUrl}" />
-                <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
                 <meta property="fc:frame:button:1" content="Try Again" />
                 <meta property="fc:frame:button:1:action" content="post" />
-                <meta property="fc:frame:button:1:target" content="_self" />
-                <meta property="fc:frame:post_url" content="${addProtectionBypass(`${BASE_URL}/api/frames/account-scanner`)}" />
+                <meta property="fc:frame:post_url" content="${postUrl}" />
+                
+                <!-- Load Inter font with multiple weights -->
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" />
               </head>
-              <body style="background-color: #000000; color: #ffffff;">
-                <h1>No Valid Accounts Found</h1>
-                <p>We couldn't find any valid accounts you're following.</p>
+              <body style="margin: 0; padding: 40px; background-color: #000000; color: #ffffff; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 630px; text-align: center;">
+                <h1 style="font-size: 48px; font-weight: 700; margin-bottom: 20px; color: #ff4040;">No Valid Accounts Found</h1>
+                <p style="font-size: 24px; margin-bottom: 30px;">We couldn't find any valid accounts you're following.</p>
+                <div style="padding: 20px; border-radius: 12px; background-color: rgba(255, 64, 64, 0.1); border: 1px solid rgba(255, 64, 64, 0.2); max-width: 600px;">
+                  <p style="font-size: 18px; color: #ff8080;">This could be due to API limitations or because your account is new.</p>
+                </div>
               </body>
             </html>`,
             {
@@ -253,11 +296,15 @@ async function scanningFrame(fid: number | string): Promise<Response> {
           );
         }
         
+        // Perform moderation check
+        console.log("Checking for potential bots among following");
         const moderationResults = await getModerationFlags(userIds);
-
-        // Count flagged accounts
+        
         let flaggedCount = 0;
         const flaggedUsers = [];
+        
+        // Process moderation results to count flagged accounts
+        console.log("Processing moderation results");
 
         for (const userId in moderationResults) {
           const userResult = moderationResults[userId];
@@ -276,9 +323,6 @@ async function scanningFrame(fid: number | string): Promise<Response> {
         }
 
         console.log(`Found ${flaggedCount} flagged accounts`);
-
-        // Scanning complete image
-        const scanningImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-scanning-image?fid=${formatFidForUrl(fidNumber)}`);
         
         // Fully qualified URL for results
         const resultsParam = `step=results&fid=${formatFidForUrl(fidNumber)}&count=${flaggedCount}`;
@@ -292,18 +336,26 @@ async function scanningFrame(fid: number | string): Promise<Response> {
               <title>Scanning Complete - Account Scanner</title>
               <meta property="og:title" content="Scanning Complete" />
               <meta property="og:description" content="We've scanned your following list" />
-              <meta property="og:image" content="${scanningImageUrl}" />
-              <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter&display=swap" />
+              
               <meta property="fc:frame" content="vNext" />
-              <meta property="fc:frame:image" content="${scanningImageUrl}" />
-              <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
               <meta property="fc:frame:button:1" content="See Results" />
               <meta property="fc:frame:button:1:action" content="post" />
               <meta property="fc:frame:post_url" content="${postUrl}" />
+              
+              <!-- Load Inter font with multiple weights -->
+              <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" />
             </head>
-            <body style="background-color: #000000; color: #ffffff; font-family: 'Inter', sans-serif;">
-              <h1>Scanning Complete</h1>
-              <p>We've scanned your following list</p>
+            <body style="margin: 0; padding: 40px; background-color: #000000; color: #ffffff; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 630px; text-align: center;">
+              <h1 style="font-size: 48px; font-weight: 700; margin-bottom: 20px; color: #4caf50;">Scanning Complete</h1>
+              <p style="font-size: 24px; margin-bottom: 30px;">We've analyzed your following list.</p>
+              <div style="display: flex; align-items: center; justify-content: center; width: 200px; height: 200px; border-radius: 50%; background-color: rgba(76, 175, 80, 0.1); margin-bottom: 30px;">
+                <div style="font-size: 72px; font-weight: 700; color: #4caf50;">${flaggedCount}</div>
+              </div>
+              <p style="font-size: 20px; color: #aaaaaa;">
+                ${flaggedCount === 0 
+                  ? "Great news! No problematic accounts found." 
+                  : `Found ${flaggedCount} potentially problematic account${flaggedCount === 1 ? '' : 's'}.`}
+              </p>
             </body>
           </html>`,
           {
@@ -318,9 +370,6 @@ async function scanningFrame(fid: number | string): Promise<Response> {
       }
     };
 
-    // Use safe FID formatting here too
-    const scanningImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-scanning-image?fid=${formatFidForUrl(fidNumber)}`);
-    
     // Race the scanning process against the timeout
     const result = await Promise.race<Response | null>([
       scanningPromise(),
@@ -330,15 +379,15 @@ async function scanningFrame(fid: number | string): Promise<Response> {
       }, 3000))
     ]);
     
+    // Clear the timeout since we won't need it anymore
     clearTimeout(timeout);
     
-    // If the timeout was reached, return an interim response
     if (timeoutReached) {
-      console.log("Timeout reached, returning interim response");
-      // Return a response indicating scanning is in progress
-      const scanningImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-scanning-image?fid=${formatFidForUrl(fidNumber)}`);
-      const postUrl = addProtectionBypass(`${BASE_URL}/api/frames/account-scanner?step=scanning&fid=${formatFidForUrl(fidNumber)}`);
-      console.log("Generated post URL for timeout response:", postUrl);
+      // Return a scanning in progress frame with HTML instead of image
+      // Construct a fully qualified post URL for the frame
+      const scanningParam = `step=scanning&fid=${formatFidForUrl(fidNumber)}`;
+      const postUrl = addProtectionBypass(`${BASE_URL}/api/frames/account-scanner?${scanningParam}`);
+      console.log("Generated post URL for scanning in progress frame:", postUrl);
       
       return new Response(
         `<!DOCTYPE html>
@@ -346,19 +395,27 @@ async function scanningFrame(fid: number | string): Promise<Response> {
           <head>
             <title>Scanning in Progress - Account Scanner</title>
             <meta property="og:title" content="Scanning in Progress" />
-            <meta property="og:description" content="We're scanning your following list..." />
-            <meta property="og:image" content="${scanningImageUrl}" />
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter&display=swap" />
+            <meta property="og:description" content="We're scanning your following list" />
+            
             <meta property="fc:frame" content="vNext" />
-            <meta property="fc:frame:image" content="${scanningImageUrl}" />
-            <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
-            <meta property="fc:frame:button:1" content="Check Again" />
+            <meta property="fc:frame:button:1" content="Continue Scanning" />
             <meta property="fc:frame:button:1:action" content="post" />
             <meta property="fc:frame:post_url" content="${postUrl}" />
+            
+            <!-- Load Inter font with multiple weights -->
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" />
           </head>
-          <body style="background-color: #000000; color: #ffffff; font-family: 'Inter', sans-serif;">
-            <h1>Scanning in Progress</h1>
-            <p>We're scanning your following list... Click "Check Again" to see if it's complete.</p>
+          <body style="margin: 0; padding: 40px; background-color: #000000; color: #ffffff; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 630px; text-align: center;">
+            <h1 style="font-size: 48px; font-weight: 700; margin-bottom: 20px; color: #2196f3;">Scanning in Progress</h1>
+            <p style="font-size: 24px; margin-bottom: 30px;">We're analyzing your following list for potentially problematic accounts.</p>
+            <div style="width: 60px; height: 60px; border: 5px solid rgba(33, 150, 243, 0.3); border-radius: 50%; border-top-color: #2196f3; animation: spin 1s linear infinite; margin-bottom: 30px;"></div>
+            <p style="font-size: 20px; color: #aaaaaa;">This may take a moment to complete.</p>
+            
+            <style>
+              @keyframes spin {
+                to { transform: rotate(360deg); }
+              }
+            </style>
           </body>
         </html>`,
         {
@@ -388,7 +445,6 @@ async function scanningFrame(fid: number | string): Promise<Response> {
 function resultsFrame(fid: number, countStr: string): Response {
   const count = parseInt(countStr);
   let message = '';
-  let imageUrl = '';
   let buttonText = '';
   let buttonUrl = '';
   let hasActionButton = true;
@@ -396,7 +452,6 @@ function resultsFrame(fid: number, countStr: string): Response {
   try {
     if (count > 0) {
       message = `We found ${count} potentially problematic account${count === 1 ? '' : 's'} in your following list`;
-      imageUrl = addProtectionBypass(`${BASE_URL}/api/generate-results-image?count=${count}`);
       buttonText = 'View Detailed Report';
       
       // Construct a fully qualified URL
@@ -405,7 +460,6 @@ function resultsFrame(fid: number, countStr: string): Response {
       console.log("Generated report button URL:", buttonUrl);
     } else {
       message = "Great news! We didn't find any potentially problematic accounts in your following list";
-      imageUrl = addProtectionBypass(`${BASE_URL}/api/generate-zero-results-image`);
       buttonText = 'Start New Scan';
       
       // Construct fully qualified URL for restart
@@ -415,7 +469,6 @@ function resultsFrame(fid: number, countStr: string): Response {
   } catch (error) {
     console.error("Error preparing results frame:", error);
     message = "Error preparing results";
-    imageUrl = addProtectionBypass(`${BASE_URL}/api/generate-error-image?message=${encodeURIComponent(message)}`);
     hasActionButton = false;
   }
   
@@ -423,33 +476,51 @@ function resultsFrame(fid: number, countStr: string): Response {
   const postUrl = addProtectionBypass(`${BASE_URL}/api/frames/account-scanner`);
   console.log("Generated post URL for results frame:", postUrl);
   
-  // Prepare HTML response with results
   return new Response(
     `<!DOCTYPE html>
     <html>
       <head>
-        <title>Scan Results - Account Scanner</title>
+        <title>Results - Account Scanner</title>
         <meta property="og:title" content="Scan Results" />
         <meta property="og:description" content="${message}" />
-        <meta property="og:image" content="${imageUrl}" />
         
         <meta property="fc:frame" content="vNext" />
-        <meta property="fc:frame:image" content="${imageUrl}" />
-        <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
         ${hasActionButton ? `
         <meta property="fc:frame:button:1" content="${buttonText}" />
-        <meta property="fc:frame:button:1:action" content="link" />
-        <meta property="fc:frame:button:1:target" content="${buttonUrl}" />
-        ` : ''}
+        ${buttonText === 'View Detailed Report' 
+          ? `<meta property="fc:frame:button:1:action" content="link" />
+             <meta property="fc:frame:button:1:target" content="${buttonUrl}" />`
+          : `<meta property="fc:frame:button:1:action" content="post" />
+             <meta property="fc:frame:post_url" content="${postUrl}" />`
+        }` : ''}
         <meta property="fc:frame:button:2" content="Scan Again" />
         <meta property="fc:frame:button:2:action" content="post" />
         <meta property="fc:frame:post_url" content="${postUrl}" />
+        
+        <!-- Load Inter font with multiple weights -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" />
       </head>
-      <body style="background-color: #000000; color: #ffffff;">
-        <h1>Scan Results</h1>
-        <p>${message}</p>
-        ${hasActionButton ? `<p><a href="${buttonUrl}">${buttonText}</a></p>` : ''}
-        <p><button onclick="location.href='${postUrl}'">Scan Again</button></p>
+      <body style="margin: 0; padding: 40px; background-color: #000000; color: #ffffff; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 630px; text-align: center;">
+        <h1 style="font-size: 48px; font-weight: 700; margin-bottom: 20px; color: ${count > 0 ? '#ff9800' : '#4caf50'};">Scan Results</h1>
+        <p style="font-size: 24px; margin-bottom: 30px;">${message}</p>
+        
+        ${count > 0 ? `
+        <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 30px;">
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: rgba(255, 152, 0, 0.1); border-radius: 12px; padding: 20px; width: 160px;">
+            <span style="font-size: 72px; font-weight: 700; color: #ff9800;">${count}</span>
+            <span style="font-size: 18px; color: #aaaaaa;">Flagged</span>
+          </div>
+        </div>
+        <p style="font-size: 20px; color: #aaaaaa;">Click "${buttonText}" to see detailed information</p>
+        ` : `
+        <div style="display: flex; align-items: center; justify-content: center; width: 200px; height: 200px; border-radius: 50%; background-color: rgba(76, 175, 80, 0.1); margin-bottom: 30px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </div>
+        <p style="font-size: 20px; color: #aaaaaa;">Your following list looks clean!</p>
+        `}
       </body>
     </html>`,
     {
@@ -461,17 +532,13 @@ function resultsFrame(fid: number, countStr: string): Response {
 }
 
 /**
- * Error frame shown when an error occurs
+ * Error frame to display when something goes wrong
  */
 function errorFrame(errorMessage: string = "An error occurred"): Response {
   console.error("Showing error frame:", errorMessage);
   
   // Log error stack for debugging
   console.error("Error details:", new Error().stack);
-  
-  // Encode the error message for the URL
-  const encodedMessage = encodeURIComponent(errorMessage);
-  const errorImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-error-image?message=${encodedMessage}`);
   
   // Construct a fully qualified post URL for the "Try Again" button
   const postUrl = addProtectionBypass(`${BASE_URL}/api/frames/account-scanner`);
@@ -484,19 +551,32 @@ function errorFrame(errorMessage: string = "An error occurred"): Response {
         <title>Error - Account Scanner</title>
         <meta property="og:title" content="Error" />
         <meta property="og:description" content="${errorMessage}" />
-        <meta property="og:image" content="${errorImageUrl}" />
         
         <meta property="fc:frame" content="vNext" />
-        <meta property="fc:frame:image" content="${errorImageUrl}" />
-        <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
         <meta property="fc:frame:button:1" content="Try Again" />
         <meta property="fc:frame:button:1:action" content="post" />
         <meta property="fc:frame:post_url" content="${postUrl}" />
+        
+        <!-- Load Inter font with multiple weights -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" />
       </head>
-      <body style="background-color: #000000; color: #ffffff;">
-        <h1>Error</h1>
-        <p>${errorMessage}</p>
-        <p><button onclick="location.href='${postUrl}'">Try Again</button></p>
+      <body style="margin: 0; padding: 40px; background-color: #000000; color: #ffffff; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 630px; text-align: center;">
+        <h1 style="font-size: 48px; font-weight: 700; margin-bottom: 20px; color: #f44336;">Error</h1>
+        <p style="font-size: 24px; margin-bottom: 30px;">Something went wrong</p>
+        
+        <div style="padding: 20px; border-radius: 12px; background-color: rgba(244, 67, 54, 0.1); border: 1px solid rgba(244, 67, 54, 0.2); max-width: 600px; margin-bottom: 30px;">
+          <p style="font-size: 18px; color: #ff8080;">${errorMessage}</p>
+        </div>
+        
+        <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#f44336" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </div>
+        
+        <p style="font-size: 20px; color: #aaaaaa;">Click "Try Again" to restart the scanner</p>
       </body>
     </html>`,
     {

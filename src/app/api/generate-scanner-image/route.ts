@@ -35,9 +35,9 @@ export async function GET(request: NextRequest) {
     // Add decorative elements
     drawModernGrid(ctx, width, height);
 
-    // Set font styles - using system fonts that are similar to modern san-serif fonts
-    const titleFont = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
-    const bodyFont = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
+    // Set font styles - using web-safe fonts for better compatibility
+    const titleFont = '"Inter", Arial, sans-serif';
+    const bodyFont = '"Inter", Arial, sans-serif';
     
     // Title text
     ctx.font = `bold 48px ${titleFont}`;
