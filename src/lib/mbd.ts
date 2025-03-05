@@ -64,92 +64,120 @@ export async function getUserModeration(userIds: string[], skipCache = false): P
     userIdsToFetch.push(...userIds);
   }
 
-  // If all results were in cache, return them
+  // If no user IDs need to be fetched, return cached results
   if (userIdsToFetch.length === 0) {
     return results;
   }
 
-  try {
-    console.log(`Making MBD API request to check moderation for ${userIdsToFetch.length} users`);
-    
-    // Use the correct authentication format according to MBD documentation
-    const headers = {
-      'Content-Type': 'application/json',
-      'authorization': `Bearer ${apiKey}`,
-      'HTTP-Referer': 'https://nuonu.xyz',
-      'X-Title': 'Nuonu Frame'
-    };
-    
-    const response = await fetch(MBD_USER_LABELS_URL, {
-      method: 'POST',
-      headers: headers,
-      body: JSON.stringify({
-        users_list: userIdsToFetch,
-        label_category: 'moderation' // Focus on moderation labels
-      }),
-    });
-    
-    console.log(`MBD API response status: ${response.status} ${response.statusText}`);
-    
-    if (response.ok) {
-      const data = await response.json();
-      console.log('MBD API response data:', JSON.stringify(data).substring(0, 200) + '...');
-      
-      if (data.status_code === 200 && data.body) {
-        // Parse the data for each user
-        data.body.forEach((userData: MbdUserResponse) => {
-          const userId = userData.user_id;
-          const moderation: Record<string, number> = {};
-          
-          // Extract moderation labels from the array format
-          if (userData.ai_labels && userData.ai_labels.moderation) {
-            userData.ai_labels.moderation.forEach((item: MbdUserLabel) => {
-              const { label, score } = item;
-              
-              if (label === 'spam') {
-                moderation['spam_probability'] = score;
-              } else if (label === 'llm_generated') {
-                moderation['ai_generated_probability'] = score;
-              } else {
-                moderation[label] = score;
-              }
-            });
-          }
-          
-          const result = { moderation };
-          
-          // Store in results
-          results[userId] = result;
-          
-          // Update cache
-          moderationCache[userId] = {
-            timestamp: now,
-            result
-          };
-        });
-      }
-      
-      return results;
-    }
-    
-    // Handle common HTTP errors
-    if (response.status === 401 || response.status === 403) {
-      throw new Error(`Authentication failed: ${response.status} ${response.statusText}. Check your API key.`);
-    } else if (response.status === 429) {
-      throw new Error('Rate limit exceeded. Please try again later.');
-    } else if (response.status >= 500) {
-      throw new Error(`MBD API server error: ${response.status} ${response.statusText}`);
-    }
-    
-    // If authentication failed, log the error response
-    const errorText = await response.text();
-    console.error(`MBD API error response: ${errorText}`);
-    throw new Error(`MBD API error: ${response.status} ${response.statusText}`);
-    
-  } catch (error) {
-    console.error('Error getting user moderation from MBD:', error);
-    throw new Error(`Failed to get user moderation: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  // Define batch size
+  const BATCH_SIZE = 100;
+  // We'll accumulate moderation results from each batch
+  const batches: string[][] = [];
+  for (let i = 0; i < userIdsToFetch.length; i += BATCH_SIZE) {
+    batches.push(userIdsToFetch.slice(i, i + BATCH_SIZE));
   }
+
+  console.log(`[getUserModeration] Processing ${userIdsToFetch.length} user IDs in ${batches.length} batch(es).`);
+
+  // Prepare headers for MBD API call
+  const headers = {
+    'Content-Type': 'application/json',
+    'authorization': `Bearer ${apiKey}`,
+    'HTTP-Referer': 'https://nuonu.xyz',
+    'X-Title': 'Nuonu Frame'
+  };
+
+  // Process each batch sequentially
+  const INITIAL_DELAY_MS = 60000; // 60 seconds initial delay
+  const MAX_RETRIES = 5;
+  for (const batch of batches) {
+    console.log(`[getUserModeration] Processing batch with ${batch.length} user IDs: ${batch.join(",")}`);
+    let batchProcessed = false;
+    let attempt = 0;
+    let delay = INITIAL_DELAY_MS;
+    while (!batchProcessed && attempt < MAX_RETRIES) {
+      try {
+        const response = await fetch(MBD_USER_LABELS_URL, {
+          method: 'POST',
+          headers: headers,
+          body: JSON.stringify({
+            users_list: batch,
+            label_category: 'moderation'
+          }),
+        });
+
+        console.log(`[getUserModeration] Batch response status: ${response.status} ${response.statusText}`);
+
+        if (!response.ok) {
+          // If the API returns a 429 rate limit, apply exponential backoff
+          if (response.status === 429) {
+            attempt++;
+            console.error(`[getUserModeration] Rate limit hit for batch: ${batch.join(",")}. Attempt ${attempt} of ${MAX_RETRIES}. Waiting ${delay / 1000} seconds before retrying...`);
+            await new Promise(resolve => setTimeout(resolve, delay));
+            delay *= 2; // exponential backoff
+            continue; // retry current batch
+          } else {
+            console.error(`[getUserModeration] Error with batch request for users: ${batch.join(",")}. Status: ${response.status}`);
+            // Optionally skip this batch or throw error
+            break;
+          }
+        }
+
+        const data = await response.json();
+        console.log(`[getUserModeration] Batch response data (truncated): ${JSON.stringify(data).substring(0,200)}...`);
+
+        // Check if the response contains pagination info
+        if (data.next) {
+          console.warn(`[getUserModeration] Warning: Response for batch contains pagination info which is not handled: ${JSON.stringify(data.next)}`);
+        }
+
+        if (data.status_code === 200 && data.body) {
+          data.body.forEach((userData: any) => {
+            const userId = userData.user_id;
+            const moderation: Record<string, number> = {};
+            if (userData.ai_labels && userData.ai_labels.moderation) {
+              userData.ai_labels.moderation.forEach((item: any) => {
+                const { label, score } = item;
+                if (label === 'spam') {
+                  moderation['spam_probability'] = score;
+                } else if (label === 'llm_generated') {
+                  moderation['ai_generated_probability'] = score;
+                } else {
+                  moderation[label] = score;
+                }
+              });
+            }
+            const result = { moderation };
+            results[userId] = result;
+
+            // Update cache if needed
+            moderationCache[userId] = {
+              timestamp: now,
+              result
+            };
+          });
+          batchProcessed = true; // exit while loop for this batch
+        } else {
+          console.warn(`[getUserModeration] Unexpected response format for batch: ${JSON.stringify(data)}`);
+          batchProcessed = true; // exit loop, though no data processed
+        }
+
+      } catch (batchError: any) {
+        if (batchError.response && batchError.response.status === 429) {
+          attempt++;
+          console.error(`[getUserModeration] Exception due to rate limit for batch: ${batch.join(",")}. Attempt ${attempt} of ${MAX_RETRIES}. Waiting ${delay / 1000} seconds before retrying...`);
+          await new Promise(resolve => setTimeout(resolve, delay));
+          delay *= 2;
+          continue;
+        } else {
+          console.error(`[getUserModeration] Exception processing batch for users: ${batch.join(",")}. Error: ${batchError.message || batchError}`);
+          break;
+        }
+      }
+    }
+  }
+
+  return results;
 }
 
 /**
