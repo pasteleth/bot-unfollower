@@ -166,27 +166,51 @@ export async function fetchAllFollowing(fid: number): Promise<Following[]> {
   let allFollowing: Following[] = [];
   let cursor: string | null = null;
   let pageCount = 0;
+  let totalPages = 0; // We'll estimate this after first request
+  const startTime = Date.now();
   
   try {
     do {
       pageCount++;
-      console.log(`[fetchAllFollowing] Fetching page ${pageCount} with cursor: ${cursor || 'initial'}`);
+      console.log(`[fetchAllFollowing] Fetching page ${pageCount}${totalPages ? ` of ~${totalPages}` : ''} with cursor: ${cursor || 'initial'}`);
       const response = await getFollowing(fid, cursor);
       
       if (response.users && response.users.length > 0) {
         allFollowing = allFollowing.concat(response.users);
-        console.log(`[fetchAllFollowing] Added ${response.users.length} users, total so far: ${allFollowing.length}`);
+        
+        // After first page, estimate total pages
+        if (pageCount === 1) {
+          // Each page has 100 users, so estimate total pages needed
+          totalPages = Math.ceil(response.users.length * 7); // Assuming ~700 following based on your number
+        }
+        
+        const elapsedSeconds = Math.round((Date.now() - startTime) / 1000);
+        console.log(`[fetchAllFollowing] Progress: ${allFollowing.length} users fetched in ${elapsedSeconds}s (Page ${pageCount}${totalPages ? ` of ~${totalPages}` : ''})`);
       } else {
-        console.log(`[fetchAllFollowing] No users returned on page ${pageCount}, possibly due to rate limiting`);
+        if (pageCount === 1) {
+          console.warn(`[fetchAllFollowing] First page returned no users. User might not be following anyone.`);
+        } else {
+          console.warn(`[fetchAllFollowing] Page ${pageCount} returned no users, but we have a cursor. This might indicate an API issue.`);
+        }
+        break; // Exit the loop if we get no users but have a cursor - something's wrong
       }
       
       cursor = response.nextCursor || null;
+      
+      // If we have more pages but we're close to rate limit, add a small delay
+      if (cursor && pageCount % 5 === 0) { // Every 5 pages
+        const delay = 1000; // 1 second pause every 5 pages to help avoid rate limits
+        console.log(`[fetchAllFollowing] Added ${delay}ms delay after ${pageCount} pages to help avoid rate limits`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
     } while (cursor);
     
-    console.log(`[fetchAllFollowing] Completed fetching all following. Total: ${allFollowing.length} users across ${pageCount} pages`);
+    const totalTime = Math.round((Date.now() - startTime) / 1000);
+    console.log(`[fetchAllFollowing] Completed fetching all following. Total: ${allFollowing.length} users across ${pageCount} pages in ${totalTime}s`);
     return allFollowing;
   } catch (error) {
-    console.error(`[fetchAllFollowing] Error fetching all following:`, error);
+    const errorTime = Math.round((Date.now() - startTime) / 1000);
+    console.error(`[fetchAllFollowing] Error fetching all following after ${errorTime}s (${pageCount} pages, ${allFollowing.length} users):`, error);
     throw error;
   }
 } 
