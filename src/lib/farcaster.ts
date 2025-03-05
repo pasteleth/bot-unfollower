@@ -44,6 +44,14 @@ type NeynarV2Response = {
   };
 };
 
+// Define Neynar error response type
+type NeynarErrorResponse = {
+  code: string;
+  message: string;
+  property?: string;
+  status: number;
+};
+
 /**
  * Get the list of accounts that a Farcaster user follows
  * @param fid The Farcaster ID to look up
@@ -127,16 +135,21 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
       // Log full response data for debugging
       console.log('Full response data:', JSON.stringify(data, null, 2));
 
-      // Check for any indication of rate limiting in the response
+      // Check for rate limiting in the response
       const isRateLimit = 
-        (response.status === 400 && data.message?.toLowerCase().includes('rate limit')) ||
-        (response.status === 400 && data.error?.toLowerCase().includes('rate limit')) ||
-        data.message?.toLowerCase().includes('too many requests') ||
-        data.error?.toLowerCase().includes('too many requests');
+        (response.status === 400 && 
+          ((data as NeynarErrorResponse).code === 'rate_limit' || // Check specific error code
+           (data as NeynarErrorResponse).message?.toLowerCase().includes('rate limit') ||
+           (data as NeynarErrorResponse).message?.toLowerCase().includes('too many requests'))
+        );
 
       if (isRateLimit) {
         console.warn(`NEYNAR_RATE_LIMIT_HIT [${new Date().toISOString()}] Rate limit detected on attempt ${attempt}`);
-        console.warn('Rate limit response:', data);
+        console.warn('Rate limit response:', {
+          code: (data as NeynarErrorResponse).code,
+          message: (data as NeynarErrorResponse).message,
+          status: (data as NeynarErrorResponse).status
+        });
         
         // Wait for rate limit window
         const waitTime = RATE_LIMIT_WINDOW;
@@ -147,12 +160,14 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
       
       // Handle other errors
       if (!response.ok) {
+        const errorData = data as NeynarErrorResponse;
         console.error(`API error response:`, {
-          status: response.status,
-          statusText: response.statusText,
-          data: data
+          code: errorData.code,
+          message: errorData.message,
+          status: errorData.status,
+          property: errorData.property
         });
-        throw new Error(`API request failed with status ${response.status}: ${responseText}`);
+        throw new Error(`API request failed: ${errorData.message} (Code: ${errorData.code})`);
       }
       
       // Log full details of the API response summary
