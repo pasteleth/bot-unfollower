@@ -143,230 +143,33 @@ async function scanningFrame(fid: number | string, headers: Headers): Promise<Re
       return errorFrame(`Invalid FID type: ${typeof fid}. FID must be a number.`, headers);
     }
     
-    // Set a timeout for the scanning operation
-    const timeoutDuration = 3000; // 3 seconds
-    let timeoutReached = false;
-    const timeout = setTimeout(() => {
-      timeoutReached = true;
-    }, timeoutDuration);
+    // First, show an immediate scanning frame response
+    const simpleScanningFrame = `<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta property="fc:frame" content="vNext" />
+    <meta property="fc:frame:image" content="${BASE_URL}/api/generate-scanning-image" />
+  </head>
+  <body>
+    <!-- Scanning frame content -->
+  </body>
+</html>`;
 
-    const scanningPromise = async (): Promise<Response> => {
-      try {
-        console.log("Starting scanning process for FID:", fidNumber);
-        
-        // Safety check - start timer to measure performance
-        const startTime = Date.now();
-        
-        console.log("Fetching following list for FID:", fidNumber);
-        // Validate FID one more time to be extra safe
-        if (typeof fidNumber !== 'number' || isNaN(fidNumber) || fidNumber <= 0) {
-          throw new Error(`Invalid FID: ${fidNumber}. FID must be a positive number.`);
-        }
-        
-        const followingList = await getFollowing(fidNumber);
-        
-        if (!followingList || followingList.length === 0) {
-          // Use direct HTML content instead of generated image for empty following list
-          const postUrl = addProtectionIfNeeded(`${BASE_URL}/api/frames/account-scanner`, headers);
-          
-          return new Response(
-            `<!DOCTYPE html>
-            <html>
-              <head>
-                <meta charset="utf-8">
-                <meta property="fc:frame" content="vNext" />
-                <meta property="fc:frame:image" content="${BASE_URL}/api/generate-error-image?message=${encodeURIComponent("No accounts found in your following list.")}" />
-                <meta property="fc:frame:button:1" content="Try Again" />
-                <meta property="fc:frame:button:1:action" content="post" />
-                <meta property="fc:frame:post_url" content="${postUrl}" />
-              </head>
-              <body>
-                <!-- Empty following list frame content -->
-              </body>
-            </html>`,
-            { headers: { "Content-Type": "text/html" } }
-          );
-        }
-
-        console.log(`Found ${followingList.length} following accounts for FID: ${fidNumber}`);
-        
-        // Process following list in batches to avoid excessive API calls
-        console.log("Processing following list in batches");
-        
-        // Check following list against moderation flags
-        const userIds = followingList.map(user => {
-          if (user && typeof user.fid === 'number') {
-            return String(user.fid);
-          }
-          // Log problematic user objects
-          console.log('Invalid user object:', JSON.stringify(user));
-          return '';
-        }).filter(id => id !== ''); // Filter out empty strings
-        
-        console.log(`Found ${userIds.length} valid user IDs for moderation check`);
-        
-        // No valid user IDs found
-        if (!userIds || userIds.length === 0) {
-          console.warn('No valid user IDs found after processing following list');
-          // Use direct HTML content instead of generated image
-          const postUrl = addProtectionIfNeeded(`${BASE_URL}/api/frames/account-scanner`, headers);
-          
-          return new Response(
-            `<!DOCTYPE html>
-            <html>
-              <head>
-                <meta charset="utf-8">
-                <meta property="fc:frame" content="vNext" />
-                <meta property="fc:frame:image" content="${BASE_URL}/api/generate-error-image?message=${encodeURIComponent("No valid accounts found to analyze.")}" />
-                <meta property="fc:frame:button:1" content="Try Again" />
-                <meta property="fc:frame:button:1:action" content="post" />
-                <meta property="fc:frame:post_url" content="${postUrl}" />
-              </head>
-              <body>
-                <!-- No valid user IDs frame content -->
-              </body>
-            </html>`,
-            { headers: { "Content-Type": "text/html" } }
-          );
-        }
-        
-        // Perform moderation check
-        console.log("Checking for potential bots among following");
-        const moderationResults = await getModerationFlags(userIds);
-        
-        let flaggedCount = 0;
-        const flaggedUsers = [];
-        
-        // Process moderation results to count flagged accounts
-        console.log("Processing moderation results");
-
-        for (const userId in moderationResults) {
-          const userResult = moderationResults[userId];
-          
-          // Skip users with no data
-          if (!userResult || !userResult.flags) continue;
-          
-          // Check if any flag is true
-          if (userResult.flags.isFlagged) {
-            flaggedCount++;
-            flaggedUsers.push({
-              id: userId,
-              scores: userResult.scores
-            });
-          }
-        }
-
-        console.log(`Found ${flaggedCount} flagged accounts`);
-        
-        // Fully qualified URL for results
-        const resultsParam = `step=results&fid=${formatFidForUrl(fidNumber)}&count=${flaggedCount}`;
-        const postUrl = addProtectionIfNeeded(`${BASE_URL}/api/frames/account-scanner?${resultsParam}`, headers);
-        console.log("Generated results post URL:", postUrl);
-        
-        return new Response(
-          `<!DOCTYPE html>
-          <html>
-            <head>
-              <title>Scanning Complete - Account Scanner</title>
-              <meta property="og:title" content="Scanning Complete" />
-              <meta property="og:description" content="We've scanned your following list" />
-              
-              <meta property="fc:frame" content="vNext" />
-              <meta property="fc:frame:button:1" content="See Results" />
-              <meta property="fc:frame:button:1:action" content="post" />
-              <meta property="fc:frame:post_url" content="${postUrl}" />
-              
-              <!-- Load Inter font with multiple weights -->
-              <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" />
-            </head>
-            <body style="margin: 0; padding: 40px; background-color: #000000; color: #ffffff; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 630px; text-align: center;">
-              <h1 style="font-size: 48px; font-weight: 700; margin-bottom: 20px; color: #4caf50;">Scanning Complete</h1>
-              <p style="font-size: 24px; margin-bottom: 30px;">We've analyzed your following list.</p>
-              <div style="display: flex; align-items: center; justify-content: center; width: 200px; height: 200px; border-radius: 50%; background-color: rgba(76, 175, 80, 0.1); margin-bottom: 30px;">
-                <div style="font-size: 72px; font-weight: 700; color: #4caf50;">${flaggedCount}</div>
-              </div>
-              <p style="font-size: 20px; color: #aaaaaa;">
-                ${flaggedCount === 0 
-                  ? "Great news! No problematic accounts found." 
-                  : `Found ${flaggedCount} potentially problematic account${flaggedCount === 1 ? '' : 's'}.`}
-              </p>
-            </body>
-          </html>`,
-          {
-            headers: {
-              "Content-Type": "text/html",
-            },
-          }
-        );
-      } catch (apiError) {
-        console.error("API error during following list fetch:", apiError);
-        return errorFrame("Error fetching following list: " + (apiError instanceof Error ? apiError.message : "Unknown error"), headers);
-      }
-    };
-
-    // Race the scanning process against the timeout
-    const result = await Promise.race<Response | null>([
-      scanningPromise(),
-      new Promise<null>(resolve => setTimeout(() => {
-        timeoutReached = true;
-        resolve(null);
-      }, 3000))
-    ]);
+    // Handle the scanning logic asynchronously
+    handleScanResults(fidNumber, headers)
+      .then(result => {
+        console.log("Scan completed successfully");
+      })
+      .catch(error => {
+        console.error("Error during scan:", error);
+      });
     
-    // Clear the timeout since we won't need it anymore
-    clearTimeout(timeout);
-    
-    if (timeoutReached) {
-      // Return a scanning in progress frame with HTML instead of image
-      // Construct a fully qualified post URL for the frame
-      const scanningParam = `step=scanning&fid=${formatFidForUrl(fidNumber)}`;
-      const postUrl = addProtectionIfNeeded(`${BASE_URL}/api/frames/account-scanner?${scanningParam}`, headers);
-      console.log("Generated post URL for scanning in progress frame:", postUrl);
-      
-      return new Response(
-        `<!DOCTYPE html>
-        <html>
-          <head>
-            <title>Scanning in Progress - Account Scanner</title>
-            <meta property="og:title" content="Scanning in Progress" />
-            <meta property="og:description" content="We're scanning your following list" />
-            
-            <meta property="fc:frame" content="vNext" />
-            <meta property="fc:frame:button:1" content="Continue Scanning" />
-            <meta property="fc:frame:button:1:action" content="post" />
-            <meta property="fc:frame:post_url" content="${postUrl}" />
-            
-            <!-- Load Inter font with multiple weights -->
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" />
-          </head>
-          <body style="margin: 0; padding: 40px; background-color: #000000; color: #ffffff; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 630px; text-align: center;">
-            <h1 style="font-size: 48px; font-weight: 700; margin-bottom: 20px; color: #2196f3;">Scanning in Progress</h1>
-            <p style="font-size: 24px; margin-bottom: 30px;">We're analyzing your following list for potentially problematic accounts.</p>
-            <div style="width: 60px; height: 60px; border: 5px solid rgba(33, 150, 243, 0.3); border-radius: 50%; border-top-color: #2196f3; animation: spin 1s linear infinite; margin-bottom: 30px;"></div>
-            <p style="font-size: 20px; color: #aaaaaa;">This may take a moment to complete.</p>
-            
-            <style>
-              @keyframes spin {
-                to { transform: rotate(360deg); }
-              }
-            </style>
-          </body>
-        </html>`,
-        {
-          headers: {
-            "Content-Type": "text/html",
-          },
-        }
-      );
-    }
-    
-    // If we got here, the scanning completed before the timeout
-    if (result) {
-      return result as Response;
-    } else {
-      // Provide a fallback response if result is null
-      return errorFrame("Scanning timed out or failed to complete", headers);
-    }
+    // Return the immediate response
+    return new Response(simpleScanningFrame, {
+      headers: { "Content-Type": "text/html" }
+    });
+  
   } catch (error) {
     console.error("Error during scanning:", error);
     return errorFrame("Error scanning your following list: " + (error instanceof Error ? error.message : "Unknown error"), headers);
@@ -543,26 +346,6 @@ export async function POST(request: Request) {
       return scanningFrame(fidNumber, request.headers);
     }
     
-    // For the scanning state
-    if (buttonIndex === 1) {
-      const scanningFrame = `<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta property="fc:frame" content="vNext" />
-    <meta property="fc:frame:image" content="https://bot-unfollower.vercel.app/api/generate-scanning-image" />
-  </head>
-  <body>
-    <!-- Scanning frame content -->
-  </body>
-</html>`;
-      return new Response(scanningFrame, {
-        headers: {
-          'Content-Type': 'text/html',
-        },
-      });
-    }
-    
     // If no specific handler matched, return to start
     return startFrame();
 
@@ -599,21 +382,96 @@ async function handleScanResults(fidNumber: number, headers: Headers) {
       
       return new Response(
         `<!DOCTYPE html>
-        <html>
-          <head>
-            <meta property="fc:frame" content="vNext" />
-            <meta property="fc:frame:image" content="${BASE_URL}/api/generate-error-image?message=${encodeURIComponent("No accounts found in your following list.")}" />
-            <meta property="fc:frame:button:1" content="Try Again" />
-            <meta property="fc:frame:button:1:action" content="post" />
-            <meta property="fc:frame:post_url" content="${postUrl}" />
-          </head>
-          <body></body>
-        </html>`,
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta property="fc:frame" content="vNext" />
+    <meta property="fc:frame:image" content="${BASE_URL}/api/generate-error-image?message=${encodeURIComponent("No accounts found in your following list.")}" />
+    <meta property="fc:frame:button:1" content="Try Again" />
+    <meta property="fc:frame:button:1:action" content="post" />
+    <meta property="fc:frame:post_url" content="${postUrl}" />
+  </head>
+  <body>
+    <!-- Empty following list frame content -->
+  </body>
+</html>`,
         { headers: { "Content-Type": "text/html" } }
       );
     }
     
-    // Rest of function...
+    console.log(`Found ${followingList.length} following accounts for FID: ${fidNumber}`);
+    
+    // Process following list in batches to avoid excessive API calls
+    console.log("Processing following list in batches");
+    
+    // Check following list against moderation flags
+    const userIds = followingList.map(user => {
+      if (user && typeof user.fid === 'number') {
+        return String(user.fid);
+      }
+      // Log problematic user objects
+      console.log('Invalid user object:', JSON.stringify(user));
+      return '';
+    }).filter(id => id !== ''); // Filter out empty strings
+    
+    console.log(`Found ${userIds.length} valid user IDs for moderation check`);
+    
+    // No valid user IDs found
+    if (!userIds || userIds.length === 0) {
+      console.warn('No valid user IDs found after processing following list');
+      // Use direct HTML content instead of generated image
+      const postUrl = addProtectionIfNeeded(`${BASE_URL}/api/frames/account-scanner`, headers);
+      
+      return new Response(
+        `<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta property="fc:frame" content="vNext" />
+    <meta property="fc:frame:image" content="${BASE_URL}/api/generate-error-image?message=${encodeURIComponent("No valid accounts found to analyze.")}" />
+    <meta property="fc:frame:button:1" content="Try Again" />
+    <meta property="fc:frame:button:1:action" content="post" />
+    <meta property="fc:frame:post_url" content="${postUrl}" />
+  </head>
+  <body>
+    <!-- No valid user IDs frame content -->
+  </body>
+</html>`,
+        { headers: { "Content-Type": "text/html" } }
+      );
+    }
+    
+    // Perform moderation check
+    console.log("Checking for potential bots among following");
+    const moderationResults = await getModerationFlags(userIds);
+    
+    let flaggedCount = 0;
+    const flaggedUsers = [];
+    
+    // Process moderation results to count flagged accounts
+    console.log("Processing moderation results");
+    
+    for (const userId in moderationResults) {
+      const userResult = moderationResults[userId];
+      
+      // Skip users with no data
+      if (!userResult || !userResult.flags) continue;
+      
+      // Check if any flag is true
+      if (userResult.flags.isFlagged) {
+        flaggedCount++;
+        flaggedUsers.push({
+          id: userId,
+          scores: userResult.scores
+        });
+      }
+    }
+    
+    console.log(`Found ${flaggedCount} flagged accounts`);
+    
+    // Return results frame
+    return resultsFrame(fidNumber, flaggedCount.toString(), headers);
+    
   } catch (error) {
     console.error("Error handling scan results:", error);
     return errorFrame("Error handling scan results: " + (error instanceof Error ? error.message : "Unknown error"), headers);
