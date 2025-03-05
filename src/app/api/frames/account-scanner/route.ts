@@ -16,7 +16,7 @@ const VERSION = Date.now().toString();
 /**
  * State-driven Frame implementation for scanning follows
  */
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest): Promise<Response> {
   // Parse the current step from the URL
   const { searchParams } = new URL(request.url);
   const step = searchParams.get('step') || 'start';
@@ -70,7 +70,7 @@ function formatFidForUrl(fid: number | string | null): string {
 /**
  * Initial frame that prompts the user to start scanning
  */
-function startFrame() {
+function startFrame(): Response {
   const imageUrl = addProtectionBypass(`${BASE_URL}/api/generate-start-image`);
   
   return new Response(
@@ -113,7 +113,7 @@ function startFrame() {
 /**
  * Frame shown during the scanning process
  */
-async function scanningFrame(fid: number) {
+async function scanningFrame(fid: number): Promise<Response> {
   try {
     // Set a timeout for the scanning operation
     const timeoutDuration = 3000; // 3 seconds
@@ -122,7 +122,7 @@ async function scanningFrame(fid: number) {
       timeoutReached = true;
     }, timeoutDuration);
 
-    const scanningPromise = async () => {
+    const scanningPromise = async (): Promise<Response> => {
       try {
         console.log("Starting scanning process for FID:", fid);
         
@@ -285,9 +285,9 @@ async function scanningFrame(fid: number) {
     const scanningImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-scanning-image?fid=${formatFidForUrl(fid)}`);
     
     // Race the scanning process against the timeout
-    const result = await Promise.race([
+    const result = await Promise.race<Response | null>([
       scanningPromise(),
-      new Promise(resolve => setTimeout(() => {
+      new Promise<null>(resolve => setTimeout(() => {
         timeoutReached = true;
         resolve(null);
       }, 3000))
@@ -333,7 +333,12 @@ async function scanningFrame(fid: number) {
     }
     
     // If we got here, the scanning completed before the timeout
-    return await result;
+    if (result) {
+      return result as Response;
+    } else {
+      // Provide a fallback response if result is null
+      return errorFrame("Scanning timed out or failed to complete");
+    }
   } catch (error) {
     console.error("Error during scanning:", error);
     return errorFrame("Error scanning your following list: " + (error instanceof Error ? error.message : "Unknown error"));
@@ -343,7 +348,7 @@ async function scanningFrame(fid: number) {
 /**
  * Results frame shown after scanning completes
  */
-function resultsFrame(fid: number, countStr: string) {
+function resultsFrame(fid: number, countStr: string): Response {
   // Parse the count to an integer
   const count = parseInt(countStr, 10);
   
@@ -398,7 +403,7 @@ function resultsFrame(fid: number, countStr: string) {
 /**
  * Error frame shown when an error occurs
  */
-function errorFrame(errorMessage: string = "An error occurred") {
+function errorFrame(errorMessage: string = "An error occurred"): Response {
   console.error("Showing error frame:", errorMessage);
   
   // Log additional debug information
@@ -443,7 +448,7 @@ function errorFrame(errorMessage: string = "An error occurred") {
 }
 
 // Handle POST requests (for button clicks)
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<Response> {
   console.log("Received POST request to frame");
   try {
     console.log("Parsing request body...");
