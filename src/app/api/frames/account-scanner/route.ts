@@ -54,7 +54,17 @@ export async function GET(request: NextRequest) {
  * Helper function to add protection bypass to URLs
  */
 function addProtectionBypass(url: string): string {
-  return `${url}${url.includes('?') ? '&' : '?'}x-vercel-protection-bypass=${PROTECTION_BYPASS}&v=${VERSION}`;
+  // Check if URL already has parameters
+  const hasParams = url.includes('?');
+  const separator = hasParams ? '&' : '?';
+  return `${url}${separator}protection=${PROTECTION_BYPASS}`;
+}
+
+// Helper function to safely format FID for URL
+function formatFidForUrl(fid: number | string | null): string {
+  if (fid === null) return '';
+  // Ensure it's a string and encode any special characters
+  return encodeURIComponent(String(fid));
 }
 
 /**
@@ -105,18 +115,20 @@ function startFrame() {
  */
 async function scanningFrame(fid: number) {
   try {
-    // Set up a timeout to ensure we respond within Farcaster's 5-second limit
+    // Set a timeout for the scanning operation
+    const timeoutDuration = 3000; // 3 seconds
     let timeoutReached = false;
     const timeout = setTimeout(() => {
       timeoutReached = true;
-    }, 3000); // 3 second timeout to leave room for processing
+    }, timeoutDuration);
 
-    // Start the actual scanning process
     const scanningPromise = async () => {
-      console.log("Starting scanning process for FID:", fid);
-      
-      // Get the user's following list
       try {
+        console.log("Starting scanning process for FID:", fid);
+        
+        // Safety check - start timer to measure performance
+        const startTime = Date.now();
+        
         console.log("Fetching following list for FID:", fid);
         // Validate FID one more time to be extra safe
         if (typeof fid !== 'number' || isNaN(fid) || fid <= 0) {
@@ -128,7 +140,6 @@ async function scanningFrame(fid: number) {
         if (!followingList || followingList.length === 0) {
           const noFollowingImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-error-image?message=${encodeURIComponent("We couldn't find any accounts you're following")}`);
           
-          clearTimeout(timeout);
           return new Response(
             `<!DOCTYPE html>
             <html>
@@ -176,7 +187,6 @@ async function scanningFrame(fid: number) {
           console.warn('No valid user IDs found after processing following list');
           const noFollowingImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-error-image?message=${encodeURIComponent("We couldn't find any valid accounts you're following")}`);
           
-          clearTimeout(timeout);
           return new Response(
             `<!DOCTYPE html>
             <html>
@@ -231,9 +241,11 @@ async function scanningFrame(fid: number) {
         }
 
         // Scanning complete image
-        const scanningImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-scanning-image?fid=${fid}`);
+        const scanningImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-scanning-image?fid=${formatFidForUrl(fid)}`);
         
         // Redirect to results with the count
+        const postUrl = addProtectionBypass(`${BASE_URL}/api/frames/account-scanner?step=results&fid=${formatFidForUrl(fid)}&count=${flaggedCount}`);
+        console.log("Generated post URL:", postUrl);
         return new Response(
           `<!DOCTYPE html>
           <html>
@@ -250,7 +262,7 @@ async function scanningFrame(fid: number) {
               <meta property="fc:frame:button:1" content="View Results" />
               <meta property="fc:frame:button:1:action" content="post" />
               <meta property="fc:frame:button:1:target" content="_self" />
-              <meta property="fc:frame:post_url" content="${addProtectionBypass(`${BASE_URL}/api/frames/account-scanner?step=results&fid=${fid}&count=${flaggedCount}`)}" />
+              <meta property="fc:frame:post_url" content="${postUrl}" />
             </head>
             <body style="background-color: #000000; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
               <h1>Scanning Complete</h1>
@@ -269,13 +281,16 @@ async function scanningFrame(fid: number) {
       }
     };
 
-    // Race the scanning process against the timeout
-    const scanningPromiseResult = scanningPromise();
+    // Use safe FID formatting here too
+    const scanningImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-scanning-image?fid=${formatFidForUrl(fid)}`);
     
-    // Wait for either the scanning to complete or the timeout to be reached
-    await Promise.race([
-      scanningPromiseResult,
-      new Promise(resolve => setTimeout(resolve, 3000))
+    // Race the scanning process against the timeout
+    const result = await Promise.race([
+      scanningPromise(),
+      new Promise(resolve => setTimeout(() => {
+        timeoutReached = true;
+        resolve(null);
+      }, 3000))
     ]);
     
     clearTimeout(timeout);
@@ -284,8 +299,8 @@ async function scanningFrame(fid: number) {
     if (timeoutReached) {
       console.log("Timeout reached, returning interim response");
       // Return a response indicating scanning is in progress
-      const scanningImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-scanning-image?fid=${fid}`);
-      
+      const postUrl = addProtectionBypass(`${BASE_URL}/api/frames/account-scanner?step=scanning&fid=${formatFidForUrl(fid)}`);
+      console.log("Generated post URL:", postUrl);
       return new Response(
         `<!DOCTYPE html>
         <html>
@@ -302,7 +317,7 @@ async function scanningFrame(fid: number) {
             <meta property="fc:frame:button:1" content="Check Again" />
             <meta property="fc:frame:button:1:action" content="post" />
             <meta property="fc:frame:button:1:target" content="_self" />
-            <meta property="fc:frame:post_url" content="${addProtectionBypass(`${BASE_URL}/api/frames/account-scanner?step=scanning&fid=${fid}`)}" />
+            <meta property="fc:frame:post_url" content="${postUrl}" />
           </head>
           <body style="background-color: #000000; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
             <h1>Scanning in Progress</h1>
@@ -318,7 +333,7 @@ async function scanningFrame(fid: number) {
     }
     
     // If we got here, the scanning completed before the timeout
-    return await scanningPromiseResult;
+    return await result;
   } catch (error) {
     console.error("Error during scanning:", error);
     return errorFrame("Error scanning your following list: " + (error instanceof Error ? error.message : "Unknown error"));
@@ -333,7 +348,7 @@ function resultsFrame(fid: number, countStr: string) {
   const count = parseInt(countStr, 10);
   
   // Generate the results image URL
-  const resultsImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-scanner-image?count=${count}&fid=${fid}`);
+  const resultsImageUrl = addProtectionBypass(`${BASE_URL}/api/generate-scanner-image?count=${count}&fid=${formatFidForUrl(fid)}`);
   
   // Message based on the count
   const message = count === 0 ? 
@@ -348,7 +363,7 @@ function resultsFrame(fid: number, countStr: string) {
   // Button URL based on the count
   const buttonUrl = count === 0 ?
     addProtectionBypass(`${BASE_URL}/api/frames/account-scanner`) :
-    addProtectionBypass(`${BASE_URL}/flagged-accounts?fid=${fid}`);
+    addProtectionBypass(`${BASE_URL}/flagged-accounts?fid=${formatFidForUrl(fid)}`);
     
   return new Response(
     `<!DOCTYPE html>
@@ -429,7 +444,7 @@ function errorFrame(errorMessage: string = "An error occurred") {
 
 // Handle POST requests (for button clicks)
 export async function POST(request: NextRequest) {
-  console.log("POST request received for account-scanner");
+  console.log("Received POST request to frame");
   try {
     console.log("Parsing request body...");
     const body = await request.json();
@@ -446,7 +461,7 @@ export async function POST(request: NextRequest) {
     // If no FID is provided, use a placeholder for testing or return an error
     if (!fid) {
       console.error("Missing FID in request");
-      return startFrame(); // Return to start frame instead of error
+      return errorFrame("Missing FID in request. This may happen if you're testing outside of a Farcaster client.");
     }
     
     // Check for required environment variables
@@ -472,7 +487,7 @@ export async function POST(request: NextRequest) {
     // For direct response, use the appropriate frame function
     if (step === 'scanning') {
       console.log("Starting scanning process for FID:", fid);
-      return scanningFrame(parseInt(fid, 10));
+      return scanningFrame(parseInt(String(fid), 10));
     } else {
       console.log("Returning to start frame");
       return startFrame();
