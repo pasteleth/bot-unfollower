@@ -293,6 +293,7 @@ async function scanningFrame(fid: number | string): Promise<Response> {
               <meta property="og:title" content="Scanning Complete" />
               <meta property="og:description" content="We've scanned your following list" />
               <meta property="og:image" content="${scanningImageUrl}" />
+              <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter&display=swap" />
               <meta property="fc:frame" content="vNext" />
               <meta property="fc:frame:image" content="${scanningImageUrl}" />
               <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
@@ -300,7 +301,7 @@ async function scanningFrame(fid: number | string): Promise<Response> {
               <meta property="fc:frame:button:1:action" content="post" />
               <meta property="fc:frame:post_url" content="${postUrl}" />
             </head>
-            <body style="background-color: #000000; color: #ffffff;">
+            <body style="background-color: #000000; color: #ffffff; font-family: 'Inter', sans-serif;">
               <h1>Scanning Complete</h1>
               <p>We've scanned your following list</p>
             </body>
@@ -347,7 +348,7 @@ async function scanningFrame(fid: number | string): Promise<Response> {
             <meta property="og:title" content="Scanning in Progress" />
             <meta property="og:description" content="We're scanning your following list..." />
             <meta property="og:image" content="${scanningImageUrl}" />
-            
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter&display=swap" />
             <meta property="fc:frame" content="vNext" />
             <meta property="fc:frame:image" content="${scanningImageUrl}" />
             <meta property="fc:frame:image:aspect_ratio" content="1.91:1" />
@@ -355,7 +356,7 @@ async function scanningFrame(fid: number | string): Promise<Response> {
             <meta property="fc:frame:button:1:action" content="post" />
             <meta property="fc:frame:post_url" content="${postUrl}" />
           </head>
-          <body style="background-color: #000000; color: #ffffff;">
+          <body style="background-color: #000000; color: #ffffff; font-family: 'Inter', sans-serif;">
             <h1>Scanning in Progress</h1>
             <p>We're scanning your following list... Click "Check Again" to see if it's complete.</p>
           </body>
