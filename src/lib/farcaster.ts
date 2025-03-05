@@ -112,26 +112,23 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
       const responseTime = new Date().toISOString();
       console.log(`NEYNAR_API_RESPONSE [${responseTime}] Status: ${response.status} after ${endTime - startTime}ms`);
       
-      // Handle rate limits
-      if (response.status === 429) {
+      const responseText = await response.text();
+      let data;
+      try {
+        data = JSON.parse(responseText);
+      } catch (e) {
+        console.error('Failed to parse response as JSON:', responseText);
+        throw new Error(`Invalid JSON response: ${responseText}`);
+      }
+
+      // Check if response indicates a rate limit
+      if (response.status === 400 && data.message?.toLowerCase().includes('rate limit')) {
         attempt++;
-        console.warn(`NEYNAR_RATE_LIMIT_HIT [${new Date().toISOString()}] 429 encountered on attempt ${attempt}`);
+        console.warn(`NEYNAR_RATE_LIMIT_HIT [${new Date().toISOString()}] Rate limit in response on attempt ${attempt}`);
+        console.warn('Rate limit response:', data);
         
-        // Get rate limit headers
-        const resetTime = response.headers.get('x-ratelimit-reset');
-        const remaining = response.headers.get('x-ratelimit-remaining');
-        console.warn(`NEYNAR_RATE_LIMIT_HEADERS Reset time: ${resetTime}, Remaining: ${remaining}`);
-        
-        // Calculate wait time
-        let waitTime = RATE_LIMIT_WINDOW;
-        if (resetTime) {
-          const resetTimeMs = new Date(resetTime).getTime();
-          const now = Date.now();
-          if (resetTimeMs > now) {
-            waitTime = resetTimeMs - now;
-          }
-        }
-        
+        // Wait for rate limit window
+        const waitTime = RATE_LIMIT_WINDOW;
         console.log(`NEYNAR_RATE_LIMIT_RETRY Waiting ${waitTime}ms for rate limit window to reset`);
         await new Promise(resolve => setTimeout(resolve, waitTime));
         continue; // Retry the request
@@ -139,10 +136,8 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
       
       // Handle other errors
       if (!response.ok) {
-        throw new Error(`API request failed with status ${response.status}: ${await response.text()}`);
+        throw new Error(`API request failed with status ${response.status}: ${responseText}`);
       }
-      
-      const data = await response.json();
       
       // Log full details of the API response summary
       console.log(`[getFollowing] API request succeeded with ${data?.users?.length || 0} follow objects`);
@@ -178,7 +173,6 @@ export async function getFollowing(fid: number, cursor?: string | null): Promise
       const errorTime = new Date().toISOString();
       console.error(`NEYNAR_API_ERROR [${errorTime}] Neynar API request failed after ${endTime - startTime}ms:`, error);
       
-      // If it's not a rate limit error (which we handle above), throw
       throw new Error(`Error fetching following list: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   }
